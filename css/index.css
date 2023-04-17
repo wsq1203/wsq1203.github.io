@@ -2300,7 +2300,7 @@ figure.highlight pre .javascript .function {
   font-size: 1.5em;
 }
 :root {
-  --recent-post-bgcolor: rgba(255,255,255,0.9);
+  --recent-post-bgcolor: rgba(255,255,255,0.4);
   --article-content-bgcolor: #49b1f5;
   --recent-post-triangle: #fff;
   --recent-post-cover-shadow: #fff;
@@ -2539,7 +2539,7 @@ figure.highlight pre .javascript .function {
   .recent-post-item .recent-post-content {
     background: var(--recent-post-bgcolor);
     position: relative;
-    height: 200px;
+    height: 250px;
     width: 130%;
     z-index: 0;
     display: -webkit-box;
@@ -2657,7 +2657,7 @@ figure.highlight pre .javascript .function {
   }
   .recent-post-item .article-content {
     width: 30%;
-    height: 200px;
+    height: 250px;
     left: 0;
     -webkit-box-align: center;
     -moz-box-align: center;
@@ -2674,17 +2674,17 @@ figure.highlight pre .javascript .function {
     position: absolute;
     z-index: 2;
     top: 0;
-    border-top: 100px solid transparent;
-    border-bottom: 100px solid transparent;
+    border-top: 125px solid transparent;
+    border-bottom: 125px solid transparent;
   }
   .recent-post-item .recent-post-info {
     width: 60%;
-    height: 200px;
+    height: 250px;
   }
   .recent-post-item .recent-post-info::before {
     content: "";
     width: 200px;
-    height: 200px;
+    height: 250px;
     position: absolute;
     z-index: 1;
     top: 0;
@@ -2724,7 +2724,7 @@ figure.highlight pre .javascript .function {
   }
   .recent-post-item .recent-post-cover {
     width: 40%;
-    height: 200px;
+    height: 250px;
   }
 }
 @media screen and (max-width: 600px) {
