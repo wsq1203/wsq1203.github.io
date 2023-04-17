@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Git | 小东西</title><meta name="author" content="王帅庆"><meta name="copyright" content="王帅庆"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Git是一个文件版本的系统，版本仓库是版本控制的核心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git">
+<meta property="og:url" content="http://example.com/2023/04/03/Git/index.html">
+<meta property="og:site_name" content="小东西">
+<meta property="og:description" content="Git是一个文件版本的系统，版本仓库是版本控制的核心">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.328888.xyz/2023/03/27/inlgPN.jpeg">
+<meta property="article:published_time" content="2023-04-03T02:52:00.000Z">
+<meta property="article:modified_time" content="2023-04-16T10:13:23.359Z">
+<meta property="article:author" content="王帅庆">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.328888.xyz/2023/03/27/inlgPN.jpeg"><link rel="shortcut icon" href="https://i.328888.xyz/2023/03/04/Glvkv.jpeg"><link rel="canonical" href="http://example.com/2023/04/03/Git/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-16 18:13:23'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.328888.xyz/2023/03/04/Glvkv.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="小东西"><span class="site-name">小东西</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Git</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-03T02:52:00.000Z" title="发表于 2023-04-03 10:52:00">2023-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-16T10:13:23.359Z" title="更新于 2023-04-16 18:13:23">2023-04-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AUTOMATION/">AUTOMATION</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Git"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="Git概述"><a href="#Git概述" class="headerlink" title="Git概述"></a>Git概述</h1><h2 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h2><ul>
+<li>版本控制系统就是一个控制文件版本的系统</li>
+<li>版本仓库是版本控制的核心</li>
+<li>任意客户端可以连接使用版本仓库</li>
+</ul>
+<h2 id="主流的版本控制系统"><a href="#主流的版本控制系统" class="headerlink" title="主流的版本控制系统"></a>主流的版本控制系统</h2><h3 id="集中式版本控制系统"><a href="#集中式版本控制系统" class="headerlink" title="集中式版本控制系统"></a>集中式版本控制系统</h3><ul>
+<li>所有客户端共享一个仓库</li>
+<li>所有操作需要联网</li>
+<li>代表软件：Subversion</li>
+</ul>
+<h3 id="分布式版本控制系统"><a href="#分布式版本控制系统" class="headerlink" title="分布式版本控制系统"></a>分布式版本控制系统</h3><ul>
+<li>每个客户端都有一个仓库的完整克隆</li>
+<li>支持断网操作</li>
+<li>代表软件：Git</li>
+</ul>
+<h2 id="Git基本概念"><a href="#Git基本概念" class="headerlink" title="Git基本概念"></a>Git基本概念</h2><ul>
+<li><p>Git仓库</p>
+<p>保存所有数据的地方</p>
+</li>
+<li><p>工作区</p>
+<p>实时编辑文件的地方</p>
+</li>
+<li><p>暂存区</p>
+<p>就是一个文件，索引文件，保存下次将提交的文件列表信息</p>
+</li>
+</ul>
+<h2 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h2><p><img src="https://i.328888.xyz/2023/04/02/iH2KUy.png" alt="img"></p>
+<h2 id="部署Git服务"><a href="#部署Git服务" class="headerlink" title="部署Git服务"></a>部署Git服务</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># yum install git -y </span></span><br><span class="line"><span class="comment">#初始化一个空仓库</span></span><br><span class="line">[root@web1 ~]<span class="comment"># mkdir /var/git</span></span><br><span class="line">[root@web1 ~]<span class="comment"># git init /var/git/project --bare  #裸库</span></span><br><span class="line">[root@web1 ~]<span class="comment"># ls /var/git/project/</span></span><br><span class="line">branches  config  description  HEAD  hooks  info  objects  refs</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端测试"><a href="#客户端测试" class="headerlink" title="客户端测试"></a>客户端测试</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># yum install git -y </span></span><br><span class="line">[root@web2 ~]<span class="comment"># git clone root@192.168.1.10:/var/git/project</span></span><br><span class="line">[root@web2 ~]<span class="comment"># cd project/</span></span><br><span class="line">[root@web2 project]<span class="comment"># ls </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Git版本控制"><a href="#Git版本控制" class="headerlink" title="Git版本控制"></a>Git版本控制</h1><h2 id="新建数据"><a href="#新建数据" class="headerlink" title="新建数据"></a>新建数据</h2><ul>
+<li>在客户端对仓库进行编辑，创建新资料</li>
+<li>web2为客户端</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># echo &quot;init date&quot; &gt; init.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># mkdir demo</span></span><br><span class="line">[root@web2 project]<span class="comment"># cp /etc/hosts demo/</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git status</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Untracked files:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	demo/</span></span><br><span class="line"><span class="comment">#	init.txt</span></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">&quot;git add&quot;</span> to track)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="提交数据到本地仓库"><a href="#提交数据到本地仓库" class="headerlink" title="提交数据到本地仓库"></a>提交数据到本地仓库</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#提交暂存区</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line"><span class="comment">#将暂存区修改提交到本地仓库</span></span><br><span class="line">[root@web2 project]<span class="comment"># git config --global user.email &quot;3311@123.com&quot;</span></span><br><span class="line">[root@web2 project]<span class="comment"># git config --global user.name &quot;wsq&quot;</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;注释，可以为任意字符&quot;</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git status</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line">nothing to commit, working directory clean</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="将数据推送至远程服务器"><a href="#将数据推送至远程服务器" class="headerlink" title="将数据推送至远程服务器"></a>将数据推送至远程服务器</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git config --global push.default simple</span></span><br><span class="line">[root@web2 project]<span class="comment"># git push</span></span><br><span class="line">           or</span><br><span class="line">[root@web2 project]<span class="comment"># git remote -v</span></span><br><span class="line">origin	root@192.168.1.10:/var/git/project (fetch)</span><br><span class="line">origin	root@192.168.1.10:/var/git/project (push)</span><br><span class="line">[root@web2 project]<span class="comment"># git push -u origin --all</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git status</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line">nothing to commit, working directory clean</span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git pull</span></span><br><span class="line">root@192.168.1.10<span class="string">&#x27;s password: 000000</span></span><br><span class="line"><span class="string">Already up-to-date.</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="生成更多版本"><a href="#生成更多版本" class="headerlink" title="生成更多版本"></a>生成更多版本</h2><ul>
+<li>多次修改，生成更多版本</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># echo &quot;new file&quot; &gt; new.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;add new.txt&quot;</span></span><br><span class="line"> </span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;frist&quot; &gt;&gt; new.txt </span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;new.txt:frist line&quot;</span></span><br><span class="line"> </span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;second&quot; &gt;&gt; new.txt </span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;new.txt:second line&quot;</span></span><br><span class="line"> </span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;third&quot; &gt;&gt; new.txt </span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;new.txt:third line&quot;</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git push</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git log</span></span><br><span class="line">commit db8b5647f0f2b1a8852b765e16d0e95d347f7b33</span><br><span class="line">Author: wsq &lt;3311@123.com&gt;</span><br><span class="line">Date:   Sun Apr 2 15:51:31 2023 +0800</span><br><span class="line"></span><br><span class="line">    new.txt:third line</span><br><span class="line"></span><br><span class="line">commit f763f019376d816e28f0cb58ed0f26679ec7300a</span><br><span class="line">Author: wsq &lt;3311@123.com&gt;</span><br><span class="line">Date:   Sun Apr 2 15:51:01 2023 +0800</span><br><span class="line"></span><br><span class="line">    new.txt:second line</span><br><span class="line"></span><br><span class="line">commit 5361b1eb3f739023c322ae0d5b8755c215e53fc5</span><br><span class="line">Author: wsq &lt;3311@123.com&gt;</span><br><span class="line">Date:   Sun Apr 2 15:50:33 2023 +0800</span><br><span class="line"></span><br><span class="line">    new.txt:frist line</span><br><span class="line"></span><br><span class="line">commit 83bdb1143b5424288292cc7f3e4d63fce6b68527</span><br><span class="line">Author: wsq &lt;3311@123.com&gt;</span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git log --pretty=oneline</span></span><br><span class="line">db8b5647f0f2b1a8852b765e16d0e95d347f7b33 new.txt:third line</span><br><span class="line">f763f019376d816e28f0cb58ed0f26679ec7300a new.txt:second line</span><br><span class="line">5361b1eb3f739023c322ae0d5b8755c215e53fc5 new.txt:frist line</span><br><span class="line">83bdb1143b5424288292cc7f3e4d63fce6b68527 add new.txt</span><br><span class="line">11c03130f7a3e1730a16d9fc0e1776fee6528906 注释，可以为任意字符</span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git log --oneline</span></span><br><span class="line">db8b564 new.txt:third line</span><br><span class="line">f763f01 new.txt:second line</span><br><span class="line">5361b1e new.txt:frist line</span><br><span class="line">83bdb11 add new.txt</span><br><span class="line">11c0313 注释，可以为任意字符</span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git reflog</span></span><br><span class="line">db8b564 HEAD@&#123;0&#125;: commit: new.txt:third line</span><br><span class="line">f763f01 HEAD@&#123;1&#125;: commit: new.txt:second line</span><br><span class="line">5361b1e HEAD@&#123;2&#125;: commit: new.txt:frist line</span><br><span class="line">83bdb11 HEAD@&#123;3&#125;: commit: add new.txt</span><br><span class="line">11c0313 HEAD@&#123;4&#125;: commit (initial): 注释，可以为任意字符</span><br></pre></td></tr></table></figure>
+
+<h1 id="数据恢复"><a href="#数据恢复" class="headerlink" title="数据恢复"></a>数据恢复</h1><h2 id="HEAD指针"><a href="#HEAD指针" class="headerlink" title="HEAD指针"></a>HEAD指针</h2><ul>
+<li><p>HEAD指针是一个可以在任何分支和任何版本移动的指针</p>
+</li>
+<li><p>通过移动指针我们可以将数据还原至任何版本</p>
+</li>
+<li><p>当前HEAD指针为HEAD@{0}</p>
+<p>通过git relog查看当前指针</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git reflog</span></span><br><span class="line">db8b564 HEAD@&#123;0&#125;: commit: new.txt:third line</span><br><span class="line">f763f01 HEAD@&#123;1&#125;: commit: new.txt:second line</span><br><span class="line">5361b1e HEAD@&#123;2&#125;: commit: new.txt:frist line</span><br><span class="line">83bdb11 HEAD@&#123;3&#125;: commit: add new.txt</span><br><span class="line">11c0313 HEAD@&#123;4&#125;: commit (initial): 注释，可以为任意字符</span><br></pre></td></tr></table></figure>
+
+<h2 id="移动HEAD指针"><a href="#移动HEAD指针" class="headerlink" title="移动HEAD指针"></a>移动HEAD指针</h2><ul>
+<li>通过移动指针就可以获取任何版本的数据</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git reset --hard db8b564</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git reset --hard 11c0313</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li><p>分支可以让开发分多条主线同时进行，每条主线互不影响</p>
+<p>按功能模块分支、按版本分支</p>
+<p>分支也可合并</p>
+</li>
+<li><p>常见的分支规范</p>
+<p>MASTER是主分支，是代码的核心</p>
+<p>DEVELOP最新开发成果的分支</p>
+<p>RELEASE分支，为发布新产品设置的分支</p>
+<p>HOTFIX分支，为修复软件BUG缺陷的分支</p>
+<p>FEATURE分支，为开发新功能设置的分支</p>
+</li>
+</ul>
+<h2 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h2><ul>
+<li>查看当前分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git status</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git branch -v</span></span><br><span class="line">* master 11c0313 [behind 4] 注释，可以为任意字符</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git branch -v</span></span><br><span class="line">  feature 11c0313 注释，可以为任意字符</span><br><span class="line">  hotfix  11c0313 注释，可以为任意字符</span><br><span class="line">* master  11c0313 [behind 4] 注释，可以为任意字符</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="切换与合并分支"><a href="#切换与合并分支" class="headerlink" title="切换与合并分支"></a>切换与合并分支</h2><ul>
+<li>切换分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git checkout hotfix</span></span><br><span class="line">Switched to branch <span class="string">&#x27;hotfix&#x27;</span></span><br><span class="line">[root@web2 project]<span class="comment"># git branch -v</span></span><br><span class="line">  feature 11c0313 注释，可以为任意字符</span><br><span class="line">* hotfix  11c0313 注释，可以为任意字符</span><br><span class="line">  master  11c0313 [behind 4] 注释，可以为任意字符</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在新分支上进行数据操作（增、删、改、查）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># echo &quot;fix a bug&quot; &gt;&gt; new.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;fix a bug&quot;</span></span><br><span class="line">[hotfix e358ae2] fix a bug</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 new.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>合并分支</p>
+<p>将hotfix修改的数据合并到master分支</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git checkout master</span></span><br><span class="line">[root@web2 project]<span class="comment"># ls   #master分支上没有hotfix分支的数据</span></span><br><span class="line">demo  init.txt</span><br><span class="line">[root@web2 project]<span class="comment"># git merge hotfix</span></span><br><span class="line">Updating 11c0313..e358ae2</span><br><span class="line">Fast-forward</span><br><span class="line"> new.txt | 1 +</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 new.txt</span><br><span class="line">[root@web2 project]<span class="comment"># ls</span></span><br><span class="line">demo  init.txt  new.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="分支版本冲突问题"><a href="#分支版本冲突问题" class="headerlink" title="分支版本冲突问题"></a>分支版本冲突问题</h2><ul>
+<li>在不同分支中修改相同的文件相同行数据，模拟数据冲突</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git checkout hotfix</span></span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;AAA&quot; &gt; a.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;add a.txt by hotfix&quot;</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git checkout master</span></span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;BBB&quot; &gt; a.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;add a.txt by master&quot;</span></span><br><span class="line">[root@web2 project]<span class="comment"># git merge hotfix</span></span><br><span class="line"> </span><br><span class="line">[root@web2 project]<span class="comment"># cat a.txt </span></span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; <span class="string">HEAD</span></span><br><span class="line"><span class="string">BBB</span></span><br><span class="line"><span class="string">=======</span></span><br><span class="line"><span class="string">AAA</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;&gt;&gt;&gt;&gt; hotfix</span></span><br><span class="line"><span class="string">#自动合并失败，修正冲突然后提交修正的结果</span></span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">王帅庆</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/03/Git/">http://example.com/2023/04/03/Git/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">小东西</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post_share"><div class="social-share" data-image="https://i.328888.xyz/2023/03/27/inlgPN.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/01/Nginx/" title="Nginx"><img class="cover" src="https://i.328888.xyz/2023/04/05/i80EHk.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Nginx</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/05/Tomcat/" title="TomCAT"><img class="cover" src="https://i.328888.xyz/2023/03/27/inl7WV.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TomCAT</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.328888.xyz/2023/03/04/Glvkv.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">王帅庆</div><div class="author-info__description">欲买桂花同载酒,终不似 少年游</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://wsq1203.github.io/" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:3311987957@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">Git概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">1.1.</span> <span class="toc-text">版本控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%B5%81%E7%9A%84%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.</span> <span class="toc-text">主流的版本控制系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E4%B8%AD%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text">集中式版本控制系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.2.</span> <span class="toc-text">分布式版本控制系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.</span> <span class="toc-text">Git基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.</span> <span class="toc-text">Git工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2Git%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.5.</span> <span class="toc-text">部署Git服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8B%E8%AF%95"><span class="toc-number">1.6.</span> <span class="toc-text">客户端测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">Git版本控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE"><span class="toc-number">2.1.</span> <span class="toc-text">新建数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-number">2.2.</span> <span class="toc-text">提交数据到本地仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E6%95%B0%E6%8D%AE%E6%8E%A8%E9%80%81%E8%87%B3%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.3.</span> <span class="toc-text">将数据推送至远程服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%9B%B4%E5%A4%9A%E7%89%88%E6%9C%AC"><span class="toc-number">2.4.</span> <span class="toc-text">生成更多版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="toc-number">2.5.</span> <span class="toc-text">查看日志</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D"><span class="toc-number">3.</span> <span class="toc-text">数据恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HEAD%E6%8C%87%E9%92%88"><span class="toc-number">3.1.</span> <span class="toc-text">HEAD指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8HEAD%E6%8C%87%E9%92%88"><span class="toc-number">3.2.</span> <span class="toc-text">移动HEAD指针</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-number">4.</span> <span class="toc-text">分支</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">4.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-number">4.2.</span> <span class="toc-text">创建分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E4%B8%8E%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="toc-number">4.3.</span> <span class="toc-text">切换与合并分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98"><span class="toc-number">4.4.</span> <span class="toc-text">分支版本冲突问题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/04/16/awk-grep-cut/" title="awk &amp; cut &amp; grep"><img src="https://i.328888.xyz/2023/03/15/JIfVZ.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="awk &amp; cut &amp; grep"/></a><div class="content"><a class="title" href="/2023/04/16/awk-grep-cut/" title="awk &amp; cut &amp; grep">awk &amp; cut &amp; grep</a><time datetime="2023-04-15T16:00:00.000Z" title="发表于 2023-04-16 00:00:00">2023-04-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/15/Kubernetes/" title="Kubernetes"><img src="https://i.328888.xyz/2023/03/04/GkldN.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Kubernetes"/></a><div class="content"><a class="title" href="/2023/04/15/Kubernetes/" title="Kubernetes">Kubernetes</a><time datetime="2023-04-14T16:00:00.000Z" title="发表于 2023-04-15 00:00:00">2023-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/14/OpenStack/" title="OpenStack"><img src="https://i.328888.xyz/2023/03/15/JI46H.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenStack"/></a><div class="content"><a class="title" href="/2023/04/14/OpenStack/" title="OpenStack">OpenStack</a><time datetime="2023-04-13T16:00:00.000Z" title="发表于 2023-04-14 00:00:00">2023-04-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/13/MySQL/" title="MySQL"><img src="https://i.328888.xyz/2023/03/15/JIUCE.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL"/></a><div class="content"><a class="title" href="/2023/04/13/MySQL/" title="MySQL">MySQL</a><time datetime="2023-04-12T16:00:00.000Z" title="发表于 2023-04-13 00:00:00">2023-04-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/12/Ceph/" title="Ceph"><img src="https://i.328888.xyz/2023/03/27/inlwqZ.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ceph"/></a><div class="content"><a class="title" href="/2023/04/12/Ceph/" title="Ceph">Ceph</a><time datetime="2023-04-11T16:00:00.000Z" title="发表于 2023-04-12 00:00:00">2023-04-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://i.328888.xyz/2023/04/14/ixBtVk.png')"><div id="footer-wrap"><div class="copyright">&copy;2023 By 王帅庆</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'http://example.com/2023/04/03/Git/'
+    this.page.identifier = '/2023/04/03/Git/'
+    this.page.title = 'Git'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Valine' === 'Disqus' || !true) {
+  if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
