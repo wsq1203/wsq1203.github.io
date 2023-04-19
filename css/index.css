@@ -3958,24 +3958,23 @@ h1.page-title + .tag-cloud-list {
   text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
   line-height: 1.5;
 }
-#page-header #site-title {
+#中间标题显示大小 #site-title {
   margin: 0;
   color: var(--white);
   font-size: 0em;
 }
 @media screen and (min-width: 768px) {
-  #    font-size: 1.85em,
-  #中间标题显示大小 {
+  #    font-size: 1.85em {
     font-size: 0em;
   }
 }
-#site-subtitle {
+#副标题显示 #site-subtitle,
+#为例兼顾手机显示原来为3 #site-subtitle {
   color: var(--light-grey);
   font-size: 2.5em;
 }
 @media screen and (min-width: 768px) {
-  #    font-size: 1.15em,
-  #副标题显示 {
+  #    font-size: 1.15em {
     font-size: 2.5em;
   }
 }
