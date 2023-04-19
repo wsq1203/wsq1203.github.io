@@ -1,27 +1,27 @@
 /* 首页侧栏卡片 */
 .card-widget{
-    opacity: 0.9;
+  background:rgba(255, 255, 255, 0.7)!important;
 }
 
 /* 文章页面正文背景 */
 div#post{
-    opacity: 0.9;
+  background: rgba(255, 255, 255, 0.7);
 }
 /* 分页页面 */
 div#page{
-    opacity: 0.9;
+  background: rgba(255, 255, 255, 0.7);
 }
 /* 归档页面 */
 div#archive{
-    opacity: 0.9;
+  background: rgba(255, 255, 255, 0.7);
 }
 /* 标签页面 */
 div#tag{
-    opacity: 0.9;
+  background: rgba(255, 255, 255, 0.7);
 }
 /* 分类页面 */
 div#category{
-    opacity: 0.9;
+  background: rgba(255, 255, 255, 0.7);
 }
 
 /*阅读模式*/
