@@ -1,0 +1,508 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Git | CLOUD</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Git是一个文件版本的系统，版本仓库是版本控制的核心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git">
+<meta property="og:url" content="http://example.com/2023/04/03/tedu-Git/index.html">
+<meta property="og:site_name" content="CLOUD">
+<meta property="og:description" content="Git是一个文件版本的系统，版本仓库是版本控制的核心">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/git.jpg">
+<meta property="article:published_time" content="2023-04-03T02:52:00.000Z">
+<meta property="article:modified_time" content="2024-04-02T06:56:33.673Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/git.jpg"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/04/03/tedu-Git/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-02 14:56:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/git.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="CLOUD"><span class="site-name">CLOUD</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Git</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-03T02:52:00.000Z" title="发表于 2023-04-03 10:52:00">2023-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-02T06:56:33.673Z" title="更新于 2024-04-02 14:56:33">2024-04-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Git"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="git概述"><a href="#git概述" class="headerlink" title="git概述"></a>git概述</h1><p><code>git是一个版本控制系统</code></p>
+<h2 id="关于版本控制"><a href="#关于版本控制" class="headerlink" title="关于版本控制"></a>关于版本控制</h2><ul>
+<li>版本控制是一种记录若干文件内容变化，以便将来查阅特定版本修订情况的系统</li>
+<li>有了它你就可以将某个文件回溯到之前的状态，甚至将整个项目都会退到过去某个时间点</li>
+<li>可以比较文件的变化细节，查出是谁最后修改了什么地方从而造成某些怪异问题，又是谁在何时报告了某个功能缺陷</li>
+</ul>
+<h2 id="本地版本控制系统"><a href="#本地版本控制系统" class="headerlink" title="本地版本控制系统"></a>本地版本控制系统</h2><ul>
+<li>人们很久以前就开发了很多种本地版本控制系统</li>
+<li>大多都是采用某种简单的数据库来记录文件的历次更新差异</li>
+<li>其中最流行的一种叫做rcs</li>
+<li>它的工作原理就是保存并管理文件补丁（patch）</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/1.png" alt="1.png"></p>
+<h2 id="集中化的版本控制系统"><a href="#集中化的版本控制系统" class="headerlink" title="集中化的版本控制系统"></a>集中化的版本控制系统</h2><ul>
+<li>集中化的版本控制系统允许不同的开发者可以协同工作</li>
+<li>此类系统有CVS，Subversion以及Perforce等</li>
+<li>它们都单一拥有集中管理的服务器，保存所有文件的修订版本</li>
+<li>协同工作的人们都通过客户端连到这台服务器，去除最新的文件或者提交更新</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/2.png" alt="2.png"></p>
+<h2 id="分布式版本控制系统"><a href="#分布式版本控制系统" class="headerlink" title="分布式版本控制系统"></a>分布式版本控制系统</h2><ul>
+<li>客户端并不只提取最新版的文件快照</li>
+<li>而是把原始的代码仓库完整的镜像下来</li>
+<li>任何一处协同工作的服务器发生故障，事后都可以用任何一个镜像出来的本地仓库恢复</li>
+<li>每一次的提取操作，实际上都是一次对代码仓库的完整备份</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/3.png" alt="3.png"></p>
+<h2 id="Git的历史"><a href="#Git的历史" class="headerlink" title="Git的历史"></a>Git的历史</h2><ul>
+<li>Linux内核开源项目有着位数众多的参与者</li>
+<li>1991-2002年间，绝大多数的Linux内核维护工作都花在了提交补丁和保存归档的繁琐事务上</li>
+<li>2002年，整个项目组开始启用分布式版本控制系统BitKeeper来管理和维护代码</li>
+<li>到2005年的时候，开发BitKeeper的商业公司同Linux内核开源社区的合作关系结束，他们收回了免费使用的BitKeeper的权利</li>
+</ul>
+<h2 id="Git的特点"><a href="#Git的特点" class="headerlink" title="Git的特点"></a>Git的特点</h2><ul>
+<li>直接快照，而非比较差异</li>
+<li>近乎所有操作都可本地执行</li>
+<li>时刻保持数据完整性。在保存Git之前，所有数据都要进行内容的<code>校验和</code>（checksum）计算，并将此结果作为数据的唯一标识和索引</li>
+</ul>
+<h2 id="Git状态"><a href="#Git状态" class="headerlink" title="Git状态"></a>Git状态</h2><p>任何一个文件，在Git内都只有这三个状态</p>
+<ul>
+<li>已提交（committed）：表示该文件已经被安全地保存在本地数据库中了</li>
+<li>已修改（modified）：表示修改了某个文件，但还没有保存提交</li>
+<li>已暂存（staged）：表示把已修改的文件放在下次提交时要保存到清单中</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/4.png" alt="4.png"></p>
+<ul>
+<li>工作区：git文件夹</li>
+<li>版本库：git文件夹/.git</li>
+<li>暂存区：git文件夹/.git/index</li>
+</ul>
+<h2 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h2><p><img src="../../../../jihu/image/AUTOMATION/Git/1.png" alt="1.png"></p>
+<h2 id="Git基础配置"><a href="#Git基础配置" class="headerlink" title="Git基础配置"></a>Git基础配置</h2><h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><ul>
+<li>Git安装后需要配置用户相关信息</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun ~]$ yum install git -y</span><br><span class="line"><span class="comment">#实现命令自动补全</span></span><br><span class="line">[root@aliyun ~]$ <span class="built_in">source</span> /etc/bash_completion.d/git</span><br><span class="line"></span><br><span class="line">[root@aliyun ~]$ git config --global user.name <span class="string">&quot;wsq&quot;</span></span><br><span class="line">[root@aliyun ~]$ git config --global user.email <span class="string">&quot;wsq@qq.com&quot;</span></span><br><span class="line"><span class="comment">#使用git commit时打开的编辑器</span></span><br><span class="line">[root@aliyun ~]$ git config --global core.editor vim</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@aliyun ~]$ git config --list </span><br><span class="line">user.email=wsq@qq.com</span><br><span class="line">user.name=wsq</span><br><span class="line">core.editor=vim</span><br><span class="line"></span><br><span class="line">[root@aliyun ~]$ <span class="built_in">cat</span> ./.gitconfig </span><br><span class="line">[user]</span><br><span class="line">	email = wsq@qq.com</span><br><span class="line">	name = wsq</span><br><span class="line">[core]</span><br><span class="line">	editor = vim</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Git基础应用"><a href="#Git基础应用" class="headerlink" title="Git基础应用"></a>Git基础应用</h1><h2 id="仓库管理"><a href="#仓库管理" class="headerlink" title="仓库管理"></a>仓库管理</h2><h3 id="创建仓库（版本库）"><a href="#创建仓库（版本库）" class="headerlink" title="创建仓库（版本库）"></a>创建仓库（版本库）</h3><ul>
+<li>尚不存在项目时，可以直接创建</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun ~]$ git init devops</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> /root/devops/.git/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在已有项目的目录中创建仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun ~]$ <span class="built_in">cd</span> myweb/</span><br><span class="line">[root@aliyun myweb]$ git init </span><br></pre></td></tr></table></figure>
+
+<h3 id="仓库说明"><a href="#仓库说明" class="headerlink" title="仓库说明"></a>仓库说明</h3><ul>
+<li>初始化后，在当前目录下会出现一个名为<code>.git</code>的目录</li>
+<li>所有Git需要的数据和资源都存放在这个目录中</li>
+<li>目录仅仅按照既有的结构框架，初始化好了仓库中所有的文件和目录</li>
+<li>还没有开始跟踪管理项目中的任何一个文件</li>
+</ul>
+<h3 id="从现有仓库克隆"><a href="#从现有仓库克隆" class="headerlink" title="从现有仓库克隆"></a>从现有仓库克隆</h3><ul>
+<li>还可以通过克隆现有仓库的方式获取版本库</li>
+<li>直接克隆</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun ~]$ git <span class="built_in">clone</span> https://github.com/schacon/grit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>克隆时，指定本地目录</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun ~]$ git <span class="built_in">clone</span> https://github.com/schacon/grit mygrit</span><br></pre></td></tr></table></figure>
+
+<h2 id="记录更新到仓库"><a href="#记录更新到仓库" class="headerlink" title="记录更新到仓库"></a>记录更新到仓库</h2><h3 id="文件状态"><a href="#文件状态" class="headerlink" title="文件状态"></a>文件状态</h3><ul>
+<li>工作目录下的所有文件都不外乎这两种状态：以跟踪和未跟踪</li>
+<li>以跟踪的文件被纳入版本控制管理的文件，在上次快照中有它们的记录，工作一段时间后，它们的状态可能时未更新，已修改或者已放入暂存区</li>
+<li>所有其他文件都属于未跟踪文件</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/5.png" alt="5.png"></p>
+<h3 id="检查状态"><a href="#检查状态" class="headerlink" title="检查状态"></a>检查状态</h3><ul>
+<li>干净的工作区：当前没有任何跟踪着的文件，也没有任何文件在上次提交后更改过</li>
+<li>信息还表明，当前目录下没有任何处于未跟踪的新文件</li>
+<li>该命令还显示了当前所在的分支是<code>master</code>，这是默认的分支名称</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun grit]$ git status</span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line">nothing to commit, working directory clean</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@aliyun grit]$ <span class="built_in">cd</span> ../myweb/</span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Untracked files:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	index.html</span></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">&quot;git add&quot;</span> to track)</span><br></pre></td></tr></table></figure>
+
+<h3 id="跟踪文件"><a href="#跟踪文件" class="headerlink" title="跟踪文件"></a>跟踪文件</h3><ul>
+<li>使用命令<code>git add</code>开始跟踪一个新文件</li>
+<li>运行<code>git status</code>命令，会看到文件已被跟踪，并处于暂存状态</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ <span class="built_in">ls</span></span><br><span class="line">index.html</span><br><span class="line">[root@aliyun myweb]$ git add index.html</span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	new file:   index.html</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p><code>跟踪所有文件</code></p>
+<ul>
+<li>如果文件较少，可以指定跟踪的文件</li>
+<li>当文件很多时，可以使用<code>git add .</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ <span class="built_in">echo</span> <span class="string">&quot;git test&quot;</span> &gt; README</span><br><span class="line">[root@aliyun myweb]$ git add .</span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	new file:   README</span></span><br><span class="line"><span class="comment">#	new file:   index.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h3><ul>
+<li>可以创建一个名为<code>.gitignore</code>的文件</li>
+<li><code>.gitignore</code>的格式规范如下</li>
+<li>所有空行或者以注释符号<code>#</code>开头的行都会被Git忽略</li>
+<li>可以使用标准的<code>glob</code>模式匹配</li>
+<li>匹配模式最后跟反斜杠<code>/</code>说明要忽略的是目录</li>
+<li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号<code>!</code>取反</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ vim function.txt</span><br><span class="line">用户注册</span><br><span class="line">留言</span><br><span class="line">支付</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	new file:   README</span></span><br><span class="line"><span class="comment">#	new file:   index.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Untracked files:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	function.txt</span></span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">echo</span> function.txt &gt; .gitignore</span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	new file:   README</span></span><br><span class="line"><span class="comment">#	new file:   index.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Untracked files:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	.gitignore</span></span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">echo</span> .gitignore &gt;&gt; .gitignore</span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	new file:   README</span></span><br><span class="line"><span class="comment">#	new file:   index.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git add .</span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	new file:   README</span></span><br><span class="line"><span class="comment">#	new file:   index.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="提交更新"><a href="#提交更新" class="headerlink" title="提交更新"></a>提交更新</h3><ul>
+<li>直接提交会启动文本编辑器以便输入本次提交的说明</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git commit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>也可以使用<code>-m</code>参数提交说明的方式，在一行命令中提交更新</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git commit -m <span class="string">&quot;add README&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h3><ul>
+<li>要从Git中移除某个文件，就必须要从以跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交</li>
+<li>使用<code>git rm</code>命令完成此项工作，并连带从工作目录中删除</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git <span class="built_in">rm</span> index.html</span><br><span class="line"><span class="built_in">rm</span> <span class="string">&#x27;index.html&#x27;</span></span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	deleted:    index.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="移动文件"><a href="#移动文件" class="headerlink" title="移动文件"></a>移动文件</h3><ul>
+<li>Git并不跟踪文件移动操作</li>
+<li>要在Git中对文件改名，可以这么做</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git <span class="built_in">mv</span> README README.md</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	renamed:    README -&gt; README.md</span></span><br><span class="line"><span class="comment">#	deleted:    index.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行<code>git mv</code>就相当于运行了下面三个命令</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ <span class="built_in">mv</span> README README.md</span><br><span class="line">[root@aliyun myweb]$ git <span class="built_in">rm</span> README</span><br><span class="line">[root@aliyun myweb]$ git add README.md</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><ul>
+<li>在提交了若干更新之后，又或者克隆了某个项目，想回顾下提交历史，可以使用<code>git log</code>命令</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git commit -m <span class="string">&quot;rm index.html,mv README README.md&quot;</span></span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git <span class="built_in">log</span></span><br><span class="line">commit 39ee7853699c9b17500298e30b0bb19b4cbe9ca5</span><br><span class="line">Author: wsq &lt;wsq@qq.com&gt;</span><br><span class="line">Date:   Thu Apr 20 17:15:22 2023 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">rm</span> index.html,<span class="built_in">mv</span> README README.md</span><br><span class="line"></span><br><span class="line">commit 806053a5289b2032adffdaa834a9636fddd02abc</span><br><span class="line">Author: wsq &lt;wsq@qq.com&gt;</span><br><span class="line">Date:   Thu Apr 20 17:06:19 2023 +0800</span><br><span class="line"></span><br><span class="line">    README</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每次更新都会有一个SHA-1校验和、作者名字和电子邮件地址、提交时间，最后缩进一个段落显示提交说明</li>
+</ul>
+<h3 id="取消已暂存文件"><a href="#取消已暂存文件" class="headerlink" title="取消已暂存文件"></a>取消已暂存文件</h3><ul>
+<li>文件修改后，错误的提交到暂存区</li>
+<li>希望将文件撤出暂存区，但是保留其修改的内容</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ vim README.md</span><br><span class="line">git <span class="built_in">test</span></span><br><span class="line">this a new post </span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Changes not staged for commit:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span></span><br><span class="line"><span class="comment">#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	modified:   README.md</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git add .</span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Changes to be committed:</span></span><br><span class="line"><span class="comment">#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	modified:   README.md</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git reset HEAD README.md</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M	README.md</span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Changes not staged for commit:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span></span><br><span class="line"><span class="comment">#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	modified:   README.md</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">cat</span> README.md </span><br><span class="line">git <span class="built_in">test</span></span><br><span class="line">this a new post</span><br></pre></td></tr></table></figure>
+
+<h3 id="取消对文件的修改"><a href="#取消对文件的修改" class="headerlink" title="取消对文件的修改"></a>取消对文件的修改</h3><ul>
+<li>文件修改后，后悔所做出的修改</li>
+<li>希望文件恢复为修改前的内容</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># Changes not staged for commit:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span></span><br><span class="line"><span class="comment">#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	modified:   README.md</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git checkout -- README.md</span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">cat</span> README.md </span><br><span class="line">git <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line">nothing to commit, working directory clean</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Git版本控制"><a href="#Git版本控制" class="headerlink" title="Git版本控制"></a>Git版本控制</h1><h2 id="新建数据"><a href="#新建数据" class="headerlink" title="新建数据"></a>新建数据</h2><ul>
+<li>在客户端对仓库进行编辑，创建新资料</li>
+<li>web2为客户端</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># echo &quot;init date&quot; &gt; init.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># mkdir demo</span></span><br><span class="line">[root@web2 project]<span class="comment"># cp /etc/hosts demo/</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git status</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Initial commit</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Untracked files:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#	demo/</span></span><br><span class="line"><span class="comment">#	init.txt</span></span><br><span class="line">nothing added to commit but untracked files present (use <span class="string">&quot;git add&quot;</span> to track)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="提交数据到本地仓库"><a href="#提交数据到本地仓库" class="headerlink" title="提交数据到本地仓库"></a>提交数据到本地仓库</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#提交暂存区</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line"><span class="comment">#将暂存区修改提交到本地仓库</span></span><br><span class="line">[root@web2 project]<span class="comment"># git config --global user.email &quot;3311@123.com&quot;</span></span><br><span class="line">[root@web2 project]<span class="comment"># git config --global user.name &quot;wsq&quot;</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;注释，可以为任意字符&quot;</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git status</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line">nothing to commit, working directory clean</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="将数据推送至远程服务器"><a href="#将数据推送至远程服务器" class="headerlink" title="将数据推送至远程服务器"></a>将数据推送至远程服务器</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git config --global push.default simple</span></span><br><span class="line">[root@web2 project]<span class="comment"># git push</span></span><br><span class="line">           or</span><br><span class="line">[root@web2 project]<span class="comment"># git remote -v</span></span><br><span class="line">origin	root@192.168.1.10:/var/git/project (fetch)</span><br><span class="line">origin	root@192.168.1.10:/var/git/project (push)</span><br><span class="line">[root@web2 project]<span class="comment"># git push -u origin --all</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git status</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line">nothing to commit, working directory clean</span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git pull</span></span><br><span class="line">root@192.168.1.10<span class="string">&#x27;s password: 000000</span></span><br><span class="line"><span class="string">Already up-to-date.</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="生成更多版本"><a href="#生成更多版本" class="headerlink" title="生成更多版本"></a>生成更多版本</h2><ul>
+<li>多次修改，生成更多版本</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># echo &quot;new file&quot; &gt; new.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;add new.txt&quot;</span></span><br><span class="line"> </span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;frist&quot; &gt;&gt; new.txt </span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;new.txt:frist line&quot;</span></span><br><span class="line"> </span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;second&quot; &gt;&gt; new.txt </span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;new.txt:second line&quot;</span></span><br><span class="line"> </span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;third&quot; &gt;&gt; new.txt </span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;new.txt:third line&quot;</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git push</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git log</span></span><br><span class="line">commit db8b5647f0f2b1a8852b765e16d0e95d347f7b33</span><br><span class="line">Author: wsq &lt;3311@123.com&gt;</span><br><span class="line">Date:   Sun Apr 2 15:51:31 2023 +0800</span><br><span class="line"></span><br><span class="line">    new.txt:third line</span><br><span class="line"></span><br><span class="line">commit f763f019376d816e28f0cb58ed0f26679ec7300a</span><br><span class="line">Author: wsq &lt;3311@123.com&gt;</span><br><span class="line">Date:   Sun Apr 2 15:51:01 2023 +0800</span><br><span class="line"></span><br><span class="line">    new.txt:second line</span><br><span class="line"></span><br><span class="line">commit 5361b1eb3f739023c322ae0d5b8755c215e53fc5</span><br><span class="line">Author: wsq &lt;3311@123.com&gt;</span><br><span class="line">Date:   Sun Apr 2 15:50:33 2023 +0800</span><br><span class="line"></span><br><span class="line">    new.txt:frist line</span><br><span class="line"></span><br><span class="line">commit 83bdb1143b5424288292cc7f3e4d63fce6b68527</span><br><span class="line">Author: wsq &lt;3311@123.com&gt;</span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git log --pretty=oneline</span></span><br><span class="line">db8b5647f0f2b1a8852b765e16d0e95d347f7b33 new.txt:third line</span><br><span class="line">f763f019376d816e28f0cb58ed0f26679ec7300a new.txt:second line</span><br><span class="line">5361b1eb3f739023c322ae0d5b8755c215e53fc5 new.txt:frist line</span><br><span class="line">83bdb1143b5424288292cc7f3e4d63fce6b68527 add new.txt</span><br><span class="line">11c03130f7a3e1730a16d9fc0e1776fee6528906 注释，可以为任意字符</span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git log --oneline</span></span><br><span class="line">db8b564 new.txt:third line</span><br><span class="line">f763f01 new.txt:second line</span><br><span class="line">5361b1e new.txt:frist line</span><br><span class="line">83bdb11 add new.txt</span><br><span class="line">11c0313 注释，可以为任意字符</span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git reflog</span></span><br><span class="line">db8b564 HEAD@&#123;0&#125;: commit: new.txt:third line</span><br><span class="line">f763f01 HEAD@&#123;1&#125;: commit: new.txt:second line</span><br><span class="line">5361b1e HEAD@&#123;2&#125;: commit: new.txt:frist line</span><br><span class="line">83bdb11 HEAD@&#123;3&#125;: commit: add new.txt</span><br><span class="line">11c0313 HEAD@&#123;4&#125;: commit (initial): 注释，可以为任意字符</span><br></pre></td></tr></table></figure>
+
+<h1 id="数据恢复"><a href="#数据恢复" class="headerlink" title="数据恢复"></a>数据恢复</h1><h2 id="HEAD指针"><a href="#HEAD指针" class="headerlink" title="HEAD指针"></a>HEAD指针</h2><ul>
+<li><p>HEAD指针是一个可以在任何分支和任何版本移动的指针</p>
+</li>
+<li><p>通过移动指针我们可以将数据还原至任何版本</p>
+</li>
+<li><p>当前HEAD指针为HEAD@{0}</p>
+<p>通过git relog查看当前指针</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git reflog</span></span><br><span class="line">db8b564 HEAD@&#123;0&#125;: commit: new.txt:third line</span><br><span class="line">f763f01 HEAD@&#123;1&#125;: commit: new.txt:second line</span><br><span class="line">5361b1e HEAD@&#123;2&#125;: commit: new.txt:frist line</span><br><span class="line">83bdb11 HEAD@&#123;3&#125;: commit: add new.txt</span><br><span class="line">11c0313 HEAD@&#123;4&#125;: commit (initial): 注释，可以为任意字符</span><br></pre></td></tr></table></figure>
+
+<h2 id="移动HEAD指针"><a href="#移动HEAD指针" class="headerlink" title="移动HEAD指针"></a>移动HEAD指针</h2><ul>
+<li>通过移动指针就可以获取任何版本的数据</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git reset --hard db8b564</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git reset --hard 11c0313</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Git分支管理"><a href="#Git分支管理" class="headerlink" title="Git分支管理"></a>Git分支管理</h1><h2 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h2><h3 id="标签概述"><a href="#标签概述" class="headerlink" title="标签概述"></a>标签概述</h3><ul>
+<li>同大多数VCS一样，Git也可以对某一时间点上的版本打上标签</li>
+<li>Git可以给历史中的某一个提交打上标签，以示重要</li>
+<li>在发布某个软件版本（比如V1.0等等）的时候，经常这么做</li>
+<li>发布一个版本时，通常先在版本库中打一个标题（tag），这样就确定了打标签时刻的版本。将来无论什么时候，取某个标记的版本，就是把那个打标签的时刻的历史版本取出来</li>
+</ul>
+<h3 id="列出标签"><a href="#列出标签" class="headerlink" title="列出标签"></a>列出标签</h3><ul>
+<li>在Git中列出已有标签是非常简单直观的</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git tag</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这个命令以字母顺序列出标签；但是它们出现的顺序并不重要</li>
+</ul>
+<h3 id="查找标签"><a href="#查找标签" class="headerlink" title="查找标签"></a>查找标签</h3><ul>
+<li>可以使用特定的模式查找标签</li>
+<li>例如，Git自身的源代码仓库包含标签的数量超过500个。如果只对1.8.5感兴趣，可以运行：</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git tag -l <span class="string">&#x27;v1.8.5*&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="标签分类"><a href="#标签分类" class="headerlink" title="标签分类"></a>标签分类</h3><ul>
+<li>Git使用两种主要类型的标签</li>
+<li>轻量标签（lightweight）：它只是一个特定提交的应用</li>
+<li>附注标签（annotated）：是存储在Git数据库中的一个完整对象。其中包含打标签作者的名字、电子邮件地址、日期时间；还有一个标签信息、并且可以使用GNU Privacy Guard（GPG）签名和验证</li>
+</ul>
+<h3 id="附注标签"><a href="#附注标签" class="headerlink" title="附注标签"></a>附注标签</h3><ul>
+<li>简单的方式是当你在运行tag命令时指定<code>-a</code>选项</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git tag -a v1.4 -m <span class="string">&quot;my version 1.4&quot;</span></span><br><span class="line">[root@aliyun myweb]$ git tag</span><br><span class="line">v1.4</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git show v1.4 </span><br><span class="line">tag v1.4</span><br><span class="line">Tagger: wsq &lt;wsq@qq.com&gt;</span><br><span class="line">Date:   Thu Apr 20 17:56:19 2023 +0800</span><br><span class="line">	my version 1.4</span><br><span class="line">commit 39ee7853699c9b17500298e30b0bb19b4cbe9ca5</span><br><span class="line">Author: wsq &lt;wsq@qq.com&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="轻量标签"><a href="#轻量标签" class="headerlink" title="轻量标签"></a>轻量标签</h3><ul>
+<li>创建轻量标签，不需要使用选项，只需要提供标签名字</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git tag v1.4-lw</span><br><span class="line">[root@aliyun myweb]$ git tag </span><br><span class="line">v1.4</span><br><span class="line">v1.4-lw</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git show v1.4-lw</span><br><span class="line">Author: wsq &lt;wsq@qq.com&gt;</span><br><span class="line">Date:   Thu Apr 20 17:15:22 2023 +0800</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h3><ul>
+<li>删除本地仓库的标签，使用命令<code>git tag -d &lt;tagname&gt;</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git tag -d v1.4-lw </span><br><span class="line">Deleted tag <span class="string">&#x27;v1.4-lw&#x27;</span> (was 39ee785)</span><br><span class="line">[root@aliyun myweb]$ git tag </span><br><span class="line">v1.4</span><br></pre></td></tr></table></figure>
+
+<h2 id="Git分支"><a href="#Git分支" class="headerlink" title="Git分支"></a>Git分支</h2><h3 id="分支概述"><a href="#分支概述" class="headerlink" title="分支概述"></a>分支概述</h3><ul>
+<li><p>几乎所有的版本控制系统都以某种形式支持分支</p>
+</li>
+<li><p>使用分支意味着你可以把你的工作从开发主线上分离开来，以免影响开发主线</p>
+</li>
+<li><p>在很多版本控制系统中，这是一个略微低效的过程</p>
+</li>
+<li><p>Git处理分支的方式可谓是难以置信的轻量，创建新分支这一操作几乎能瞬间完成</p>
+</li>
+<li><p>在不同分支之间的切换操作也是一样便捷</p>
+</li>
+<li><p>分支可以让开发分多条主线同时进行，每条主线互不影响</p>
+<p>按功能模块分支、按版本分支</p>
+<p>分支也可合并</p>
+</li>
+<li><p>常见的分支规范</p>
+<p>MASTER是主分支，是代码的核心</p>
+<p>DEVELOP最新开发成果的分支</p>
+<p>RELEASE分支，为发布新产品设置的分支</p>
+<p>HOTFIX分支，为修复软件BUG缺陷的分支</p>
+<p>FEATURE分支，为开发新功能设置的分支</p>
+</li>
+</ul>
+<h3 id="核心原理"><a href="#核心原理" class="headerlink" title="核心原理"></a>核心原理</h3><ul>
+<li>当使用<code>git commit</code>进行提交操作时，Git先计算每一个子目录的校验和</li>
+<li>然后在Git仓库中这些校验和保存为树对象</li>
+<li>随后，Git便会创建一个提交对象，它除了包含上面提到的哪些信息外，还包含指向这个树对象（项目根目录）的指针</li>
+<li>如此一来，Git就可以在需要的时候重现此次保存的快照</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git add README test.rb LICENSE</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git commit -m <span class="string">&quot;The initial commit of my preject&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/6.png" alt="6.png"></p>
+<ul>
+<li>做些修改后再次提交，那么这次产生的提交对象会包含一个指向上次提交对象（父对象）的指针</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/7.png" alt="7.png"></p>
+<ul>
+<li>Git的分支，其实本质上仅仅是指向提交对象的可变指针</li>
+<li>Git的默认分支名字是master</li>
+<li>在多次提交操作之后，你其实已经有一个指向最后那个提交对象的master分支</li>
+<li>它会在每次的操作中自动详情移动</li>
+<li>master并不是一个特殊分支，与其他分支没有区别</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git branch	<span class="comment"># 查看当前分支</span></span><br><span class="line">* master</span><br><span class="line">  </span><br><span class="line">[root@aliyun myweb]$ git <span class="built_in">log</span> </span><br><span class="line">commit 39ee7853699c9b17500298e30b0bb19b4cbe9ca5</span><br><span class="line">Author: wsq &lt;wsq@qq.com&gt;</span><br><span class="line">Date:   Thu Apr 20 17:15:22 2023 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">rm</span> index.html,<span class="built_in">mv</span> README README.md</span><br><span class="line"></span><br><span class="line">commit 806053a5289b2032adffdaa834a9636fddd02abc</span><br><span class="line">Author: wsq &lt;wsq@qq.com&gt;</span><br><span class="line">Date:   Thu Apr 20 17:06:19 2023 +0800</span><br><span class="line"></span><br><span class="line">    README</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Git有一个名为HEAD的特殊分支，指向当前所在分支</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/8.png" alt="8.png"></p>
+<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><ul>
+<li>创建分支只是为你创建了一个可以移动的新的指针</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git branch testing</span><br><span class="line">[root@aliyun myweb]$ git branch </span><br><span class="line">* master</span><br><span class="line">  testing</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/9.png" alt="9.png"></p>
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><ul>
+<li>创建分支并不会切换分支</li>
+<li>要切换一个已存在的分支，你需要使用<code>git checkout</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git checkout testing </span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git branch </span><br><span class="line">  master</span><br><span class="line">* testing</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="../../../../jihu/image/DEVOPS/gitlab/10.png" alt="10.png"></p>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><ul>
+<li>每个分支都可以继续进行提交</li>
+<li>分支功能完成后，可以汇入主干分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git branch </span><br><span class="line">  master</span><br><span class="line">* testing</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">cp</span> /etc/hosts .</span><br><span class="line">[root@aliyun myweb]$ git add .</span><br><span class="line">[root@aliyun myweb]$ git commit -m <span class="string">&quot;add hosts&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#master分支下不存在hosts文件</span></span><br><span class="line">[root@aliyun myweb]$ git checkout master </span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">ls</span></span><br><span class="line">function.txt  README.md</span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">cp</span> /etc/passwd .</span><br><span class="line">[root@aliyun myweb]$ git add .</span><br><span class="line">[root@aliyun myweb]$ git commit -m <span class="string">&quot;add passwd&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#testing分支下不存在passwd文件</span></span><br><span class="line">[root@aliyun myweb]$ git checkout testing </span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">ls</span></span><br><span class="line">function.txt  hosts  README.md</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>合并分支</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git branch </span><br><span class="line">  master</span><br><span class="line">* testing</span><br><span class="line">[root@aliyun myweb]$ git checkout master </span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git merge testing </span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ <span class="built_in">ls</span></span><br><span class="line">function.txt  hosts  passwd  README.md</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分支版本冲突问题</li>
+<li>在不同分支中修改相同的文件相同行数据，模拟数据冲突</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 project]<span class="comment"># git checkout hotfix</span></span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;AAA&quot; &gt; a.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;add a.txt by hotfix&quot;</span></span><br><span class="line"></span><br><span class="line">[root@web2 project]<span class="comment"># git checkout master</span></span><br><span class="line">[root@web2 project]<span class="comment"># echo &quot;BBB&quot; &gt; a.txt</span></span><br><span class="line">[root@web2 project]<span class="comment"># git add .</span></span><br><span class="line">[root@web2 project]<span class="comment"># git commit -m &quot;add a.txt by master&quot;</span></span><br><span class="line">[root@web2 project]<span class="comment"># git merge hotfix</span></span><br><span class="line"> </span><br><span class="line">[root@web2 project]<span class="comment"># cat a.txt </span></span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; <span class="string">HEAD</span></span><br><span class="line"><span class="string">BBB</span></span><br><span class="line"><span class="string">=======</span></span><br><span class="line"><span class="string">AAA</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;&gt;&gt;&gt;&gt; hotfix</span></span><br><span class="line"><span class="string">#自动合并失败，修正冲突然后提交修正的结果</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><ul>
+<li>删除分支<code>git branch -d name</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@aliyun myweb]$ git branch </span><br><span class="line">* master</span><br><span class="line">  testing</span><br><span class="line">  </span><br><span class="line">[root@aliyun myweb]$ git branch -d testing </span><br><span class="line"></span><br><span class="line">[root@aliyun myweb]$ git branch </span><br><span class="line">* master</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/03/tedu-Git/">http://example.com/2023/04/03/tedu-Git/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">CLOUD</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/git.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/01/tedu-Nginx/" title="Nginx"><img class="cover" src="/../jihu/wallpaper/used/nginx.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Nginx</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/05/tedu-Tomcat/" title="TomCAT"><img class="cover" src="/../jihu/wallpaper/used/tomcat.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TomCAT</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">Cloud Computing</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">git概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">1.1.</span> <span class="toc-text">关于版本控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.</span> <span class="toc-text">本地版本控制系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E4%B8%AD%E5%8C%96%E7%9A%84%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.3.</span> <span class="toc-text">集中化的版本控制系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.4.</span> <span class="toc-text">分布式版本控制系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="toc-number">1.5.</span> <span class="toc-text">Git的历史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.6.</span> <span class="toc-text">Git的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E7%8A%B6%E6%80%81"><span class="toc-number">1.7.</span> <span class="toc-text">Git状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.8.</span> <span class="toc-text">Git工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">1.9.</span> <span class="toc-text">Git基础配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Git"><span class="toc-number">1.9.1.</span> <span class="toc-text">安装Git</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E5%9F%BA%E7%A1%80%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">Git基础应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%93%E5%BA%93%E7%AE%A1%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">仓库管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93%EF%BC%88%E7%89%88%E6%9C%AC%E5%BA%93%EF%BC%89"><span class="toc-number">2.1.1.</span> <span class="toc-text">创建仓库（版本库）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%93%E5%BA%93%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.2.</span> <span class="toc-text">仓库说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E7%8E%B0%E6%9C%89%E4%BB%93%E5%BA%93%E5%85%8B%E9%9A%86"><span class="toc-number">2.1.3.</span> <span class="toc-text">从现有仓库克隆</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93"><span class="toc-number">2.2.</span> <span class="toc-text">记录更新到仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81"><span class="toc-number">2.2.1.</span> <span class="toc-text">文件状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%8A%B6%E6%80%81"><span class="toc-number">2.2.2.</span> <span class="toc-text">检查状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%9F%E8%B8%AA%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.3.</span> <span class="toc-text">跟踪文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.4.</span> <span class="toc-text">忽略文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E6%9B%B4%E6%96%B0"><span class="toc-number">2.2.5.</span> <span class="toc-text">提交更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.6.</span> <span class="toc-text">移除文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.7.</span> <span class="toc-text">移动文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2"><span class="toc-number">2.2.8.</span> <span class="toc-text">查看提交历史</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E6%B6%88%E5%B7%B2%E6%9A%82%E5%AD%98%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.9.</span> <span class="toc-text">取消已暂存文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E6%B6%88%E5%AF%B9%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="toc-number">2.2.10.</span> <span class="toc-text">取消对文件的修改</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">Git版本控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE"><span class="toc-number">3.1.</span> <span class="toc-text">新建数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-number">3.2.</span> <span class="toc-text">提交数据到本地仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E6%95%B0%E6%8D%AE%E6%8E%A8%E9%80%81%E8%87%B3%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">将数据推送至远程服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%9B%B4%E5%A4%9A%E7%89%88%E6%9C%AC"><span class="toc-number">3.4.</span> <span class="toc-text">生成更多版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="toc-number">3.5.</span> <span class="toc-text">查看日志</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D"><span class="toc-number">4.</span> <span class="toc-text">数据恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HEAD%E6%8C%87%E9%92%88"><span class="toc-number">4.1.</span> <span class="toc-text">HEAD指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8HEAD%E6%8C%87%E9%92%88"><span class="toc-number">4.2.</span> <span class="toc-text">移动HEAD指针</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">Git分支管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E7%AE%A1%E7%90%86"><span class="toc-number">5.1.</span> <span class="toc-text">标签管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E6%A6%82%E8%BF%B0"><span class="toc-number">5.1.1.</span> <span class="toc-text">标签概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E6%A0%87%E7%AD%BE"><span class="toc-number">5.1.2.</span> <span class="toc-text">列出标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%A0%87%E7%AD%BE"><span class="toc-number">5.1.3.</span> <span class="toc-text">查找标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E5%88%86%E7%B1%BB"><span class="toc-number">5.1.4.</span> <span class="toc-text">标签分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%84%E6%B3%A8%E6%A0%87%E7%AD%BE"><span class="toc-number">5.1.5.</span> <span class="toc-text">附注标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%BB%E9%87%8F%E6%A0%87%E7%AD%BE"><span class="toc-number">5.1.6.</span> <span class="toc-text">轻量标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%A0%87%E7%AD%BE"><span class="toc-number">5.1.7.</span> <span class="toc-text">删除标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git%E5%88%86%E6%94%AF"><span class="toc-number">5.2.</span> <span class="toc-text">Git分支</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E6%A6%82%E8%BF%B0"><span class="toc-number">5.2.1.</span> <span class="toc-text">分支概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="toc-number">5.2.2.</span> <span class="toc-text">核心原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-number">5.2.3.</span> <span class="toc-text">创建分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%86%E6%94%AF"><span class="toc-number">5.2.4.</span> <span class="toc-text">切换分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF"><span class="toc-number">5.2.5.</span> <span class="toc-text">合并分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF"><span class="toc-number">5.2.6.</span> <span class="toc-text">删除分支</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/" title="公有云：(6)边缘计算平台部署应用"><img src="/../jihu/wallpaper/used/gy6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(6)边缘计算平台部署应用"/></a><div class="content"><a class="title" href="/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/" title="公有云：(6)边缘计算平台部署应用">公有云：(6)边缘计算平台部署应用</a><time datetime="2023-08-11T22:00:00.000Z" title="发表于 2023-08-12 06:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例"><img src="/../jihu/wallpaper/used/gy5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(5)公有云Python运维开发案例"/></a><div class="content"><a class="title" href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例">公有云：(5)公有云Python运维开发案例</a><time datetime="2023-08-11T21:00:00.000Z" title="发表于 2023-08-12 05:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="公有云：(4)公有云Helm模板使用案例"><img src="/../jihu/wallpaper/used/gy4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(4)公有云Helm模板使用案例"/></a><div class="content"><a class="title" href="/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="公有云：(4)公有云Helm模板使用案例">公有云：(4)公有云Helm模板使用案例</a><time datetime="2023-08-11T20:00:00.000Z" title="发表于 2023-08-12 04:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例"><img src="/../jihu/wallpaper/used/gy3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(3)公有云CCE集群操作案例"/></a><div class="content"><a class="title" href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例">公有云：(3)公有云CCE集群操作案例</a><time datetime="2023-08-11T19:00:00.000Z" title="发表于 2023-08-12 03:00:00">2023-08-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

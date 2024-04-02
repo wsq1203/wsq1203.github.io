@@ -1,0 +1,432 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LVS集群 | CLOUD</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="集群:通过网络将很多服务器集中在一起，提供同一种服务。LVS实现了一个高可用、高性能、低成本的服务器应用集群">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LVS集群">
+<meta property="og:url" content="http://example.com/2023/04/10/tedu-LVS%E9%9B%86%E7%BE%A4/index.html">
+<meta property="og:site_name" content="CLOUD">
+<meta property="og:description" content="集群:通过网络将很多服务器集中在一起，提供同一种服务。LVS实现了一个高可用、高性能、低成本的服务器应用集群">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/lvs.jpg">
+<meta property="article:published_time" content="2023-04-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-04-02T06:37:44.395Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="LVS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/lvs.jpg"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/04/10/tedu-LVS%E9%9B%86%E7%BE%A4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'LVS集群',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-02 14:37:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/lvs.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="CLOUD"><span class="site-name">CLOUD</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">LVS集群</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-09T16:00:00.000Z" title="发表于 2023-04-10 00:00:00">2023-04-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-02T06:37:44.395Z" title="更新于 2024-04-02 14:37:44">2024-04-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="LVS集群"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="LVS集群简介"><a href="#LVS集群简介" class="headerlink" title="LVS集群简介"></a>LVS集群简介</h1><h2 id="什么是集群"><a href="#什么是集群" class="headerlink" title="什么是集群"></a>什么是集群</h2><ul>
+<li>通过网络将很多服务器集中在一起，提供同一种服务，在客户端看起来就好像只有一个服务器</li>
+<li><code>任务调度</code>是集群系统中的<code>核心技术</code></li>
+</ul>
+<h2 id="集群的目的"><a href="#集群的目的" class="headerlink" title="集群的目的"></a>集群的目的</h2><ul>
+<li><p><code>提高性能</code></p>
+<p>如计算密集型应用，如：天气预报、核试验模拟</p>
+</li>
+<li><p><code>降低成本</code></p>
+<p>相对百万美元级的超级计算机，价格便宜</p>
+</li>
+<li><p><code>提高可扩展性</code></p>
+<p>只要增加集群节点即可</p>
+</li>
+<li><p><code>增强可靠性</code></p>
+<p>多个节点完成相同功能，避免单点失败</p>
+</li>
+</ul>
+<h2 id="集群分类"><a href="#集群分类" class="headerlink" title="集群分类"></a>集群分类</h2><ul>
+<li><p>高性能计算集群HPC</p>
+<p>通过以集群开发的并行<code>应用程序</code>，解决复杂的科学问题</p>
+</li>
+<li><p>负载均衡集群LB</p>
+<p>客户端负载在计算机集群中尽可能<code>平均分摊</code></p>
+</li>
+<li><p>高可用集群HA</p>
+<p><code>避免单点故障</code>，当一个系统发生故障时，可以快速迁移</p>
+</li>
+</ul>
+<h2 id="LVS概述"><a href="#LVS概述" class="headerlink" title="LVS概述"></a>LVS概述</h2><ul>
+<li>Linux虚拟服务器（LVS）是章文嵩在国防科技大学就读博士期间创建的</li>
+<li>LVS可以实现高可用的、可伸缩的Web、Mail、Cache和Media等网络服务</li>
+<li>最终目标是利用Linux操作系统和LVS集权软件实现一个高可用、高性能、低成本的服务器应用集群</li>
+</ul>
+<h2 id="LVS术语"><a href="#LVS术语" class="headerlink" title="LVS术语"></a>LVS术语</h2><ul>
+<li><p>Director Server：调度服务器</p>
+<p>将负载分发到Real Server的服务器</p>
+</li>
+<li><p>Real Server：真实服务器</p>
+<p>真正提供应用服务的服务器</p>
+</li>
+<li><p>VIP：虚拟IP地址</p>
+<p>公布给用户访问的虚拟IP地址</p>
+</li>
+<li><p>DIP：调度器连接节点服务器的IP地址</p>
+</li>
+<li><p>RIP：真实IP地址</p>
+<p>集群节点上使用的IP地址</p>
+</li>
+</ul>
+<h2 id="LVS-NAT图示"><a href="#LVS-NAT图示" class="headerlink" title="LVS-NAT图示"></a>LVS-NAT图示</h2><p><img src="../../../../jihu/image/CLUSTRE/LVS/1.png" alt="1.png"></p>
+<ul>
+<li><p>LVS相当于路由器，需要配置网关</p>
+</li>
+<li><p>不使用LVS时，会一层一层封装再解封装，效率很慢</p>
+</li>
+</ul>
+<h2 id="LVS工作模式"><a href="#LVS工作模式" class="headerlink" title="LVS工作模式"></a>LVS工作模式</h2><p><img src="../../../../jihu/image/CLUSTRE/LVS/2.png" alt="2.png"></p>
+<ul>
+<li><p>VS/NAT</p>
+<p>通过网络地址转换实现的虚拟服务器</p>
+<p>大并发访问时，调度器的性能成为瓶颈</p>
+</li>
+<li><p>VS/DR</p>
+<p>直接使用路由技术实现虚拟服务器</p>
+<p>节点服务器需要配置VIP，注意MAC地址广播</p>
+</li>
+<li><p>VS/TUN</p>
+<p>通过隧道方式实现虚拟服务器</p>
+</li>
+</ul>
+<h2 id="负载均衡调度算法"><a href="#负载均衡调度算法" class="headerlink" title="负载均衡调度算法"></a>负载均衡调度算法</h2><ul>
+<li><p>LVS目前实现10种调度算法</p>
+</li>
+<li><p>常用的调度算法</p>
+<p>轮询（Round Robin）</p>
+<p>加权轮询（Weighted Round Robin）</p>
+<p>最少连接（Least Connections）</p>
+<p>加权最少连接（Weighted Least Connections）</p>
+<p>源地址哈希（Source Hash）</p>
+</li>
+<li><p>其他调度算法</p>
+<p>基于局部性的最少连接</p>
+<p>带复制的基于局部性最少连接</p>
+<p>目标地址散列（Destination Hashing）</p>
+<p>最短的期望的延期</p>
+<p>最少队列调度</p>
+</li>
+</ul>
+<h1 id="LVS-NAT模式"><a href="#LVS-NAT模式" class="headerlink" title="LVS-NAT模式"></a>LVS-NAT模式</h1><h2 id="节点规划"><a href="#节点规划" class="headerlink" title="节点规划"></a>节点规划</h2><table>
+<thead>
+<tr>
+<th>节点</th>
+<th>角色</th>
+<th>IP地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lvs</td>
+<td>LVS调度器</td>
+<td>ens33:192.168.1.10 <br />ens34:192.168.157.10</td>
+</tr>
+<tr>
+<td>web1</td>
+<td>Web服务器</td>
+<td>ens34:192.168.1.21</td>
+</tr>
+<tr>
+<td>web2</td>
+<td>Web服务器</td>
+<td>ens34:192.168.1.22</td>
+</tr>
+</tbody></table>
+<h2 id="准备web服务器"><a href="#准备web服务器" class="headerlink" title="准备web服务器"></a>准备web服务器</h2><ul>
+<li>web1部署web服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># yum install httpd -y</span></span><br><span class="line">[root@web1 ~]<span class="comment"># echo &quot;192.168.1.22&quot; &gt; /var/www/html/index.html</span></span><br><span class="line">[root@web1 ~]<span class="comment"># systemctl restart httpd</span></span><br><span class="line">[root@web1 ~]<span class="comment"># setenforce 0</span></span><br><span class="line">[root@web1 ~]<span class="comment"># iptables -F</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>web2部署web服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># yum install httpd -y</span></span><br><span class="line">[root@web2 ~]<span class="comment"># echo &quot;192.168.1.22&quot; &gt; /var/www/html/index.html</span></span><br><span class="line">[root@web2 ~]<span class="comment"># systemctl restart httpd</span></span><br><span class="line">[root@web2 ~]<span class="comment"># setenforce 0</span></span><br><span class="line">[root@web2 ~]<span class="comment"># iptables -F</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装ipvsadm软件包"><a href="#安装ipvsadm软件包" class="headerlink" title="安装ipvsadm软件包"></a>安装ipvsadm软件包</h2><ul>
+<li>管理内核的工具</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># yum install ipvsadm -y</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建虚拟服务器"><a href="#创建虚拟服务器" class="headerlink" title="创建虚拟服务器"></a>创建虚拟服务器</h2><ul>
+<li>-A  添加虚拟服务器</li>
+<li>-t/-u   设置集群地址（VIP、Virtual IP）tcp/udp</li>
+<li>-s    指定负载调度算法（rr|wrr|lc|wlc|sh…）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -A -t 192.168.157.10:80 -s rr</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看集群规则</span></span><br><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -Ln  </span></span><br><span class="line">IP Virtual Server version 1.2.1 (size=4096)</span><br><span class="line">Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line">TCP  192.168.157.10:80 rr</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加real-server"><a href="#添加real-server" class="headerlink" title="添加real server"></a>添加real server</h2><ul>
+<li><p>添加、删除服务器节点</p>
+<p>-a  添加真实服务器</p>
+<p>-d  删除真实服务器</p>
+<p>-r  指定真实服务器（real Server）的地址</p>
+<p>-m  使用NAT模式</p>
+<p>-g  使用DR模式（默认）</p>
+<p>-i   使用TUN模式</p>
+<p>-w  为节点服务器设置权重，默认为1</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -a -t 192.168.157.10:80 -r 192.168.1.21:80 -m</span></span><br><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -a -t 192.168.157.10:80 -r 192.168.1.22:80 -m</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看集群规则</span></span><br><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -Ln</span></span><br><span class="line">IP Virtual Server version 1.2.1 (size=4096)</span><br><span class="line">Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line">TCP  192.168.157.10:80 rr</span><br><span class="line">  -&gt; 192.168.1.21:80              Masq    1      0          0         </span><br><span class="line">  -&gt; 192.168.1.22:80              Masq    1      0          0  </span><br></pre></td></tr></table></figure>
+
+<h2 id="开启路由转发"><a href="#开启路由转发" class="headerlink" title="开启路由转发"></a>开启路由转发</h2><ul>
+<li>开启路由</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># echo &quot;net.ipv4.ip_forward = 1&quot; &gt;&gt; /etc/sysctl.conf </span></span><br><span class="line">[root@lvs ~]<span class="comment"># sysctl -p</span></span><br><span class="line">net.ipv4.ip_forward = 1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>关闭防火墙和SElinux</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># iptables -F</span></span><br><span class="line">[root@lvs ~]<span class="comment"># setenforce 0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="给后端web服务器配置网关"><a href="#给后端web服务器配置网关" class="headerlink" title="给后端web服务器配置网关"></a>给后端web服务器配置网关</h2><ul>
+<li>web1配置网关</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># nmcli connection modify ens33 ipv4.method manual ipv4.gateway 192.168.1.10</span></span><br><span class="line"></span><br><span class="line">[root@web1 ~]<span class="comment"># nmcli connection up ens33</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>web2配置网关</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># nmcli connection modify ens33 ipv4.method manual ipv4.gateway 192.168.1.10</span></span><br><span class="line"></span><br><span class="line">[root@web2 ~]<span class="comment"># nmcli connection up ens33</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="浏览器访问测试"><a href="#浏览器访问测试" class="headerlink" title="浏览器访问测试"></a>浏览器访问测试</h2><ul>
+<li>通过访问VIP 192.168.157.10</li>
+<li>Ctrl+F5强制刷新</li>
+<li>可以看到在192.168.1.21和192.168.1.22之间切换</li>
+</ul>
+<h1 id="LVS-DR模式"><a href="#LVS-DR模式" class="headerlink" title="LVS-DR模式"></a>LVS-DR模式</h1><p><img src="../../../../jihu/image/CLUSTRE/LVS/3.png" alt="3.png"></p>
+<p><code>（为方便使用1网段）</code></p>
+<h2 id="准备调度器网络环境"><a href="#准备调度器网络环境" class="headerlink" title="准备调度器网络环境"></a>准备调度器网络环境</h2><ul>
+<li>配置VIP（同一网卡）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># cp /etc/sysconfig/network-scripts/ifcfg-ens33&#123;,:0&#125;</span></span><br><span class="line"></span><br><span class="line">[root@lvs ~]<span class="comment"># vim /etc/sysconfig/network-scripts/ifcfg-ens33:0</span></span><br><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">NAME=ens33:0</span><br><span class="line">DEVICE=ens33:0</span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line">IPADDR=192.168.1.15</span><br><span class="line">PREFIX=24</span><br><span class="line"></span><br><span class="line">[root@lvs ~]<span class="comment"># ip a</span></span><br><span class="line">2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 00:0c:29:7e:4b:70 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.10/24 brd 192.168.1.255 scope global noprefixroute ens33</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet 192.168.1.15/24 brd 192.168.1.255 scope global secondary noprefixroute ens33:0</span><br><span class="line">······</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="准备web服务器-1"><a href="#准备web服务器-1" class="headerlink" title="准备web服务器"></a>准备web服务器</h2><ul>
+<li>web1部署web服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># yum install httpd -y</span></span><br><span class="line">[root@web1 ~]<span class="comment"># echo &quot;192.168.1.22&quot; &gt; /var/www/html/index.html</span></span><br><span class="line">[root@web1 ~]<span class="comment"># systemctl restart httpd</span></span><br><span class="line">[root@web1 ~]<span class="comment"># setenforce 0</span></span><br><span class="line">[root@web1 ~]<span class="comment"># iptables -F</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>web2部署web服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># yum install httpd -y</span></span><br><span class="line">[root@web2 ~]<span class="comment"># echo &quot;192.168.1.22&quot; &gt; /var/www/html/index.html</span></span><br><span class="line">[root@web2 ~]<span class="comment"># systemctl restart httpd</span></span><br><span class="line">[root@web2 ~]<span class="comment"># setenforce 0</span></span><br><span class="line">[root@web2 ~]<span class="comment"># iptables -F</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="准备web网络环境"><a href="#准备web网络环境" class="headerlink" title="准备web网络环境"></a>准备web网络环境</h2><ul>
+<li><p>web1和web2做相同操作，以web1 为例</p>
+</li>
+<li><p>伪装VIP</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># cp /etc/sysconfig/network-scripts/ifcfg-lo&#123;,:0&#125;</span></span><br><span class="line">[root@web1 ~]<span class="comment"># cd /etc/sysconfig/network-scripts/  </span></span><br><span class="line">[root@web1 network-scripts]<span class="comment"># vim ifcfg-lo:0</span></span><br><span class="line">DEVICE=lo:0</span><br><span class="line">IPADDR=192.168.1.15</span><br><span class="line">NETMASK=255.255.255.255</span><br><span class="line">NETWORK=192.168.1.15</span><br><span class="line">BROADCAST=192.168.1.15</span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line">NAME=lo:0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>不要立刻重启网络服务</code>,会产生地址冲突</p>
+</li>
+<li><p>忽略地址冲突</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># vim /etc/sysctl.conf</span></span><br><span class="line">net.ipv4.conf.all.arp_ignore = 1</span><br><span class="line">net.ipv4.conf.lo.arp_ignore = 1</span><br><span class="line">net.ipv4.conf.all.arp_announce = 2</span><br><span class="line">net.ipv4.conf.lo.arp_announce = 2</span><br><span class="line"><span class="comment">#当有arp广播问谁是192.168.1.15时，本机忽略该ARP广播，不做任何回应</span></span><br><span class="line"><span class="comment">#本机不要对外宣传自己的lo回环地址是192.168.1.15</span></span><br><span class="line">[root@web1 ~]<span class="comment"># sysctl -p</span></span><br><span class="line">[root@web1 ~]<span class="comment"># systemctl restart network</span></span><br><span class="line"></span><br><span class="line">[root@web1 ~]<span class="comment"># ifconfig</span></span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.1.21  netmask 255.255.255.0  broadcast 192.168.1.255</span><br><span class="line">        inet6 fe80::8680:100b:c108:4594  prefixlen 64  scopeid 0x20&lt;<span class="built_in">link</span>&gt;</span><br><span class="line">        ether 00:0c:29:da:8d:<span class="built_in">df</span>  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 3596  bytes 374013 (365.2 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 2763  bytes 380955 (372.0 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 122  bytes 20478 (19.9 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 122  bytes 20478 (19.9 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo:0: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 192.168.1.15  netmask 255.255.255.255</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建LVS-DR集群"><a href="#创建LVS-DR集群" class="headerlink" title="创建LVS-DR集群"></a>创建LVS-DR集群</h2><h2 id="安装ipvsadm软件包-1"><a href="#安装ipvsadm软件包-1" class="headerlink" title="安装ipvsadm软件包"></a>安装ipvsadm软件包</h2><ul>
+<li>管理内核的工具</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># yum install ipvsadm -y</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建虚拟服务器-1"><a href="#创建虚拟服务器-1" class="headerlink" title="创建虚拟服务器"></a>创建虚拟服务器</h2><ul>
+<li>-A  添加虚拟服务器</li>
+<li>-t/-u   设置集群地址（VIP、Virtual IP）tcp/udp</li>
+<li>-s    指定负载调度算法（rr|wrr|lc|wlc|sh…）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#清空所有集群</span></span><br><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -C</span></span><br><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -A -t 192.168.1.15:80 -s rr</span></span><br><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -Ln</span></span><br><span class="line">IP Virtual Server version 1.2.1 (size=4096)</span><br><span class="line">Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line">TCP  192.168.1.15:80 rr</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加real-server-1"><a href="#添加real-server-1" class="headerlink" title="添加real server"></a>添加real server</h2><ul>
+<li><p>添加、删除服务器节点</p>
+<p>-a  添加真实服务器</p>
+<p>-d  删除真实服务器</p>
+<p>-r  指定真实服务器（real Server）的地址</p>
+<p>-m  使用NAT模式</p>
+<p>-g  使用DR模式（默认）</p>
+<p>-i   使用TUN模式</p>
+<p>-w  为节点服务器设置权重，默认为1</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -a -t 192.168.1.15:80 -r 192.168.1.21:80 -g</span></span><br><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -a -t 192.168.1.15:80 -r 192.168.1.22:80 -g</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看集群规则</span></span><br><span class="line">[root@lvs ~]<span class="comment"># ipvsadm -Ln</span></span><br><span class="line">IP Virtual Server version 1.2.1 (size=4096)</span><br><span class="line">Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line">TCP  192.168.1.15:80 rr</span><br><span class="line">  -&gt; 192.168.1.21:80              Route   1      0          0         </span><br><span class="line">  -&gt; 192.168.1.22:80              Route   1      0          0  </span><br></pre></td></tr></table></figure>
+
+<h2 id="开启路由转发-1"><a href="#开启路由转发-1" class="headerlink" title="开启路由转发"></a>开启路由转发</h2><ul>
+<li>开启路由</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># echo &quot;net.ipv4.ip_forward = 1&quot; &gt;&gt; /etc/sysctl.conf </span></span><br><span class="line">[root@lvs ~]<span class="comment"># sysctl -p</span></span><br><span class="line">net.ipv4.ip_forward = 1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>关闭防火墙和SElinux</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@lvs ~]<span class="comment"># iptables -F</span></span><br><span class="line">[root@lvs ~]<span class="comment"># setenforce 0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="浏览器访问测试-1"><a href="#浏览器访问测试-1" class="headerlink" title="浏览器访问测试"></a>浏览器访问测试</h2><ul>
+<li>通过访问VIP 192.168.1.15</li>
+<li>Ctrl+F5强制刷新</li>
+<li>可以看到在192.168.1.21和192.168.1.22之间切换</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/10/tedu-LVS%E9%9B%86%E7%BE%A4/">http://example.com/2023/04/10/tedu-LVS集群/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">CLOUD</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LVS/">LVS</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/lvs.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/09/Ansible%E9%83%A8%E7%BD%B2wordpress/" title="Ansible部署wordpress"><img class="cover" src="/../jihu/wallpaper/used/ansible_wp.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Ansible部署wordpress</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/11/tedu-Keepalived/" title="Keepalived"><img class="cover" src="/../jihu/wallpaper/used/keepalived.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Keepalived</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">Cloud Computing</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LVS%E9%9B%86%E7%BE%A4%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">LVS集群简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9B%86%E7%BE%A4"><span class="toc-number">1.1.</span> <span class="toc-text">什么是集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="toc-number">1.2.</span> <span class="toc-text">集群的目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E5%88%86%E7%B1%BB"><span class="toc-number">1.3.</span> <span class="toc-text">集群分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS%E6%A6%82%E8%BF%B0"><span class="toc-number">1.4.</span> <span class="toc-text">LVS概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS%E6%9C%AF%E8%AF%AD"><span class="toc-number">1.5.</span> <span class="toc-text">LVS术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS-NAT%E5%9B%BE%E7%A4%BA"><span class="toc-number">1.6.</span> <span class="toc-text">LVS-NAT图示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.7.</span> <span class="toc-text">LVS工作模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">1.8.</span> <span class="toc-text">负载均衡调度算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LVS-NAT%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">LVS-NAT模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E8%A7%84%E5%88%92"><span class="toc-number">2.1.</span> <span class="toc-text">节点规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.2.</span> <span class="toc-text">准备web服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85ipvsadm%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.3.</span> <span class="toc-text">安装ipvsadm软件包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.4.</span> <span class="toc-text">创建虚拟服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0real-server"><span class="toc-number">2.5.</span> <span class="toc-text">添加real server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91"><span class="toc-number">2.6.</span> <span class="toc-text">开启路由转发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%99%E5%90%8E%E7%AB%AFweb%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E7%BD%91%E5%85%B3"><span class="toc-number">2.7.</span> <span class="toc-text">给后端web服务器配置网关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%BF%E9%97%AE%E6%B5%8B%E8%AF%95"><span class="toc-number">2.8.</span> <span class="toc-text">浏览器访问测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#LVS-DR%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">LVS-DR模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E8%B0%83%E5%BA%A6%E5%99%A8%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83"><span class="toc-number">3.1.</span> <span class="toc-text">准备调度器网络环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87web%E6%9C%8D%E5%8A%A1%E5%99%A8-1"><span class="toc-number">3.2.</span> <span class="toc-text">准备web服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87web%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83"><span class="toc-number">3.3.</span> <span class="toc-text">准备web网络环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BALVS-DR%E9%9B%86%E7%BE%A4"><span class="toc-number">3.4.</span> <span class="toc-text">创建LVS-DR集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85ipvsadm%E8%BD%AF%E4%BB%B6%E5%8C%85-1"><span class="toc-number">3.5.</span> <span class="toc-text">安装ipvsadm软件包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A8-1"><span class="toc-number">3.6.</span> <span class="toc-text">创建虚拟服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0real-server-1"><span class="toc-number">3.7.</span> <span class="toc-text">添加real server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91-1"><span class="toc-number">3.8.</span> <span class="toc-text">开启路由转发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%BF%E9%97%AE%E6%B5%8B%E8%AF%95-1"><span class="toc-number">3.9.</span> <span class="toc-text">浏览器访问测试</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/" title="公有云：(6)边缘计算平台部署应用"><img src="/../jihu/wallpaper/used/gy6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(6)边缘计算平台部署应用"/></a><div class="content"><a class="title" href="/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/" title="公有云：(6)边缘计算平台部署应用">公有云：(6)边缘计算平台部署应用</a><time datetime="2023-08-11T22:00:00.000Z" title="发表于 2023-08-12 06:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例"><img src="/../jihu/wallpaper/used/gy5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(5)公有云Python运维开发案例"/></a><div class="content"><a class="title" href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例">公有云：(5)公有云Python运维开发案例</a><time datetime="2023-08-11T21:00:00.000Z" title="发表于 2023-08-12 05:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="公有云：(4)公有云Helm模板使用案例"><img src="/../jihu/wallpaper/used/gy4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(4)公有云Helm模板使用案例"/></a><div class="content"><a class="title" href="/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="公有云：(4)公有云Helm模板使用案例">公有云：(4)公有云Helm模板使用案例</a><time datetime="2023-08-11T20:00:00.000Z" title="发表于 2023-08-12 04:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例"><img src="/../jihu/wallpaper/used/gy3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(3)公有云CCE集群操作案例"/></a><div class="content"><a class="title" href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例">公有云：(3)公有云CCE集群操作案例</a><time datetime="2023-08-11T19:00:00.000Z" title="发表于 2023-08-12 03:00:00">2023-08-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>k8s：(8)kubevirt运维案例 | CLOUD</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="kubevirt运维案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s：(8)kubevirt运维案例">
+<meta property="og:url" content="http://example.com/2023/08/11/8-kubevirt%E8%BF%90%E7%BB%B4%E6%A1%88%E4%BE%8B/index.html">
+<meta property="og:site_name" content="CLOUD">
+<meta property="og:description" content="kubevirt运维案例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/k8s8.jpg">
+<meta property="article:published_time" content="2023-08-11T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-04-02T06:37:44.317Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="Kubernetes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/k8s8.jpg"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/08/11/8-kubevirt%E8%BF%90%E7%BB%B4%E6%A1%88%E4%BE%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'k8s：(8)kubevirt运维案例',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-02 14:37:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/k8s8.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="CLOUD"><span class="site-name">CLOUD</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">k8s：(8)kubevirt运维案例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-11T00:00:00.000Z" title="发表于 2023-08-11 08:00:00">2023-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-02T06:37:44.317Z" title="更新于 2024-04-02 14:37:44">2024-04-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%AF%94%E8%B5%9B%E8%B5%9B%E9%A2%98/">比赛赛题</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="k8s：(8)kubevirt运维案例"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h1><p>本案例介绍了在Kubernetes集群中实现KVM，并管理虚拟机生命周期的方法。</p>
+<p>（1）了解KubeVirt环境的部署。</p>
+<p>（2）了解KVM在Kubernetes集群的实现。</p>
+<p>（3）掌握VM的生命周期管理。</p>
+<h2 id="规划节点"><a href="#规划节点" class="headerlink" title="规划节点"></a>规划节点</h2><p>节点规划，见表1-1。</p>
+<p>表1-1节点规划</p>
+<table>
+<thead>
+<tr>
+<th><strong>IP</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>节点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.24.2.7</td>
+<td>master</td>
+<td>Master节点</td>
+</tr>
+<tr>
+<td>10.24.2.8</td>
+<td></td>
+<td>桌面化测试节点</td>
+</tr>
+</tbody></table>
+<h2 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h2><p>确保Kubernetes 1.22.1集群环境已部署完成。</p>
+<h1 id="案例实施"><a href="#案例实施" class="headerlink" title="案例实施"></a>案例实施</h1><h2 id="KubeVirt介绍"><a href="#KubeVirt介绍" class="headerlink" title="KubeVirt介绍"></a>KubeVirt介绍</h2><p>（1）背景介绍</p>
+<p>随着这些年容器技术和云原生技术的发展，Kubernetes在2017年容器编排大战中击败Docker Swarm和Mesos之后，进一步发展壮大。到现在为止，基本上所有公有云的容器服务（xKS服务）和私有云的容器云PaaS平台都是用的Kubernetes，Kubernetes已成为事实上的容器编排标准。从这个意义上讲，可以称Kubernetes为云原生计算的操作系统。</p>
+<p>值得注意的是，在企业的数据中心或云平台上，大部分应用都还没有进行容器化，仍旧以传统二进制代码的方式运行在虚拟机上面。对于某些客户来讲，不希望在运营一个以管理传统虚拟机为主的IaaS平台或虚拟化平台（比如OpenStack或者VMWare）之外，同时运营另外一个基于Kubernetes的容器平台。因此，一个自然而然的想法就形成了。既然Kubernetes在容器编排领域如此成功，能不能使用Kubernetes来管一切虚拟化运行时，包含裸金属、VM、kata、容器等，实现一套调度、多种运行时，用户按需选择。</p>
+<p>基于以上想法，业界在从OpenStack向Kubernetes转型的过程中涌现了一部分比较好的项目，例如KubeVirt、Virtlet、Rancher、VM等，但是社区活跃度最高、公认设计最好的还是KubeVirt。</p>
+<p>KubeVirt总体架构图如图1所示</p>
+<p><img src="../../../../jihu/image/DX/173.png" alt="173"></p>
+<p>图1</p>
+<p>（2）容器里运行虚拟机</p>
+<p>容器里面运行的应用程序本质上是一个进程。容器技术通过采用Linux的命名空间（namespace）和控制组（cgroup）等内核技术实现进程隔离，并且可以对隔离的进程进行资源分配控制。既然容器里面真正运行的是进程，那么，如何能让在容器里面跑虚拟机呢？</p>
+<p>在采用KVM做Hypervisor的Linux机器上，从Hypervisor的角度来看，虚拟机就是一个KVM进程。</p>
+<p>本质上来讲，KubeVirt的虚拟化功能，除了没有直接使用virsh创建虚拟机，本质上也是采用libvirt、QEMU和KVM等同样的虚拟化核心技术来实现的，如图2所示：</p>
+<p><img src="../../../../jihu/image/DX/174.png" alt="174"></p>
+<p>图2</p>
+<p>（3）KubeVirt的实现方式</p>
+<p>KubeVirt充分采用了Kubernetes方式扩展了Kubernetes，主要在以下3个方面进行了扩展：</p>
+<ul>
+<li>VM相关的自定义资源CRD被增加到Kubernetes API中间。新增的CRD包括VirtualMachine、VirtualMachineInstance、VirtualMachineInstanceMigration、DataVolume等。</li>
+<li>新建的虚拟机控制器，用于实现上述相关CRD在增、删、改时应该执行的相关操作。</li>
+<li>每个节点上面的守护进程virt-handler，可以认为是KubeVirt的Kubelet。Virt-handler和Kubelet一起，用于创建虚拟机实例（VMI），以达到CRD中期望的状态。</li>
+</ul>
+<p>KubeVirt的架构图如图3所示：</p>
+<p><img src="../../../../jihu/image/DX/175.png" alt="175"><br>图3</p>
+<p>Kubevirt 主要实现了下面几种资源，以实现对虚拟机的管理：</p>
+<ul>
+<li>VirtualMachineInstance（VMI）：类似于Kubernetes Pod，是管理虚拟机的最小资源。一个VMI对象即表示一台正在运行的虚拟机实例，包含一个虚拟机所需要的各种配置。</li>
+<li>VirtualMachine（VM）：为群集内的VMI提供管理功能，例如开机、关机、重启虚拟机，确保虚拟机实例的启动状态，与虚拟机实例是1:1的关系，类似与spec.replica为1的StatefulSet。</li>
+<li>VirtualMachineInstanceReplicaSet（VMIRS）：类似于ReplicaSet，可以启动指定数量的VMI，并且保证指定数量的VMI运行，可以配置HPA。</li>
+</ul>
+<h2 id="部署KubeVirt环境"><a href="#部署KubeVirt环境" class="headerlink" title="部署KubeVirt环境"></a>部署KubeVirt环境</h2><p>检查CPU是否支持虚拟化：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# egrep -c &#x27;vmx|svm&#x27; /proc/cpuinfo</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
+
+<p>只要输出结果不为0则表示支持虚拟化。VMX和SVM都是虚拟化技术，Intel平台称为VMX–virtual machine extension；AMD平台称为SVM–Secure Virtual Machine extension。</p>
+<p>下载软件包并导入镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# ls</span><br><span class="line">KubeVirt-v1.0.tar.gz</span><br><span class="line">[root@master ~]# tar -xf KubeVirt-v1.0.tar.gz</span><br><span class="line">[root@master ~]# docker load -i KubeVirt/images/images.tar</span><br></pre></td></tr></table></figure>
+
+<p>安装KubeVirt环境：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl apply -f KubeVirt/manifests/kubevirt-operator.yaml</span><br><span class="line">[root@master ~]# kubectl apply -f KubeVirt/manifests/kubevirt-cr.yaml</span><br></pre></td></tr></table></figure>
+
+<p>查看KubeVirt Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n kubevirt get pods</span><br><span class="line">NAME                               READY   STATUS    RESTARTS   AGE</span><br><span class="line">virt-api-5b5479dbdc-n6rx2          1/1     Running   0          47s</span><br><span class="line">virt-controller-66b5c9fbfc-4nj4q   1/1     Running   0          22s</span><br><span class="line">virt-controller-66b5c9fbfc-n7jp5   1/1     Running   0          22s</span><br><span class="line">virt-handler-9rf87                 1/1     Running   0          22s</span><br><span class="line">virt-operator-dd7ffb6fd-5prh9      1/1     Running   0          86s</span><br><span class="line">virt-operator-dd7ffb6fd-xsjzg      1/1     Running   0          86s</span><br></pre></td></tr></table></figure>
+
+<p>安装KubeVirt命令行工具：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# cp KubeVirt/tools/virtctl-v0.56.0-linux-amd64 /usr/bin/virtctl</span><br><span class="line">[root@master ~]# virtctl version</span><br><span class="line">Client Version: version.Info&#123;GitVersion:&quot;v0.56.0&quot;, GitCommit:&quot;b1dbd1bccc882282690331ca84e97ddf83555611&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2022-08-18T20:19:27Z&quot;, GoVersion:&quot;go1.17.8&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;&#125;</span><br><span class="line">Server Version: version.Info&#123;GitVersion:&quot;v0.56.0&quot;, GitCommit:&quot;b1dbd1bccc882282690331ca84e97ddf83555611&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2022-08-18T20:19:27Z&quot;, GoVersion:&quot;go1.17.8&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="虚拟机生命周期"><a href="#虚拟机生命周期" class="headerlink" title="虚拟机生命周期"></a>虚拟机生命周期</h2><p>KubeVirt虚拟机生命周期管理主要分为以下几种状态：</p>
+<ul>
+<li>创建：创建VM对象，并同步创建DataVolume/PVC，通过调度、IP分配后生成VMI以及管理VM的Launcher Pod。</li>
+<li>运行：运行状态下的VM可以进行控制台管理、快照备份/恢复、热迁移、磁盘热挂载/热删除等操作，此外还可以进行重启、下电操作，提高VM安全的同时解决业务存储空间需求和主机异常Hung等问题。</li>
+<li>关机：关机状态下的VM可以进行快照备份/恢复、冷迁移、CPU/MEM规格变更、重命名以及磁盘挂载等操作，同时可通过重新启动进入运行状态，也可删除进行资源回收。</li>
+<li>删除：对VM资源进行回收，但VM所属的磁盘数据仍将保留、具备恢复条件。</li>
+</ul>
+<p>KubeVirt生命周期管理如图4所示：</p>
+<p><img src="../../../../jihu/image/DX/176.png" alt="176"></p>
+<p>图4</p>
+<p>（1）创建</p>
+<p>VM资源清单文件模板如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: kubevirt.io/v1  # API版本号</span><br><span class="line">kind: VirtualMachine  # 对象类型，VM</span><br><span class="line">metadata:  # 元数据</span><br><span class="line">  creationTimestamp: null</span><br><span class="line">  labels:  # 自定义标签的名称和值</span><br><span class="line">    kubevirt-vm: vm-$&#123;NAME&#125;</span><br><span class="line">    kubevirt.io/os: fedora27</span><br><span class="line">  name: $&#123;NAME&#125;  # VM名称</span><br><span class="line">spec:</span><br><span class="line">  running: false  # 决定是否启动VMI</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        kubevirt-vm: vm-$&#123;NAME&#125;</span><br><span class="line">        kubevirt.io/os: fedora27</span><br><span class="line">    spec:</span><br><span class="line">      domain:</span><br><span class="line">        cpu:</span><br><span class="line">          cores: $&#123;&#123;CPU_CORES&#125;&#125;  # vCPUS数量</span><br><span class="line">        devices:</span><br><span class="line">          disks:</span><br><span class="line">          - disk:  # 提供用户数据user-data和元数据meta-data</span><br><span class="line">              bus: virtio</span><br><span class="line">            name: cloudinitdisk</span><br><span class="line">          - disk:  # 系统盘（必选）</span><br><span class="line">              bus: virtio</span><br><span class="line">            name: containerdisk</span><br><span class="line">          interfaces:  # 网络接口</span><br><span class="line">          - masquerade: &#123;&#125;</span><br><span class="line">            model: virtio</span><br><span class="line">            name: default</span><br><span class="line">          networkInterfaceMultiqueue: true</span><br><span class="line">          rng: &#123;&#125;</span><br><span class="line">        resources:  # 资源请求</span><br><span class="line">          requests:</span><br><span class="line">            memory: $&#123;MEMORY&#125;</span><br><span class="line">      networks:</span><br><span class="line">      - name: default</span><br><span class="line">        pod: &#123;&#125;  # 使用Kubernetes默认Pod网络</span><br><span class="line">      terminationGracePeriodSeconds: 0</span><br><span class="line">      volumes:</span><br><span class="line">      - cloudInitNoCloud:  # 初始化操作</span><br><span class="line">          userData: |-</span><br><span class="line">            #cloud-config</span><br><span class="line">            password: fedora</span><br><span class="line">            chpasswd: &#123; expire: False &#125;</span><br><span class="line">        name: cloudinitdisk</span><br><span class="line">      - containerDisk:</span><br><span class="line">          image: $&#123;IMAGE&#125;  # 系统镜像</span><br><span class="line">        name: containerdisk</span><br></pre></td></tr></table></figure>
+
+<p>编写VM资源清单文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vi vm.yaml</span><br><span class="line">apiVersion: kubevirt.io/v1</span><br><span class="line">kind: VirtualMachine</span><br><span class="line">metadata:</span><br><span class="line">  labels:</span><br><span class="line">    kubevirt.io/vm: vm-fedora</span><br><span class="line">  name: vm-fedora</span><br><span class="line">spec:</span><br><span class="line">  running: false</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        kubevirt.io/vm: vm-fedora</span><br><span class="line">    spec:</span><br><span class="line">      domain:</span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            memory: 1Gi</span><br><span class="line">        devices:</span><br><span class="line">          disks:</span><br><span class="line">          - name: containerdisk</span><br><span class="line">            disk:</span><br><span class="line">              bus: virtio</span><br><span class="line">      volumes:</span><br><span class="line">      - name: containerdisk</span><br><span class="line">        containerDisk:</span><br><span class="line">          image: kubevirt/fedora-cloud:v1.0</span><br><span class="line">          imagePullPolicy: IfNotPresent</span><br></pre></td></tr></table></figure>
+
+<p>创建VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl apply -f vm.yaml</span><br></pre></td></tr></table></figure>
+
+<p>查看VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vm</span><br><span class="line">NAME       AGE  STATUS   READY</span><br><span class="line">vm-fedora  20s  Stopped  False</span><br></pre></td></tr></table></figure>
+
+<p>因为.spec.running字段的值设置的false，所有虚拟机的状态是Stopped，由于VM还没启动，所以目前还没有VMI资源，只有VM资源。</p>
+<p>（2）启动</p>
+<p>启动VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# virtctl start vm-fedora</span><br><span class="line">VM vm-fedora was scheduled to start</span><br></pre></td></tr></table></figure>
+
+<p>查看VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vm</span><br><span class="line">NAME        AGE  STATUS   READY</span><br><span class="line">vm-fedora  118s  Running  True</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，VM的状态已经变为Running了。</p>
+<p>查看对应的VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vmi</span><br><span class="line">NAME       AGE  PHASE    IP            NODENAME  READY</span><br><span class="line">vm-fedora  52s  Running  192.244.0.13  master    True</span><br></pre></td></tr></table></figure>
+
+<p>（3）暂停和取消暂停</p>
+<p>暂停VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# virtctl pause vm vm-fedora</span><br><span class="line">VMI vm-fedora was scheduled to pause</span><br><span class="line">[root@master ~]# kubectl get vm</span><br><span class="line">NAME       AGE    STATUS  READY</span><br><span class="line">vm-fedora  7m10s  Paused  False</span><br></pre></td></tr></table></figure>
+
+<p>查看暂停后的VMI状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vm vm-fedora -o=jsonpath=&#x27;&#123;.status.conditions[?(@.type==&quot;Paused&quot;)].message&#125;&#x27;</span><br><span class="line">VMI was paused by user</span><br></pre></td></tr></table></figure>
+
+<p>取消暂停VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# virtctl unpause vm vm-fedora</span><br><span class="line">VMI vm-fedora was scheduled to unpause</span><br></pre></td></tr></table></figure>
+
+<p>（4）重启VM</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# virtctl restart vm-fedora</span><br><span class="line">VM vm-fedora was scheduled to restart</span><br></pre></td></tr></table></figure>
+
+<p>（5）删除VM</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl delete vm vm-fedora</span><br></pre></td></tr></table></figure>
+
+<h2 id="虚拟机运行策略"><a href="#虚拟机运行策略" class="headerlink" title="虚拟机运行策略"></a>虚拟机运行策略</h2><p>VM配置文件中的Running字段用来确定是否运行VMI。Running是一个布尔值，只能为真或假，并不总是满足用户的需求。例如，在某些情况下，用户希望能够从VM内部关闭VMI，但是使用“spec.running: true”，KubeVirt将立即重新启动VMI。</p>
+<p>RunStrategy会根据一系列条件决定VMI的行为，作为Running的替代方案，RunStrategy为创建和管理VMI提供了更大的灵活性。Running和RunStrategy是相互排斥的，只能同时使用spec.running或spec.runStrategy之一，如果两者都存在，则会出现错误。</p>
+<p>RunStrategy目前支持四种策略：</p>
+<ul>
+<li>Always：在创建VM时，始终会存在VMI。如果因为任何原因造成原始的VMI停止运行，则会创建一个新的VMI，这与spec.running: true的行为相同。</li>
+<li>RerunOnFailure：如果上一个VMI因为错误而失败，则会重新创建一个VMI。如果VM成功停止（例如VM正常关机），则不会重新创建VMI。</li>
+<li>Manual：KubeVirt不会尝试启动或停止VM。为了改变状态，用户必须从API调用start、stop和restart，virtctl客户端命令可以用来控制VMI的状态。</li>
+<li>Halted：创建VM时没有VMI，这与spec.running: false的行为相同。</li>
+</ul>
+<p>Always运行策略的示例用法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vi vm-runstrategy.yaml </span><br><span class="line">apiVersion: kubevirt.io/v1</span><br><span class="line">kind: VirtualMachine</span><br><span class="line">metadata:</span><br><span class="line">  labels:</span><br><span class="line">    kubevirt.io/vm: vm-fedora</span><br><span class="line">  name: vm-fedora</span><br><span class="line">spec:</span><br><span class="line">  runStrategy: Always</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        kubevirt.io/vm: vm-fedora</span><br><span class="line">    spec:</span><br><span class="line">      domain:</span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            memory: 1Gi</span><br><span class="line">        devices:</span><br><span class="line">          disks:</span><br><span class="line">          - name: containerdisk</span><br><span class="line">            disk:</span><br><span class="line">              bus: virtio</span><br><span class="line">      volumes:</span><br><span class="line">      - name: containerdisk</span><br><span class="line">        containerDisk:</span><br><span class="line">          image: kubevirt/fedora-cloud:v1.0</span><br><span class="line">          imagePullPolicy: IfNotPresent</span><br></pre></td></tr></table></figure>
+
+<p>创建VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl apply -f vm-runstrategy.yaml </span><br><span class="line">virtualmachine.kubevirt.io/vm-fedora created</span><br></pre></td></tr></table></figure>
+
+<p>查看VM和VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vm</span><br><span class="line">NAME        AGE   STATUS    READY</span><br><span class="line">vm-fedora   11s   Running   True</span><br><span class="line">[root@master ~]# kubectl get vmi</span><br><span class="line">NAME        AGE   PHASE     IP             NODENAME   READY</span><br><span class="line">vm-fedora   14s   Running   192.244.0.15   master     True</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，VM创建后的状态为Running，对应的VMI也已运行。使用virtctl的start、stop和restart命令可以影响VM的运行策略。</p>
+<p>表1-2显示了VM在运行virtctl命令后运行策略的变化。第一列显示了VM原始的运行策略，其它列显示运行的virtctl命令以及在运行该命令后的新的运行策略。</p>
+<p>表1-2 VM在运行virtctl命令后运行策略的变化</p>
+<table>
+<thead>
+<tr>
+<th>RunStrategy</th>
+<th>start</th>
+<th>stop</th>
+<th>restart</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Always</td>
+<td>-</td>
+<td>Halted</td>
+<td>Always</td>
+</tr>
+<tr>
+<td>RerunOnFailure</td>
+<td>-</td>
+<td>Halted</td>
+<td>RerunOnFailure</td>
+</tr>
+<tr>
+<td>Manual</td>
+<td>Manual</td>
+<td>Manual</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td>Halted</td>
+<td>Always</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p>使用virtctl工具对该VM执行stop操作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# virtctl stop vm-fedora</span><br><span class="line">VM vm-fedora was scheduled to stop</span><br></pre></td></tr></table></figure>
+
+<p>查看VM和VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vm</span><br><span class="line">NAME        AGE     STATUS    READY</span><br><span class="line">vm-fedora   6m35s   Stopped   False</span><br><span class="line">[root@master ~]# kubectl get vmi</span><br><span class="line">No resources found in default namespace.</span><br></pre></td></tr></table></figure>
+
+<p>此时VMI已经消失。查看VM的RunStrategy：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vm vm-fedora -o jsonpath=&#123;.spec.runStrategy&#125;</span><br><span class="line">Halted</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，在执行“virtctl stop”命令后，VM的RunStrategy由Always变成了Halted。</p>
+<p>删除VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl delete vm vm-fedora</span><br></pre></td></tr></table></figure>
+
+<h2 id="虚拟机存储卷"><a href="#虚拟机存储卷" class="headerlink" title="虚拟机存储卷"></a>虚拟机存储卷</h2><p>存储卷是启动虚拟机必不可少的部分，KubeVirt 中提供多种方式的存储卷，存储卷的使用方式非常灵活。</p>
+<p>KubeVirt支持在spec.volumes下指定多种类型的卷：</p>
+<ul>
+<li>cloudInitConfigDrive：通过给VM挂载一个文件系统，给cloud-init提供meta-data和user-data。</li>
+<li>cloudInitNoCloud：通过给VM挂载一个文件系统，给cloud-init提供meta-data和user-data，生成的文件格式与ConfigDrive不同。</li>
+<li>containerDisk：指定一个包含QCOW2或RAW格式的Docker镜像，重启VM数据会丢失。</li>
+<li>dataVolume：动态创建一个PVC，并用指定的磁盘映像填充该PVC，重启VM数据不会丢失。</li>
+<li>emptyDisk：从宿主机上分配固定容量的空间，映射到VM中的一块磁盘，与emptyDir一样，emptyDisk的生命周期与VM等同，重启VM数据会丢失。</li>
+<li>ephemeral：在VM启动时创建一个临时卷，VM关闭后自动销毁，临时卷在不需要磁盘持久性的任何情况下都很有用。</li>
+<li>hostDisk：在宿主机上创建一个IMG镜像文件给VM使用。重启VM数据不会丢失。</li>
+<li>persistentVolumeClaim：指定一个PVC创建一个块设备。重启VM数据不会丢失。</li>
+<li>secret：使用Kubernetes的secret来存储和管理一些敏感数据，比如密码、Token、密钥等敏感信息，并把这些信息注入给VM，可以动态更新到Pod，但是不能修改Pod中生成的ISO文件，更不能更新到VM。要想更新到VM，需重启VM。</li>
+<li>configMap：功能类似于secret，把configMap里的信息写入到ISO磁盘中，挂给VM。</li>
+<li>serviceAccount：功能类似为secret，把serviceAccount里的信息写入到ISO磁盘中，挂给VM。</li>
+<li>sysprep：以secret或configMap的形式，往VM写入sysprep。</li>
+</ul>
+<p>（1）containerDisk</p>
+<p>KubeVirt 可以使用 ContainerDisk 类型的存储卷，ContainerDisk 提供了一种以 registry 存储和分发虚拟机镜像的方案，可以使用这种方式制作上传镜像。</p>
+<p>虚拟机镜像制作流程如图5所示：</p>
+<p><img src="../../../../jihu/image/DX/177.png" alt="177"><br>图5</p>
+<p>虚拟机镜像采用容器镜像形式存放在镜像仓库中。将Linux发行版本的镜像文件存放到基础镜像的/disk目录内，镜像格式支持QCOW2、RAW和IMG。通过Dockerfile文件将虚拟机镜像制作成容器镜像，然后分别推送到不同的registry镜像仓库中。客户在创建虚拟机时，根据配置的优先级策略拉取registry中的虚拟机容器镜像。</p>
+<p>编写Dockerfile：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vi Dockerfile </span><br><span class="line">FROM scratch</span><br><span class="line">ADD KubeVirt/images/cirros-0.5.2-x86_64-disk.img /disk/</span><br></pre></td></tr></table></figure>
+
+<p>构建镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# docker build -t cirros:v1.0 .</span><br><span class="line">Sending build context to Docker daemon   80.6MB</span><br><span class="line">Step 1/2 : FROM scratch</span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">Step 2/2 : ADD KubeVirt/images/cirros-0.5.2-x86_64-disk.img /disk/</span></span><br><span class="line"><span class="meta prompt_"> ---&gt; </span><span class="language-bash">bef33c2671f3</span></span><br><span class="line">Successfully built bef33c2671f3</span><br><span class="line">Successfully tagged cirros:v1.0</span><br></pre></td></tr></table></figure>
+
+<p>使用新构建的镜像，并将ContainerDisk作为临时磁盘附加到VM：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vi vmi-containerdisk.yaml </span><br><span class="line">apiVersion: kubevirt.io/v1</span><br><span class="line">kind: VirtualMachineInstance</span><br><span class="line">metadata:</span><br><span class="line">  labels:</span><br><span class="line">    special: vmi-cirros</span><br><span class="line">  name: vmi-cirros</span><br><span class="line">spec:</span><br><span class="line">  domain:</span><br><span class="line">    devices:</span><br><span class="line">      disks:</span><br><span class="line">      - disk:</span><br><span class="line">          bus: virtio</span><br><span class="line">        name: containerdisk</span><br><span class="line">    resources:</span><br><span class="line">      requests:</span><br><span class="line">        memory: 1024M</span><br><span class="line">  terminationGracePeriodSeconds: 0</span><br><span class="line">  volumes:</span><br><span class="line">  - containerDisk:</span><br><span class="line">      image: cirros:v1.0</span><br><span class="line">      imagePullPolicy: IfNotPresent</span><br><span class="line">    name: containerdisk</span><br></pre></td></tr></table></figure>
+
+<p>创建VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl apply -f vmi-containerdisk.yaml </span><br><span class="line">virtualmachineinstance.kubevirt.io/vmi-cirros created</span><br></pre></td></tr></table></figure>
+
+<p>查看VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vmi</span><br><span class="line">NAME         AGE   PHASE     IP             NODENAME   READY</span><br><span class="line">vmi-cirros   26s   Running   192.244.0.16   master     True</span><br></pre></td></tr></table></figure>
+
+<p>删除VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl delete vmi vmi-cirros</span><br></pre></td></tr></table></figure>
+
+<p>（2）cloudInitNoCloud</p>
+<p>cloudInitNoCloud利用cloud-init对虚拟机做初始化，类似于nova中的configdrive，包含元数据meta-data和用户数据user-data。meta-data能实现一些固定功能设置，如主机名称，user-data则可以实现更多灵活的功能，如生成文件、执行脚本等。</p>
+<p>如基于cloudInitNoCloud设置VMI密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vi vmi-cloudinit.yaml </span><br><span class="line">apiVersion: kubevirt.io/v1</span><br><span class="line">kind: VirtualMachineInstance</span><br><span class="line">metadata:</span><br><span class="line">  labels:</span><br><span class="line">    special: vmi-fedora</span><br><span class="line">  name: vmi-fedora</span><br><span class="line">spec:</span><br><span class="line">  domain:</span><br><span class="line">    devices:</span><br><span class="line">      disks:</span><br><span class="line">      - disk:</span><br><span class="line">          bus: virtio</span><br><span class="line">        name: containerdisk</span><br><span class="line">      - disk:</span><br><span class="line">          bus: virtio</span><br><span class="line">        name: cloudinitdisk</span><br><span class="line">      rng: &#123;&#125;</span><br><span class="line">    resources:</span><br><span class="line">      requests:</span><br><span class="line">        memory: 1024M</span><br><span class="line">  terminationGracePeriodSeconds: 0</span><br><span class="line">  volumes:</span><br><span class="line">  - containerDisk:</span><br><span class="line">      image: kubevirt/fedora-cloud:v1.0</span><br><span class="line">      imagePullPolicy: IfNotPresent</span><br><span class="line">    name: containerdisk</span><br><span class="line">  - cloudInitNoCloud:</span><br><span class="line">      userData: |-</span><br><span class="line">        #cloud-config</span><br><span class="line">        password: fedora</span><br><span class="line">        chpasswd: &#123; expire: False &#125;</span><br><span class="line">    name: cloudinitdisk</span><br></pre></td></tr></table></figure>
+
+<p>创建VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl apply -f vmi-cloudinit.yaml</span><br></pre></td></tr></table></figure>
+
+<p>查看VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get vmi</span><br><span class="line">NAME     AGE  PHASE   IP       NODENAME  READY</span><br><span class="line">vmi-fedora  23s  Running  192.244.0.17  master   True</span><br></pre></td></tr></table></figure>
+
+<p>创建VMI的时候通过cloudInitNoCloud设置系统密码为fedora，使用该密码连接VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# virtctl console vmi-fedora</span><br><span class="line">Successfully connected to vmi-fedora console. The escape sequence is ^]</span><br><span class="line"></span><br><span class="line">vmi-fedora login: fedora</span><br><span class="line">Password: </span><br><span class="line">[fedora@vmi-fedora ~]$ vi /etc/redhat-release </span><br><span class="line">Fedora release 32 (Thirty Two)</span><br></pre></td></tr></table></figure>
+
+<p>使用“Ctrl + ]”组合即可退出console控制台界面。</p>
+<p>删除VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl delete vmi vmi-fedora</span><br></pre></td></tr></table></figure>
+
+<p>（3）emptyDisk</p>
+<p>emptyDisk的工作原理类似于Kubernetes中的emptyDir，将创建额外的稀疏QCOW2磁盘，emptyDisk的生命周期与VMI等同。当VMI初始化重启后，数据保留下来，但当VMI重启时，数据将被丢弃。创建emptyDisk时必须提供磁盘容量大小。</p>
+<p>例如为VMI额外创建一块2 GB大小的磁盘：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 KubeVirt]# vi vmi-emptydisk.yaml</span><br><span class="line">apiVersion: kubevirt.io/v1</span><br><span class="line">kind: VirtualMachineInstance</span><br><span class="line">metadata:</span><br><span class="line">  labels:</span><br><span class="line">    special: vmi-fedora</span><br><span class="line">  name: vmi-fedora</span><br><span class="line">spec:</span><br><span class="line">  domain:</span><br><span class="line">    devices:</span><br><span class="line">      disks:</span><br><span class="line">      - disk:</span><br><span class="line">          bus: virtio</span><br><span class="line">        name: containerdisk</span><br><span class="line">      - name: emptydisk</span><br><span class="line">        disk:</span><br><span class="line">          bus: virtio</span><br><span class="line">      - disk:</span><br><span class="line">          bus: virtio</span><br><span class="line">        name: cloudinitdisk</span><br><span class="line">    resources:</span><br><span class="line">      requests:</span><br><span class="line">        memory: 1024M</span><br><span class="line">  terminationGracePeriodSeconds: 0</span><br><span class="line">  volumes:</span><br><span class="line">  - containerDisk:</span><br><span class="line">      image: kubevirt/fedora-cloud:v1.0</span><br><span class="line">    name: containerdisk</span><br><span class="line">  - name: emptydisk</span><br><span class="line">    emptyDisk:</span><br><span class="line">      capacity: 2Gi</span><br><span class="line">  - cloudInitNoCloud:</span><br><span class="line">      userData: |-</span><br><span class="line">        #cloud-config</span><br><span class="line">        password: fedora</span><br><span class="line">        chpasswd: &#123; expire: False &#125;</span><br><span class="line">    name: cloudinitdisk</span><br></pre></td></tr></table></figure>
+
+<p>创建VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl apply -f vmi-emptydisk.yaml </span><br></pre></td></tr></table></figure>
+
+<p>查看VMI磁盘信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# virtctl console vmi-fedora </span><br><span class="line">Successfully connected to vmi-fedora console. The escape sequence is ^]</span><br><span class="line"></span><br><span class="line">vmi-fedora login: fedora</span><br><span class="line">Password: </span><br><span class="line">[fedora@vmi-fedora ~]$ lsblk </span><br><span class="line">NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT</span><br><span class="line">vda    252:0    0   4G  0 disk </span><br><span class="line">└─vda1 252:1    0   4G  0 part /</span><br><span class="line">vdb    252:16   0   2G  0 disk </span><br><span class="line">vdc    252:32   0   1M  0 disk </span><br></pre></td></tr></table></figure>
+
+<p>可以看到VMI中挂载了一块磁盘vdb，大小为2 GB，说明emptyDisk创建成功。<br>使用“Ctrl + ]”组合键即可退出console控制台界面。<br>删除VMI：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl delete vmi vmi-fedora</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/11/8-kubevirt%E8%BF%90%E7%BB%B4%E6%A1%88%E4%BE%8B/">http://example.com/2023/08/11/8-kubevirt运维案例/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">CLOUD</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Kubernetes/">Kubernetes</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/k8s8.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/11/7-%E5%9F%BA%E4%BA%8EKubernetes%E6%9E%84%E5%BB%BACICD%E6%A1%88%E4%BE%8B/" title="k8s：(7)基于Kubernetes构建CICD案例"><img class="cover" src="/../jihu/wallpaper/used/k8s7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">k8s：(7)基于Kubernetes构建CICD案例</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/11/9-%E5%AE%B9%E5%99%A8%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="k8s：(9)容器云Python运维开发案例"><img class="cover" src="/../jihu/wallpaper/used/k8s9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">k8s：(9)容器云Python运维开发案例</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/11/1-K8s%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%BF%90%E7%BB%B4/" title="k8s：(1)K8s平台部署与基础运维"><img class="cover" src="/../jihu/wallpaper/used/k8s1.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(1)K8s平台部署与基础运维</div></div></a></div><div><a href="/2023/08/11/2-%E5%9F%BA%E4%BA%8Edocker-compose%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" title="k8s：(2)基于docker-compose编排部署微服务快速开发框架"><img class="cover" src="/../jihu/wallpaper/used/k8s2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(2)基于docker-compose编排部署微服务快速开发框架</div></div></a></div><div><a href="/2023/08/11/3-%E5%9F%BA%E4%BA%8Edocker-compose+Django%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/" title="k8s：(3)基于docker-compose+Django编排部署博客系统"><img class="cover" src="/../jihu/wallpaper/used/k8s3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(3)基于docker-compose+Django编排部署博客系统</div></div></a></div><div><a href="/2023/08/11/4-%E5%9F%BA%E4%BA%8Edocker-compose%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2Hyperf/" title="k8s：(4)基于docker-compose编排部署Hyperf"><img class="cover" src="/../jihu/wallpaper/used/k8s4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(4)基于docker-compose编排部署Hyperf</div></div></a></div><div><a href="/2023/08/11/5-%E5%9F%BA%E4%BA%8EKubernetes_+_Istio%E5%AE%9E%E7%8E%B0%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/" title="k8s：(5)基于Kubernetes+Istio实现灰度发布案例"><img class="cover" src="/../jihu/wallpaper/used/k8s5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(5)基于Kubernetes+Istio实现灰度发布案例</div></div></a></div><div><a href="/2023/08/11/6-%E5%9F%BA%E4%BA%8EHelm3%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/" title="k8s：(6)基于Helm3实现服务发布案例"><img class="cover" src="/../jihu/wallpaper/used/k8s6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(6)基于Helm3实现服务发布案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">Cloud Computing</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">案例描述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">规划节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87"><span class="toc-number">1.2.</span> <span class="toc-text">基础准备</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD"><span class="toc-number">2.</span> <span class="toc-text">案例实施</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#KubeVirt%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.</span> <span class="toc-text">KubeVirt介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2KubeVirt%E7%8E%AF%E5%A2%83"><span class="toc-number">2.2.</span> <span class="toc-text">部署KubeVirt环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">2.3.</span> <span class="toc-text">虚拟机生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%90%E8%A1%8C%E7%AD%96%E7%95%A5"><span class="toc-number">2.4.</span> <span class="toc-text">虚拟机运行策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="toc-number">2.5.</span> <span class="toc-text">虚拟机存储卷</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/" title="公有云：(6)边缘计算平台部署应用"><img src="/../jihu/wallpaper/used/gy6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(6)边缘计算平台部署应用"/></a><div class="content"><a class="title" href="/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/" title="公有云：(6)边缘计算平台部署应用">公有云：(6)边缘计算平台部署应用</a><time datetime="2023-08-11T22:00:00.000Z" title="发表于 2023-08-12 06:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例"><img src="/../jihu/wallpaper/used/gy5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(5)公有云Python运维开发案例"/></a><div class="content"><a class="title" href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例">公有云：(5)公有云Python运维开发案例</a><time datetime="2023-08-11T21:00:00.000Z" title="发表于 2023-08-12 05:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="公有云：(4)公有云Helm模板使用案例"><img src="/../jihu/wallpaper/used/gy4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(4)公有云Helm模板使用案例"/></a><div class="content"><a class="title" href="/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="公有云：(4)公有云Helm模板使用案例">公有云：(4)公有云Helm模板使用案例</a><time datetime="2023-08-11T20:00:00.000Z" title="发表于 2023-08-12 04:00:00">2023-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例"><img src="/../jihu/wallpaper/used/gy3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="公有云：(3)公有云CCE集群操作案例"/></a><div class="content"><a class="title" href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例">公有云：(3)公有云CCE集群操作案例</a><time datetime="2023-08-11T19:00:00.000Z" title="发表于 2023-08-12 03:00:00">2023-08-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
