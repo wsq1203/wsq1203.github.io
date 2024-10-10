@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>k8s：(7)基于Kubernetes构建CICD案例 | Blog</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="基于Kubernetes构建CICD案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s：(7)基于Kubernetes构建CICD案例">
+<meta property="og:url" content="http://example.com/2023/08/11/7-%E5%9F%BA%E4%BA%8EKubernetes%E6%9E%84%E5%BB%BACICD%E6%A1%88%E4%BE%8B/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="基于Kubernetes构建CICD案例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/cicd.png">
+<meta property="article:published_time" content="2023-08-10T23:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-10T08:13:04.771Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="Kubernetes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/cicd.png"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/08/11/7-%E5%9F%BA%E4%BA%8EKubernetes%E6%9E%84%E5%BB%BACICD%E6%A1%88%E4%BE%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'k8s：(7)基于Kubernetes构建CICD案例',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-10 16:13:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/cicd.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Blog"><span class="site-name">Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">k8s：(7)基于Kubernetes构建CICD案例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-10T23:00:00.000Z" title="发表于 2023-08-11 07:00:00">2023-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-10T08:13:04.771Z" title="更新于 2024-10-10 16:13:04">2024-10-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E9%87%8C%E9%9B%BE%E9%87%8C/">云里雾里</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="k8s：(7)基于Kubernetes构建CICD案例"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h1><p>本案例主要使用Kubernetes+Jenkins+GitLab构建持续集成项目，具体如下：</p>
+<p>（1）掌握Jenklins和GitLab的基本使用。</p>
+<p>（2）了解Blue Ocean的使用和管理。</p>
+<p>（3）掌握Jenkinsfile的语法和编写方式。</p>
+<h2 id="规划节点"><a href="#规划节点" class="headerlink" title="规划节点"></a>规划节点</h2><p>节点规划见表1-1。</p>
+<p>表1-1节点规划</p>
+<table>
+<thead>
+<tr>
+<th><strong>IP</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>节点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.26.15.244</td>
+<td>master</td>
+<td>Kubernetes单节点集群</td>
+</tr>
+<tr>
+<td>10.26.15.243</td>
+<td></td>
+<td>桌面化的测试节点</td>
+</tr>
+</tbody></table>
+<h2 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h2><p>确保Kubernetes集群已部署完成。</p>
+<h1 id="案例实施"><a href="#案例实施" class="headerlink" title="案例实施"></a>案例实施</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Kubernetes构建CI/CD的流程拓扑图如下：</p>
+<p><img src="../../../../jihu/image/DX/127.png" alt="127"><br>图1</p>
+<p>涉及到的工具与技术包括：</p>
+<ul>
+<li>GitLab：常用的源代码管理系统。</li>
+<li>Jenkins、Jenkins Pipeline：常用的自动化构建、部署工具，Pipeline以流水线的方式将构建、部署的各个步骤组织起来。</li>
+<li>Docker、Dockerfile：容器引擎，所有应用最终都要以Docker容器运行，Dockerfile是Docker镜像定义文件。</li>
+<li>Kubernetes：Google开源的容器编排管理系统。</li>
+</ul>
+<h2 id="部署Harbor"><a href="#部署Harbor" class="headerlink" title="部署Harbor"></a>部署Harbor</h2><p>（1）基础准备</p>
+<p>下载软件包到本地：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# ls</span><br><span class="line">BlueOcean.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压软件包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# tar -zxf BlueOcean.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>（2）部署Harbor</p>
+<p>安装Docker Compose：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# cp BlueOcean/tools/docker-compose-Linux-x86_64 /usr/bin/docker-compose</span><br><span class="line">[root@master ~]# docker-compose version</span><br><span class="line">docker-compose version 1.25.0, build 0a186604</span><br><span class="line">docker-py version: 4.1.0</span><br><span class="line">CPython version: 3.7.4</span><br><span class="line">OpenSSL version: OpenSSL 1.1.0l  10 Sep 2019</span><br></pre></td></tr></table></figure>
+
+<p>安装Harbor仓库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# tar -zxf BlueOcean/harbor-offline-installer.tar.gz -C /opt/</span><br><span class="line">[root@master ~]# sh /opt/harbor/install.sh</span><br></pre></td></tr></table></figure>
+
+<p>部署完成后Harbor镜像仓库默认用户为admin，密码为Harbor12345。</p>
+<p>（3）访问Harbor</p>
+<p>在Web端使用火狐浏览器登录Harbor（<a href="http://master），登录成功后如图2所示：">http://master），登录成功后如图2所示：</a></p>
+<p><img src="../../../../jihu/image/DX/128.png" alt="128"></p>
+<p>图2</p>
+<p>新建springcloud项目，访问级别设置为公开，如图3所示：</p>
+<p><img src="../../../../jihu/image/DX/129.png" alt="129"></p>
+<p>图3</p>
+<p>创建完成后如图4所示：</p>
+<p><img src="../../../../jihu/image/DX/130.png" alt="130"></p>
+<p>图4</p>
+<p>上传镜像到Harbor（IP为master节点地址）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# docker login -uadmin -pHarbor12345 10.26.15.244</span><br><span class="line">[root@master ~]# docker load -i BlueOcean/images/maven_latest.tar</span><br><span class="line">[root@master ~]# docker tag maven 10.26.15.244/library/maven</span><br><span class="line">[root@master ~]# docker push 10.26.15.244/library/maven</span><br><span class="line">[root@master ~]# docker load -i BlueOcean/images/java_8-jre.tar</span><br><span class="line">[root@master ~]# docker load -i BlueOcean/images/jenkins_jenkins_latest.tar</span><br><span class="line">[root@master ~]# docker load -i BlueOcean/images/gitlab_gitlab-ce_latest.tar</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署Jenkins"><a href="#部署Jenkins" class="headerlink" title="部署Jenkins"></a>部署Jenkins</h2><p>（1）安装Jenkins</p>
+<p>新建命名空间：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl create ns devops</span><br></pre></td></tr></table></figure>
+
+<p>部署Jenkins需要使用到一个拥有相关权限的serviceAccount，名称为jenkins-admin，可以给jenkins-admin赋予一些必要的权限，也可以直接绑定一个cluster-admin的集群角色权限，此处选择给予集群角色权限。编写Jenkins资源清单文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vi jenkins-deploy.yaml </span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: jenkins</span><br><span class="line">  labels:</span><br><span class="line">    app: jenkins</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: http</span><br><span class="line">    port: 8080</span><br><span class="line">    targetPort: 8080</span><br><span class="line">    nodePort: 30880</span><br><span class="line">  - name: agent</span><br><span class="line">    port: 50000</span><br><span class="line">    targetPort: agent</span><br><span class="line">    nodePort: 30850</span><br><span class="line">  selector:</span><br><span class="line">    app: jenkins</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: jenkins</span><br><span class="line">  labels:</span><br><span class="line">    app: jenkins</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: jenkins</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: jenkins</span><br><span class="line">    spec:</span><br><span class="line">      serviceAccountName: jenkins-admin</span><br><span class="line">      containers:</span><br><span class="line">      - name: jenkins</span><br><span class="line">        image: jenkins/jenkins:latest</span><br><span class="line">        imagePullPolicy: IfNotPresent</span><br><span class="line">        securityContext: </span><br><span class="line">          runAsUser: 0</span><br><span class="line">          privileged: true</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - mountPath: /var/jenkins_home</span><br><span class="line">          name: jenkinshome</span><br><span class="line">        - mountPath: /usr/bin/docker</span><br><span class="line">          name: docker</span><br><span class="line">        - mountPath: /var/run/docker.sock</span><br><span class="line">          name: dockersock</span><br><span class="line">        - mountPath: /usr/bin/kubectl</span><br><span class="line">          name: kubectl</span><br><span class="line">        - mountPath: /root/.kube</span><br><span class="line">          name: kubeconfig</span><br><span class="line">      volumes:</span><br><span class="line">      - name: jenkinshome</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /home/jenkins_home</span><br><span class="line">      - name: docker</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /usr/bin/docker</span><br><span class="line">      - name: dockersock</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /var/run/docker.sock</span><br><span class="line">      - name: kubectl</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /usr/bin/kubectl</span><br><span class="line">      - name: kubeconfig</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /root/.kube</span><br><span class="line">---</span><br><span class="line">kind: PersistentVolumeClaim</span><br><span class="line">apiVersion: v1</span><br><span class="line">metadata:</span><br><span class="line">  name: jenkinshome</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io/storage-class: local-path</span><br><span class="line">spec:</span><br><span class="line">  accessModes:</span><br><span class="line">    - ReadWriteMany</span><br><span class="line">  resources:</span><br><span class="line">    requests:</span><br><span class="line">      storage: 1024Mi</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: jenkins-admin</span><br><span class="line">  labels:</span><br><span class="line">    name: jenkins</span><br><span class="line">---</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1</span><br><span class="line">metadata:</span><br><span class="line">  name: jenkins-admin</span><br><span class="line">  labels:</span><br><span class="line">    name: jenkins</span><br><span class="line">subjects:</span><br><span class="line">  - kind: ServiceAccount</span><br><span class="line">    name: jenkins-admin</span><br><span class="line">    namespace: default</span><br><span class="line">roleRef:</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: cluster-admin</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br></pre></td></tr></table></figure>
+
+<p>这里通过NodePort的形式来暴露了Jenkins的8080端口，另外还需要暴露一个agent的端口，这个端口主要用于Jenkins的Master和Slave之间的通信。</p>
+<p>部署Jenkins：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops apply -f jenkins-deploy.yaml</span><br></pre></td></tr></table></figure>
+
+<p>查看Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops get pods</span><br><span class="line">NAME                   READY    STATUS  RESTARTS  AGE</span><br><span class="line">jenkins-cc97fd4fc-v5dh2  1/1   Running  0         21s</span><br></pre></td></tr></table></figure>
+
+<p>（2）访问Jenkins</p>
+<p>查看Jenkins Service端口：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops get svc</span><br><span class="line">NAME     TYPE      CLUSTER-IP    EXTERNAL-IP  PORT(S)                         AGE</span><br><span class="line">jenkins  NodePort  192.96.215.194  &lt;none&gt;     8080:30880/TCP,50000:30850/TCP  47s</span><br></pre></td></tr></table></figure>
+
+<p>在Web端使用浏览器访问Jenkins（<a href="http://master:30880），如图5所示：">http://master:30880），如图5所示：</a></p>
+<p><img src="../../../../jihu/image/DX/131.png" alt="131"></p>
+<p>图5</p>
+<p>获取Jenkins密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops exec deploy/jenkins -- cat /var/jenkins_home/secrets/initialAdminPassword</span><br><span class="line">a3ac7ba3812746d0bc8ed40e122ba20b</span><br></pre></td></tr></table></figure>
+
+<p>输入密码后单击“继续”按钮，如图6所示：</p>
+<p><img src="../../../../jihu/image/DX/132.png" alt="132"></p>
+<p>图6</p>
+<p>将离线插件包拷贝到Jenkins：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops cp BlueOcean/plugins/ jenkins-cc97fd4fc-v5dh2:/var/jenkins_home</span><br></pre></td></tr></table></figure>
+
+<p>重启Jenkins：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops rollout restart deployment jenkins</span><br></pre></td></tr></table></figure>
+
+<p>刷新Jenkins页面，选择“跳过插件安装”，安装完成后进入用户创建页面，创建一个用户jenkins，密码000000，如图7所示：<br><img src="../../../../jihu/image/DX/133.png" alt="133"></p>
+<p>图7</p>
+<p>单击“保存并完成”按钮，如图8所示：</p>
+<p><img src="../../../../jihu/image/DX/134.png" alt="134"></p>
+<p>图8</p>
+<p>单击“保存并完成”，如图9所示：</p>
+<p><img src="../../../../jihu/image/DX/135.png" alt="135"></p>
+<p>图9</p>
+<p>单击“开始使用Jenkins”按钮并使用新创建的用户登录Jenkins，如图10所示：</p>
+<p><img src="../../../../jihu/image/DX/136.png" alt="136"></p>
+<p>图10</p>
+<h2 id="部署GitLab"><a href="#部署GitLab" class="headerlink" title="部署GitLab"></a>部署GitLab</h2><p>GitLab是利用Ruby on Rails一个开源的版本管理系统，实现一个自托管的Git项目仓库，可通过Web界面进行访问公开的或者私人项目。与GitHub类似，GitLab能够浏览源代码，管理缺陷和注释，可以管理团队对仓库的访问，它非常易于浏览提交过的版本并提供一个文件历史库，团队成员可以利用内置的简单聊天程序（Wall）进行交流。GitLab还提供一个代码片段收集功能可以轻松实现代码复用，便于日后有需要的时候进行查找。</p>
+<p>本项目GitLab与Harbor共用一台服务器。</p>
+<p>（1）部署GitLab</p>
+<p>编写GitLab资源清单文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vi gitlab-deploy.yaml </span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: gitlab</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - port: 443</span><br><span class="line">    nodePort: 30443</span><br><span class="line">    targetPort: 443</span><br><span class="line">    name: gitlab-443</span><br><span class="line">  - port: 80</span><br><span class="line">    nodePort: 30888</span><br><span class="line">    targetPort: 80</span><br><span class="line">    name: gitlab-80</span><br><span class="line">  selector:</span><br><span class="line">    app: gitlab</span><br><span class="line">---</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: gitlab</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: gitlab</span><br><span class="line">  revisionHistoryLimit: 2</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: gitlab</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - image: gitlab/gitlab-ce:latest</span><br><span class="line">        name: gitlab</span><br><span class="line">        imagePullPolicy: IfNotPresent</span><br><span class="line">        env:</span><br><span class="line">        - name: GITLAB_ROOT_PASSWORD  # 设置root用户密码</span><br><span class="line">          value: admin@123</span><br><span class="line">        - name: GITLAB_PORT</span><br><span class="line">          value: &quot;80&quot;</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 443</span><br><span class="line">          name: gitlab-443</span><br><span class="line">        - containerPort: 80</span><br><span class="line">          name: gitlab-80</span><br></pre></td></tr></table></figure>
+
+<p>部署GitLab：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops apply -f gitlab-deploy.yaml</span><br></pre></td></tr></table></figure>
+
+<p>查看Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops get pods</span><br><span class="line">NAME                    READY  STATUS  RESTARTS  AGE</span><br><span class="line">gitlab-645dd88cd7-6vv2q  1/1   Running  0        29s</span><br><span class="line">jenkins-cc97fd4fc-kmjtl  1/1   Running  0        7m20s</span><br></pre></td></tr></table></figure>
+
+<p>查看GitLab Service：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n devops get svc</span><br><span class="line">NAME    TYPE      CLUSTER-IP    EXTERNAL-IP  PORT(S)                          AGE</span><br><span class="line">gitlab  NodePort  192.104.250.77  &lt;none&gt;    443:30443/TCP,80:30888/TCP        57s</span><br><span class="line">jenkins NodePort  192.98.107.152  &lt;none&gt;    8080:30880/TCP,50000:30850/TCP  7m48s</span><br></pre></td></tr></table></figure>
+
+<p>GitLab启动较慢，可以通过“kubectl logs”查看其启动状态。启动完成后，在Web端访问GitLab（<a href="http://master:30888），如图11所示：">http://master:30888），如图11所示：</a></p>
+<p><img src="../../../../jihu/image/DX/137.png" alt="137"></p>
+<p>图11</p>
+<p>登录GitLab，如图12所示：</p>
+<p><img src="../../../../jihu/image/DX/138.png" alt="138"></p>
+<p>图12</p>
+<p>（2）创建项目</p>
+<p>单击“New project”按钮，如图13所示：</p>
+<p><img src="../../../../jihu/image/DX/139.png" alt="139"></p>
+<p>图13</p>
+<p>单击“Create blank project”按钮创建项目springcloud，可见等级选择“Public”，如图14所示：</p>
+<p><img src="../../../../jihu/image/DX/140.png" alt="140"></p>
+<p>图14</p>
+<p>单击“Create project”按钮，进入项目，如图15所示：</p>
+<p><img src="../../../../jihu/image/DX/141.png" alt="141"></p>
+<p>图15</p>
+<p>push源代码到GitLab的springcloud项目：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# cd BlueOcean/springcloud/</span><br><span class="line">[root@master springcloud]# git config --global user.name &quot;administrator&quot;</span><br><span class="line">[root@master springcloud]# git config --global user.email &quot;admin@example.com&quot;</span><br><span class="line">[root@master springcloud]# git remote remove origin</span><br><span class="line">[root@master springcloud]# git remote add origin http://10.26.10.143:30888/root/springcloud.git</span><br><span class="line">[root@master springcloud]# git add .</span><br><span class="line">[root@master springcloud]# git commit -m &quot;initial commit&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">On branch master</span></span><br><span class="line">nothing to commit, working directory clean</span><br><span class="line">[root@master springcloud]# git push -u origin master</span><br><span class="line">Username for &#x27;http://10.26.10.143:30888&#x27;: root</span><br><span class="line">Password for &#x27;http://root@10.26.15.244:30888&#x27;: </span><br><span class="line">Counting objects: 3192, done.</span><br><span class="line">Delta compression using up to 8 threads.</span><br><span class="line">Compressing objects: 100% (1428/1428), done.</span><br><span class="line">Writing objects: 100% (3192/3192), 1.40 MiB | 1.70 MiB/s, done.</span><br><span class="line">Total 3192 (delta 1233), reused 3010 (delta 1207)</span><br><span class="line">remote: Resolving deltas: 100% (1233/1233), done.</span><br><span class="line">remote: </span><br><span class="line">remote: To create a merge request for master, visit:</span><br><span class="line">remote:   http://gitlab-6778c45f9-xx5gs/root/springcloud/-/merge_requests/new?merge_request%5Bsource_branch%5D=master</span><br><span class="line">remote: </span><br><span class="line">To http://10.26.15.244:30888/root/springcloud.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br><span class="line">Branch master set up to track remote branch master from origin.</span><br></pre></td></tr></table></figure>
+
+<p>刷新网页，springcloud项目master分支中的文件已经更新了（使用火狐浏览器打开网页），如图16所示：</p>
+<p><img src="../../../../jihu/image/DX/142.png" alt="142"></p>
+<p>图16</p>
+<h2 id="配置Jenkins连接GitLab"><a href="#配置Jenkins连接GitLab" class="headerlink" title="配置Jenkins连接GitLab"></a>配置Jenkins连接GitLab</h2><p>（1）设置Outbound requests</p>
+<p>登录Gitlab管理员界面（<a target="_blank" rel="noopener" href="http://master:30888/admin%EF%BC%89%EF%BC%8C%E5%A6%82%E5%9B%BE17%E6%89%80%E7%A4%BA%EF%BC%9A">http://master:30888/admin），如图17所示：</a></p>
+<p><img src="../../../../jihu/image/DX/143.png" alt="143"><br>图17</p>
+<p>在左侧导航栏选择“Settings→Network”，设置“Outbound requests”，勾选“Allow requests to the local network from web hooks and services”复选框，如图18所示：</p>
+<p><img src="../../../../jihu/image/DX/144.png" alt="144"></p>
+<p>图18</p>
+<p>配置完成后保存。</p>
+<p>（2）创建GitLab API Token</p>
+<p>单击GitLab用户头像图标，如图19所示：</p>
+<p><img src="../../../../jihu/image/DX/145.png" alt="145"></p>
+<p>图19</p>
+<p>在左侧导航栏选择“Preferences”，如图20所示：<br><img src="../../../../jihu/image/DX/146.png" alt="146"><br>图20</p>
+<p>在左侧导航栏选择“Access Tokens”添加Token，如21图所示：<br><img src="../../../../jihu/image/DX/147.png" alt="147"><br>图21</p>
+<p>单击“Create personal access token”按钮生成Token，如图22所示：<br><img src="../../../../jihu/image/DX/148.png" alt="148"><br>图22</p>
+<p>记录下Token（U6p_ubRixGSdRvs6MGft），后面配置Jenkins时会用到。</p>
+<p>（3）设置Jenkins</p>
+<p>登录Jenkins首页，选择“系统管理→系统配置”，配置GitLab信息，取消勾选“Enable authentiviion for ‘/project’ end-point”，输入“Connection name”和“Gitlab host URL”，如图23所示：<br><img src="../../../../jihu/image/DX/149.png" alt="149"><br>图23</p>
+<p>添加Credentials，单击“添加”→“Jenkins”按钮添加认证信息，将Gitlab API Token填入，如图24所示：<br><img src="../../../../jihu/image/DX/150.png" alt="150"><br>图24</p>
+<p>选择新添加的证书，然后单击“Test Connection”按钮，如图25所示：<br><img src="../../../../jihu/image/DX/151.png" alt="25.png"><br>图25</p>
+<p>返回结果为Success，说明Jenkins可以正常连接GitLab。</p>
+<h2 id="Jenkinsfile"><a href="#Jenkinsfile" class="headerlink" title="Jenkinsfile"></a>Jenkinsfile</h2><p>（1）新建任务</p>
+<p>登录Jenkins首页，新建任务springcloud，任务类型选择“流水线”，如图26所示：<br><img src="../../../../jihu/image/DX/152.png" alt="26.png"><br>图26</p>
+<p>单击“确定”按钮，配置构建触发器，如图27所示：<br><img src="../../../../jihu/image/DX/153.png" alt="153"><br>图27</p>
+<p>记录下GitLab webhook URL的地址（<a target="_blank" rel="noopener" href="http://10.26.15.244:30880/project/springcloud%EF%BC%89%EF%BC%8C%E5%90%8E%E6%9C%9F%E9%85%8D%E7%BD%AEwebhook%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E3%80%82">http://10.26.15.244:30880/project/springcloud），后期配置webhook需要使用。</a></p>
+<p>配置流水线，在定义域中选择“Pipeline script from SCM”，此选项指示Jenkins从源代码管理（SCM）仓库获取流水线。在SCM域中选择“Git”，然后输入“Repository URL”，如图28所示：<br><img src="../../../../jihu/image/DX/154.png" alt="154"><br>图28</p>
+<p>在Credentials中选择“添加”，凭据类型选择“Username with password”，然后输入对应信息，如图29所示：</p>
+<p><img src="../../../../jihu/image/DX/155.png" alt="155"></p>
+<p>图29</p>
+<p>单击“保存”按钮，回到流水线中，在Credentials域选择刚才添加的凭证，如图30所示：</p>
+<p><img src="../../../../jihu/image/DX/156.png" alt="156"><br>图30</p>
+<p>保存任务。</p>
+<p>（2）编写流水线</p>
+<p>Pipeline有两种创建方法——可以直接在Jenkins的Web UI界面中输入脚本；也可以通过创建一个Jenkinsfile脚本文件放入项目源码库中。</p>
+<p>一般推荐在Jenkins中直接从源代码控制（SCMD）中直接载入Jenkinsfile Pipeline这种方法。</p>
+<p>登录GitLab进入springcloud项目，选择新建文件，如图31所示：</p>
+<p><img src="../../../../jihu/image/DX/157.png" alt="157"><br>图31</p>
+<p>将流水线脚本输入到Jenkinsfile中，如图32所示：</p>
+<p><img src="../../../../jihu/image/DX/158.png" alt="158"><br>图32</p>
+<p>Pipeline包括声明式语法和脚本式语法。声明式和脚本式的流水线从根本上是不同的。声明式是Jenkins流水线更友好的特性。脚本式的流水线语法，提供更丰富的语法特性。声明式流水线使编写和读取流水线代码更容易设计。</p>
+<p>此处选择声明式Pipeline，完整的流水线脚本如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">pipeline&#123;</span><br><span class="line">    agent none</span><br><span class="line">    stages&#123;</span><br><span class="line">        stage(&#x27;mvn-build&#x27;)&#123;</span><br><span class="line">            agent &#123;</span><br><span class="line">                docker &#123;</span><br><span class="line">                    image &#x27;10.26.15.244/library/maven&#x27;</span><br><span class="line">                    args &#x27;-v /root/.m2:/root/.m2&#x27;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            steps&#123;</span><br><span class="line">                sh &#x27;cp -rfv /opt/repository /root/.m2/ &amp;&amp; ls -l /root/.m2/repository&#x27;</span><br><span class="line">                sh &#x27;mvn package -DskipTests&#x27;</span><br><span class="line">                archiveArtifacts artifacts: &#x27;**/target/*.jar&#x27;, fingerprint: true </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#x27;image-build&#x27;)&#123;</span><br><span class="line">            agent any</span><br><span class="line">            steps&#123;</span><br><span class="line">                sh &#x27;cd gateway &amp;&amp; docker build -t 10.26.15.244/springcloud/gateway -f Dockerfile .&#x27;</span><br><span class="line">                sh &#x27;cd config &amp;&amp; docker build -t 10.26.15.244/springcloud/config -f Dockerfile .&#x27;</span><br><span class="line">                sh &#x27;docker login 10.26.15.244 -u=admin -p=Harbor12345&#x27;</span><br><span class="line">                sh &#x27;docker push 10.26.15.244/springcloud/gateway&#x27;</span><br><span class="line">                sh &#x27;docker push 10.26.15.244/springcloud/config&#x27;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        stage(&#x27;cloud-deploy&#x27;)&#123;</span><br><span class="line">            agent any</span><br><span class="line">            steps&#123;</span><br><span class="line">                sh &#x27;sed -i &quot;s/sqshq\\/piggymetrics-gateway/10.26.15.244\\/springcloud\\/gateway/g&quot; yaml/deployment/gateway-deployment.yaml&#x27;</span><br><span class="line">                sh &#x27;sed -i &quot;s/sqshq\\/piggymetrics-config/10.26.15.244\\/springcloud\\/config/g&quot; yaml/deployment/config-deployment.yaml&#x27;</span><br><span class="line">                sh &#x27;kubectl create ns springcloud&#x27;</span><br><span class="line">                sh &#x27;kubectl apply -f yaml/deployment/gateway-deployment.yaml&#x27;</span><br><span class="line">                sh &#x27;kubectl apply -f yaml/deployment/config-deployment.yaml&#x27;</span><br><span class="line">                sh &#x27;kubectl apply -f yaml/svc/gateway-svc.yaml&#x27;</span><br><span class="line">                sh &#x27;kubectl apply -f yaml/svc/config-svc.yaml&#x27;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（3）开启Jenkins匿名访问</p>
+<p>登录Jenkins首页，选择“系统管理→全局安全配置”，授权策略选择“任何用户可以做任何事（没有任何限制）”，如图33所示。<br><img src="../../../../jihu/image/DX/159.png" alt="159"><br>图33</p>
+<h2 id="构建CI-CD"><a href="#构建CI-CD" class="headerlink" title="构建CI/CD"></a>构建CI/CD</h2><p>（1）触发构建</p>
+<p>在GitLab的项目中，通常会使用Webhook的各种事件来触发对应的构建，通常配置好后会向设定好的URL发送post请求。</p>
+<p>登录GitLab，进入springcloud项目，现在左侧导航栏“Settings→Webhooks”，将前面记录的GitLab webhook URL地址填入URL处，禁用SSL认证，如图34所示。<br><img src="../../../../jihu/image/DX/160.png" alt="160"><br>图34</p>
+<p>单击“Add webhook”按钮添加webhook，完成后如图35所示：<br><img src="../../../../jihu/image/DX/161.png" alt="161"><br>图35</p>
+<p>单击“Test→Push events”按钮进行测试，如图36所示：<br><img src="../../../../jihu/image/DX/162.png" alt="162"><br>图36</p>
+<p>结果返回HTTP 200则表明Webhook配置成功。</p>
+<p>（2）Jenkins查看</p>
+<p>登录Jenkins，可以看到springcloud项目已经开始构建，如图37所示：</p>
+<p><img src="../../../../jihu/image/DX/163.png" alt="163"><br>图37</p>
+<blockquote>
+<p>若是执行 kubectl create ns springcloud 报错</p>
+<p>Unable to connect to the server: dial tcp: lookup apiserver.cluster.local on 10.96.0.10:53: no such host</p>
+<p>修改 /root/.kube/config</p>
+<p>把 apiserver.cluster.local 改为 master 节点 IP</p>
+</blockquote>
+<p>选择左侧导航栏“打开Blue Ocean”，如图38所示：<br><img src="../../../../jihu/image/DX/164.png" alt="164"><br>图38</p>
+<p>Blue Ocean是pipeline的可视化UI，同时兼容经典的自由模式的job。Jenkins Pipeline从头开始设计，但仍与自由式作业兼容，Blue Ocean减少了经典模式下的混乱并为团队中的每个成员增加了清晰度。</p>
+<p>单击项目名称springcloud，如图39所示：<br><img src="../../../../jihu/image/DX/165.png" alt="165"><br>图39</p>
+<p>单击正在构建的pipeline可以查看阶段视图，如图40所示：<br><img src="../../../../jihu/image/DX/166.png" alt="166"><br>图40</p>
+<p>单击任意“&gt;”符号可查看每个Step的构建详情，如图41所示：<br><img src="../../../../jihu/image/DX/167.png" alt="167"><br>图41</p>
+<p>若构建成功，Blue Ocean界面会变为绿色。构建完成后如图42所示：<br><img src="../../../../jihu/image/DX/168.png" alt="168"><br>图42</p>
+<p>退出阶段试图界面，如图43所示：<br><img src="../../../../jihu/image/DX/169.png" alt="169"><br>图43</p>
+<p>返回Jenkins首页，如图44所示：<br><img src="../../../../jihu/image/DX/170.png" alt="170"><br>图44</p>
+<p>（3）Harbor查看</p>
+<p>进入Harbor仓库springcloud项目查看镜像列表，可以看到已自动上传了一个gateway镜像，如图45所示：<br><img src="../../../../jihu/image/DX/171.png" alt="171"><br>图45</p>
+<p>（4）Kubernetes查看</p>
+<p>Pod的启动较慢，需等待3–5分钟。在命令行查看Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n springcloud get pods</span><br><span class="line">NAME                      READY  STATUS  RESTARTS  AGE</span><br><span class="line">config-6b6875fffd-p2g7j   1/1    Running  0        3m6s</span><br><span class="line">gateway-5d5f8cc944-vstgm  1/1    Running  0        3m6s</span><br></pre></td></tr></table></figure>
+
+<p>查看service：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl -n springcloud get service</span><br><span class="line">NAME     TYPE      CLUSTER-IP       EXTERNAL-IP  PORT(S)         AGE</span><br><span class="line">config   NodePort  192.109.170.192  &lt;none&gt;       8888:30015/TCP  3m18s</span><br><span class="line">gateway  NodePort  192.110.243.17   &lt;none&gt;       4000:30010/TCP  3m18s</span><br></pre></td></tr></table></figure>
+
+<p>通过端口30010访问服务，如图46所示：<br><img src="../../../../jihu/image/DX/172.png" alt="172"><br>图46</p>
+<p>至此，完整的CI/CD流程就完成了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/11/7-%E5%9F%BA%E4%BA%8EKubernetes%E6%9E%84%E5%BB%BACICD%E6%A1%88%E4%BE%8B/">http://example.com/2023/08/11/7-基于Kubernetes构建CICD案例/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Kubernetes/">Kubernetes</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/cicd.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/11/6-%E5%9F%BA%E4%BA%8EHelm3%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/" title="k8s：(6)基于Helm3实现服务发布案例"><img class="cover" src="/../jihu/wallpaper/used/helm.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">k8s：(6)基于Helm3实现服务发布案例</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/11/8-kubevirt%E8%BF%90%E7%BB%B4%E6%A1%88%E4%BE%8B/" title="k8s：(8)kubevirt运维案例"><img class="cover" src="/../jihu/wallpaper/used/kubevirt.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">k8s：(8)kubevirt运维案例</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/11/1-K8s%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%BF%90%E7%BB%B4/" title="k8s：(1)K8s平台部署与基础运维"><img class="cover" src="/../jihu/wallpaper/used/k8s2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(1)K8s平台部署与基础运维</div></div></a></div><div><a href="/2023/08/11/2-%E5%9F%BA%E4%BA%8Edocker-compose%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" title="k8s：(2)基于docker-compose编排部署微服务快速开发框架"><img class="cover" src="/../jihu/wallpaper/used/docker-compose1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(2)基于docker-compose编排部署微服务快速开发框架</div></div></a></div><div><a href="/2023/08/11/3-%E5%9F%BA%E4%BA%8Edocker-compose+Django%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/" title="k8s：(3)基于docker-compose+Django编排部署博客系统"><img class="cover" src="/../jihu/wallpaper/used/docker-compose2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(3)基于docker-compose+Django编排部署博客系统</div></div></a></div><div><a href="/2023/08/11/4-%E5%9F%BA%E4%BA%8Edocker-compose%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2Hyperf/" title="k8s：(4)基于docker-compose编排部署Hyperf"><img class="cover" src="/../jihu/wallpaper/used/docker-compose3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(4)基于docker-compose编排部署Hyperf</div></div></a></div><div><a href="/2023/08/11/5-%E5%9F%BA%E4%BA%8EKubernetes_+_Istio%E5%AE%9E%E7%8E%B0%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/" title="k8s：(5)基于Kubernetes+Istio实现灰度发布案例"><img class="cover" src="/../jihu/wallpaper/used/istio.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(5)基于Kubernetes+Istio实现灰度发布案例</div></div></a></div><div><a href="/2023/08/11/6-%E5%9F%BA%E4%BA%8EHelm3%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/" title="k8s：(6)基于Helm3实现服务发布案例"><img class="cover" src="/../jihu/wallpaper/used/helm.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(6)基于Helm3实现服务发布案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">O&M</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">案例描述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">规划节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87"><span class="toc-number">1.2.</span> <span class="toc-text">基础准备</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD"><span class="toc-number">2.</span> <span class="toc-text">案例实施</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2Harbor"><span class="toc-number">2.2.</span> <span class="toc-text">部署Harbor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2Jenkins"><span class="toc-number">2.3.</span> <span class="toc-text">部署Jenkins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2GitLab"><span class="toc-number">2.4.</span> <span class="toc-text">部署GitLab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEJenkins%E8%BF%9E%E6%8E%A5GitLab"><span class="toc-number">2.5.</span> <span class="toc-text">配置Jenkins连接GitLab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkinsfile"><span class="toc-number">2.6.</span> <span class="toc-text">Jenkinsfile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BACI-CD"><span class="toc-number">2.7.</span> <span class="toc-text">构建CI&#x2F;CD</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式"><img src="/../jihu/wallpaper/used/linux5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见文本处理工具和正则表达式"/></a><div class="content"><a class="title" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式">常见文本处理工具和正则表达式</a><time datetime="2024-09-22T16:00:00.000Z" title="发表于 2024-09-23 00:00:00">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理"><img src="/../jihu/wallpaper/used/linux4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用户和权限管理"/></a><div class="content"><a class="title" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理">用户和权限管理</a><time datetime="2024-08-30T16:00:00.000Z" title="发表于 2024-08-31 00:00:00">2024-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly"><img src="/../jihu/wallpaper/used/butterfiy.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo-Butterfly"/></a><div class="content"><a class="title" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly">Hexo-Butterfly</a><time datetime="2024-08-27T03:15:00.000Z" title="发表于 2024-08-27 11:15:00">2024-08-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向"><img src="/../jihu/wallpaper/used/linux3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux文件管理和IO重定向"/></a><div class="content"><a class="title" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向">Linux文件管理和IO重定向</a><time datetime="2024-08-26T16:00:00.000Z" title="发表于 2024-08-27 00:00:00">2024-08-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

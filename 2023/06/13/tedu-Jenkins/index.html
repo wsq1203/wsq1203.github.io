@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Jenkins | Blog</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Jenkins是由java编写的一款开发软件，用于构建和测试各种项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins">
+<meta property="og:url" content="http://example.com/2023/06/13/tedu-Jenkins/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="Jenkins是由java编写的一款开发软件，用于构建和测试各种项目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/jenkins.png">
+<meta property="article:published_time" content="2023-06-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-10T08:13:04.809Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="Jenkins">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/jenkins.png"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/06/13/tedu-Jenkins/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jenkins',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-10 16:13:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/jenkins.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Blog"><span class="site-name">Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Jenkins</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-12T16:00:00.000Z" title="发表于 2023-06-13 00:00:00">2023-06-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-10T08:13:04.809Z" title="更新于 2024-10-10 16:13:04">2024-10-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E9%87%8C%E9%9B%BE%E9%87%8C/">云里雾里</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Jenkins"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="CI-CD概述"><a href="#CI-CD概述" class="headerlink" title="CI/CD概述"></a>CI/CD概述</h1><h2 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h2><ul>
+<li>迟早集成（CI）是当下最流行的应用程序开放实践方式</li>
+<li>程序员在代码库中集成了修复bug、新特性开放或是功能革新</li>
+<li>CI工具通过自动构建和自动测试来验证结果。这还可以检测到当前程序代码的问题，迅速提供反馈</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/1.png" alt="1.png"></p>
+<h2 id="Jenkins概述"><a href="#Jenkins概述" class="headerlink" title="Jenkins概述"></a>Jenkins概述</h2><ul>
+<li>Jenkins是由java编写的一款开发软件</li>
+<li>作为一款非常流行的CI（持续集成）工具，用于构建和测试各种项目</li>
+<li>Jenkins的主要功能是监视重复工作的执行，例如软件工程的构建或在cron下设置的jobs</li>
+</ul>
+<h2 id="Jenkins特点"><a href="#Jenkins特点" class="headerlink" title="Jenkins特点"></a>Jenkins特点</h2><ul>
+<li>简单、可扩展、用户界面友好</li>
+<li>支持各种SCM（软件配置管理）工具，如SVN、CIT、CVS等</li>
+<li>能够构建各种风格的项目</li>
+<li>可以选择安装多种插件</li>
+<li>跨平台，几乎可以支持所有平台</li>
+</ul>
+<h1 id="安装Jenkins"><a href="#安装Jenkins" class="headerlink" title="安装Jenkins"></a>安装Jenkins</h1><ul>
+<li><a target="_blank" rel="noopener" href="http://jenkins.io/">http://jenkins.io</a></li>
+<li><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/redhat/">Jenkins清华大学镜像站</a></li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/2.png" alt="2.png"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]$ sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo</span><br><span class="line"></span><br><span class="line">[root@node2 ~]$ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key</span><br><span class="line"></span><br><span class="line">[root@node2 ~]$ yum install fontconfig java-11-openjdk -y</span><br><span class="line">[root@node2 ~]$ yum install jenkins -y</span><br><span class="line">[root@node2 ~]$ systemctl <span class="built_in">enable</span> --now jenkins.service</span><br></pre></td></tr></table></figure>
+
+<p>或（建议）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]$ yum install fontconfig java-1.8.0-openjdk -y</span><br><span class="line">[root@node2 ~]$ rpm -ivh jenkins-2.344-1.1.noarch.rpm </span><br><span class="line">[root@node2 ~]$ systemctl <span class="built_in">enable</span> --now jenkins.service</span><br></pre></td></tr></table></figure>
+
+<p> <strong>初始化Jenkins</strong></p>
+<ul>
+<li>Jenkins默认运行在8080端口</li>
+<li>浏览器访问</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/3.png" alt="3.png"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]$ <span class="built_in">cat</span> /var/lib/jenkins/secrets/initialAdminPassword</span><br><span class="line">ab74be14c5ba4ca7b2bf05e3c799ab81</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如若网络较慢，先不安装插件</li>
+<li>选择插件安装–无–安装</li>
+<li>使用admin账户继续</li>
+<li>可把密码修改为一个简单的，例000000</li>
+</ul>
+<h2 id="配置安装插件源"><a href="#配置安装插件源" class="headerlink" title="配置安装插件源"></a>配置安装插件源</h2><ul>
+<li>默认的官方站点安装缓慢，修改配置进行加速</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]$ sed -i <span class="string">&#x27;s/https:\/\/updates.jenkins.io\/download/https:\/\/mirrors.tuna.tsinghua.edu.cn\/jenkins/g&#x27;</span> /var/lib/jenkins/updates/default.json </span><br><span class="line">[root@node2 ~]$ sed -i <span class="string">&#x27;s/http:\/\/www.google.com/https:\/\/www.baidu.com/g&#x27;</span> /var/lib/jenkins/updates/default.json</span><br><span class="line"></span><br><span class="line">[root@node2 ~]$ systemctl restart jenkins.service</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><ul>
+<li><p>Git Parameter    # git参数</p>
+</li>
+<li><p>Localiztion Chinese(Simplified) # 中文</p>
+</li>
+<li><p>Dingtalk  # 钉钉机器人</p>
+</li>
+<li><p>在钉钉群里新建一个机器人</p>
+</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/4.png" alt="4.png"></p>
+<ul>
+<li>在jenkins中添加机器人</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/5.png" alt="5.png"></p>
+<ul>
+<li>测试成功后报存</li>
+</ul>
+<h1 id="准备Git仓库"><a href="#准备Git仓库" class="headerlink" title="准备Git仓库"></a>准备Git仓库</h1><h2 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h2><h3 id="初始化mysite项目"><a href="#初始化mysite项目" class="headerlink" title="初始化mysite项目"></a>初始化mysite项目</h3><ul>
+<li>创建名为mysite的项目</li>
+<li>在mysite中创建index.html文件</li>
+<li>将工作区文件确认至版本仓库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]$ git init mysite</span><br><span class="line">[root@node2 ~]$ <span class="built_in">cd</span> mysite/</span><br><span class="line"></span><br><span class="line">[root@node2 mysite]$ vim index.html</span><br><span class="line">&lt;h1&gt;My Web Site&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">[root@node2 mysite]$ git add .</span><br><span class="line">[root@node2 mysite]$ git commit -m <span class="string">&quot;init data&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="tag标签"><a href="#tag标签" class="headerlink" title="tag标签"></a>tag标签</h3><ul>
+<li>如果达到一个重要的阶段，并希望永远记住那个特别的提交快照，可以使用git  tag给它打上标签</li>
+<li>将初始化完毕的mysite项目打上标签1.0</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 mysite]$ git tag 1.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="升级mysite"><a href="#升级mysite" class="headerlink" title="升级mysite"></a>升级mysite</h3><ul>
+<li>在mysite中进行内容修改</li>
+<li>将工作区文件确认至版本仓库</li>
+<li>将当前提交增加一个tag2.0</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 mysite]$ vim index.html</span><br><span class="line">&lt;h1&gt;My Web Site&lt;/h1&gt;</span><br><span class="line">&lt;h2&gt;2nd version&lt;/h2&gt;</span><br><span class="line"></span><br><span class="line">[root@node2 mysite]$ git add .</span><br><span class="line">[root@node2 mysite]$ git commit -m <span class="string">&quot;my site 2.0&quot;</span></span><br><span class="line">[root@node2 mysite]$ git tag 2.0</span><br><span class="line"></span><br><span class="line">[root@node2 mysite]$ git tag </span><br><span class="line">1.0</span><br><span class="line">2.0</span><br><span class="line">[root@node2 mysite]$ git status </span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line">nothing to commit, working directory clean</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><ul>
+<li>创建名为mysite的仓库</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/6.png" alt="6.png"></p>
+<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><p><img src="../../../../jihu/image/DEVOPS/Jenkins/7.png" alt="7.png"></p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p><img src="../../../../jihu/image/DEVOPS/Jenkins/8.png" alt="8.png"></p>
+<h3 id="设置免密登录"><a href="#设置免密登录" class="headerlink" title="设置免密登录"></a>设置免密登录</h3><p><img src="../../../../jihu/image/DEVOPS/Jenkins/9.png" alt="9.png"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 mysite]$ git remote -v</span><br><span class="line">[root@node2 mysite]$ git remote add origin git@192.168.1.11:devops/mysite.git</span><br><span class="line">[root@node2 mysite]$ git push -u origin --all</span><br><span class="line">[root@node2 mysite]$ git push -u origin --tags </span><br></pre></td></tr></table></figure>
+
+<h1 id="管理jenkins项目"><a href="#管理jenkins项目" class="headerlink" title="管理jenkins项目"></a>管理jenkins项目</h1><h2 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h2><h3 id="下载git插件"><a href="#下载git插件" class="headerlink" title="下载git插件"></a>下载git插件</h3><ul>
+<li>为了使得Jenkins可以使用git的tag，需要下载<code>git parameter</code>插件</li>
+<li>也要按照git命令</li>
+<li>点击“系统管理” - &gt; “管理插件”</li>
+</ul>
+<h3 id="创建自由风格项目"><a href="#创建自由风格项目" class="headerlink" title="创建自由风格项目"></a>创建自由风格项目</h3><ul>
+<li>新建任务</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/10.png" alt="10.png"></p>
+<ul>
+<li>开启钉钉机器人</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/11.png" alt="11.png"></p>
+<ul>
+<li>添加Git Parameter参数</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/12.png" alt="12.png"></p>
+<h3 id="源码管理"><a href="#源码管理" class="headerlink" title="源码管理"></a>源码管理</h3><ul>
+<li>源码采用git</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/13.png" alt="13.png"></p>
+<ul>
+<li>将源码checkout到子目录</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/14.png" alt="14.png"></p>
+<h3 id="构建工程"><a href="#构建工程" class="headerlink" title="构建工程"></a>构建工程</h3><ul>
+<li>构建工程</li>
+<li>选择指定的标签</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/15.png" alt="15.png"></p>
+<h3 id="检验结构"><a href="#检验结构" class="headerlink" title="检验结构"></a>检验结构</h3><ul>
+<li>选择指定的标签</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/16.png" alt="16.png"></p>
+<ul>
+<li>查看日志输出</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/17.png" alt="17.png"></p>
+<h3 id="查看本地结果"><a href="#查看本地结果" class="headerlink" title="查看本地结果"></a>查看本地结果</h3><ul>
+<li>构建好的项目出现在<code>/var/lib/jenkins/workspace/</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]$ <span class="built_in">cd</span> /var/lib/jenkins/workspace/</span><br><span class="line">[root@node2 workspace]$ <span class="built_in">ls</span></span><br><span class="line">mysite</span><br><span class="line">[root@node2 workspace]$ <span class="built_in">ls</span> mysite/</span><br><span class="line">mysite-1.0</span><br><span class="line">[root@node2 workspace]$ <span class="built_in">cat</span> mysite/mysite-1.0/index.html </span><br><span class="line">&lt;h1&gt;My Web Site&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再次构建2.0版本任务</li>
+<li>再次查看</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 workspace]$ <span class="built_in">ls</span> mysite/</span><br><span class="line">mysite-1.0  mysite-2.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="分发服务器管理"><a href="#分发服务器管理" class="headerlink" title="分发服务器管理"></a>分发服务器管理</h2><h3 id="优化构建工程"><a href="#优化构建工程" class="headerlink" title="优化构建工程"></a>优化构建工程</h3><ul>
+<li>在Jenkins服务器安装apache，用于分发  应用程序</li>
+<li>为了方便应用服务器下载，Jenkins构建的工程应该打包成为一个文件</li>
+<li>为了应用服务器可以获知下载的程序文件是没有损坏的，应该为其生成<code>md5</code>值</li>
+</ul>
+<h3 id="配置分发服务器"><a href="#配置分发服务器" class="headerlink" title="配置分发服务器"></a>配置分发服务器</h3><ul>
+<li>通过web服务为应用服务器提供应用程序</li>
+<li>下载目录为<code>/var/www/tml/deploy/packages</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 mysite]$ yum install -y httpd  </span><br><span class="line">[root@node2 mysite]$ <span class="built_in">mkdir</span> -p /var/www/html/deploy/packages</span><br><span class="line">[root@node2 mysite]$ <span class="built_in">chown</span> -R jenkins.jenkins /var/www/html/deploy/</span><br><span class="line">[root@node2 mysite]$ systemctl <span class="built_in">enable</span> --now httpd.service </span><br></pre></td></tr></table></figure>
+
+<h3 id="修改工程构建工程"><a href="#修改工程构建工程" class="headerlink" title="修改工程构建工程"></a>修改工程构建工程</h3><ul>
+<li>为下载的应用打包，以及生成md5可以能在工作过程中增加构建步骤完成</li>
+</ul>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/18.png" alt="18.png"></p>
+<p><img src="../../../../jihu/image/DEVOPS/Jenkins/19.png" alt="19.png"></p>
+<ul>
+<li>添加的命令</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pkg_dir=/var/www/html/deploy/packages</span><br><span class="line"><span class="built_in">cp</span> -r mysite-<span class="variable">$webver</span> <span class="variable">$pkg_dir</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$pkg_dir</span></span><br><span class="line"><span class="built_in">rm</span> -rf mysite-<span class="variable">$webver</span>/.git</span><br><span class="line">tar -czf mysite-<span class="variable">$webver</span>.tar.gz mysite-<span class="variable">$webver</span></span><br><span class="line"><span class="built_in">rm</span> -rf mysite-<span class="variable">$webver</span></span><br><span class="line"><span class="built_in">md5sum</span> mysite-<span class="variable">$webver</span>.tar.gz | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> &gt; mysite-<span class="variable">$webver</span>.tar.gz.md5</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">[ -f live_ver ] &amp;&amp; <span class="built_in">cat</span> live_ver &gt; last_ver</span><br><span class="line"><span class="built_in">echo</span> -n <span class="variable">$webver</span> &gt; live_ver</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再次构建任务</li>
+<li>浏览器访问<code>http://192.168.1.12/deploy/</code></li>
+<li>也可在本地查看</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 deploy]$ <span class="built_in">ls</span></span><br><span class="line">last_ver  live_ver  packages</span><br><span class="line">[root@node2 deploy]$ <span class="built_in">ls</span> packages/</span><br><span class="line">mysite-1.0.tar.gz  mysite-1.0.tar.gz.md5  mysite-2.0.tar.gz  mysite-2.0.tar.gz.md5</span><br><span class="line">[root@node2 deploy]$ <span class="built_in">cat</span> packages/mysite-1.0.tar.gz.md5 </span><br><span class="line">04da2023827e4fef79846aed7e31843f</span><br></pre></td></tr></table></figure>
+
+<h1 id="自动化部署框架"><a href="#自动化部署框架" class="headerlink" title="自动化部署框架"></a>自动化部署框架</h1><h2 id="自动化部署"><a href="#自动化部署" class="headerlink" title="自动化部署"></a>自动化部署</h2><h3 id="服务器规划"><a href="#服务器规划" class="headerlink" title="服务器规划"></a>服务器规划</h3><ul>
+<li><p>为了方便版本切换，可以规划如下目录</p>
+<p>/var/www/download用于存储下载的目录</p>
+<p>/var/www/deploy用于存储解压的应用</p>
+</li>
+<li><p>创建/var/www/html/current软链接，指向需要部署的应用版本</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]<span class="comment"># cd /var/www/</span></span><br><span class="line">[root@node2 www]<span class="comment"># ls</span></span><br><span class="line">cgi-bin  html</span><br><span class="line">[root@node2 www]<span class="comment"># mkdir deploy download</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="下载应用"><a href="#下载应用" class="headerlink" title="下载应用"></a>下载应用</h3><ul>
+<li><p>编写下载应用的功能代码</p>
+<p>通过位置参数指定要下载的版本</p>
+<p>位置参数是<code>live</code>下载当前版本</p>
+<p>位置参数是<code>last</code>下载前一个版本</p>
+<p>如果已经下载，则不需要重复下载</p>
+</li>
+</ul>
+<h3 id="校验文件"><a href="#校验文件" class="headerlink" title="校验文件"></a>校验文件</h3><ul>
+<li><p>编写校验文件代码</p>
+<p>计算指定文件的md5值</p>
+<p>将md5值与发布服务器提供的md5进行比较，以确认下载的文件无误</p>
+</li>
+</ul>
+<h3 id="发布应用"><a href="#发布应用" class="headerlink" title="发布应用"></a>发布应用</h3><ul>
+<li><p>编写应用发布</p>
+<p>根据指定的版本，创建<code>/var/www/html/current</code>链接，指向到不同的发布版本</p>
+</li>
+</ul>
+<h1 id="自动化部署实现"><a href="#自动化部署实现" class="headerlink" title="自动化部署实现"></a>自动化部署实现</h1><h2 id="完成自动化部署功能"><a href="#完成自动化部署功能" class="headerlink" title="完成自动化部署功能"></a>完成自动化部署功能</h2><ul>
+<li>完成下载检查是否有新版本功能</li>
+<li>完成文件校验功能</li>
+<li>完成部署功能</li>
+<li>测试结果</li>
+</ul>
+<p>清空jenkins服务器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]<span class="comment"># cd /var/www/html/</span></span><br><span class="line">[root@node2 html]<span class="comment"># ls</span></span><br><span class="line">deploy</span><br><span class="line">[root@node2 html]<span class="comment"># cd deploy/</span></span><br><span class="line">[root@node2 deploy]<span class="comment"># ls </span></span><br><span class="line">last_ver  live_ver  packages</span><br><span class="line">[root@node2 deploy]<span class="comment"># rm -rf l*</span></span><br><span class="line">[root@node2 deploy]<span class="comment"># ls</span></span><br><span class="line">packages</span><br><span class="line">[root@node2 deploy]<span class="comment"># rm -rf packages/*</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编写python脚本"><a href="#编写python脚本" class="headerlink" title="编写python脚本"></a>编写python脚本</h2><ul>
+<li>也可以另起一台虚拟机</li>
+<li>编写名为<code>deploy_web</code>的<code>python</code>文件</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> wget</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> tarfile</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">has_new_ver</span>(<span class="params">ver_fname, ver_url</span>):</span><br><span class="line">    <span class="string">&#x27;如果服务器上有新版本返回True，否则返回False&#x27;</span></span><br><span class="line">    <span class="comment"># 如果本地没有版本文件，则有新版本</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(ver_fname):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果本地没有版本文件，则有新版本</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(ver_fname) <span class="keyword">as</span> fobj:</span><br><span class="line">        local_ver = fobj.read()</span><br><span class="line"></span><br><span class="line">    r = requests.get(ver_url)</span><br><span class="line">    <span class="keyword">if</span> local_ver != r.text:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">file_ok</span>(<span class="params">fname, md5url</span>):</span><br><span class="line">    <span class="string">&#x27;如果文件未损坏，返回True，否则返回False&#x27;</span></span><br><span class="line">    m = hashlib.md5()</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(fname, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> fobj:</span><br><span class="line">        <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">            data = fobj.read(<span class="number">4096</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            m.update(data)</span><br><span class="line"></span><br><span class="line">    r = requests.get(md5url)</span><br><span class="line">    <span class="keyword">if</span> m.hexdigest() == r.text.strip():</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">deploy</span>(<span class="params">app_fname, deploy_dir, dest</span>):</span><br><span class="line">    <span class="string">&#x27;用于部署软件到web服务器&#x27;</span></span><br><span class="line">    <span class="comment"># 解压</span></span><br><span class="line">    tar = tarfile.<span class="built_in">open</span>(app_fname)</span><br><span class="line">    tar.extractall(path=deploy_dir)</span><br><span class="line">    tar.close()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 拼接出解压后目录的绝对路径</span></span><br><span class="line">    app_dir = os.path.basename(app_fname)</span><br><span class="line">    app_dir = app_dir.replace(<span class="string">&#x27;.tar.gz&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    app_dir = os.path.join(deploy_dir, app_dir)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建链接</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(dest):</span><br><span class="line">        os.remove(dest)</span><br><span class="line">    os.symlink(app_dir, dest)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 判断服务器上是否有新版本</span></span><br><span class="line">    ver_url = <span class="string">&#x27;http://192.168.1.10/deploy/live_ver&#x27;</span></span><br><span class="line">    ver_fname = <span class="string">&#x27;/var/www/deploy/live_ver&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> has_new_ver(ver_fname, ver_url):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;未发现新版本&#x27;</span>)</span><br><span class="line">        exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 下载新版本</span></span><br><span class="line">    r = requests.get(ver_url)</span><br><span class="line">    app_url = <span class="string">&#x27;http://192.168.1.10/deploy/packages/mysite-%s.tar.gz&#x27;</span> % r.text</span><br><span class="line">    app_fname = <span class="string">&#x27;/var/www/download/mysite-%s.tar.gz&#x27;</span> % r.text</span><br><span class="line">    wget.download(app_url, app_fname)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 校验下载的软件包是否损坏  如果损坏则删除</span></span><br><span class="line">    md5url = app_url + <span class="string">&#x27;.md5&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> file_ok(app_fname, md5url):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;文件已损坏&#x27;</span>)</span><br><span class="line">        os.remove(app_fname)</span><br><span class="line">        exit(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 部署软件</span></span><br><span class="line">    deploy_dir = <span class="string">&#x27;/var/www/deploy&#x27;</span></span><br><span class="line">    dest = <span class="string">&#x27;/var/www/html/current&#x27;</span></span><br><span class="line">    deploy(app_fname, deploy_dir, dest)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 更新本地版本文件</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(ver_fname):</span><br><span class="line">        os.remove(ver_fname)</span><br><span class="line">    wget.download(ver_url, ver_fname)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Jenkins构建项目后，执行python脚本</li>
+<li>浏览器查看python虚拟机ip（192.168.1.10/current）验证</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/06/13/tedu-Jenkins/">http://example.com/2023/06/13/tedu-Jenkins/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Jenkins/">Jenkins</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/jenkins.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/06/12/tedu-Gitlab/" title="Gitlab"><img class="cover" src="/../jihu/wallpaper/used/gitlab.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Gitlab</div></div></a></div><div class="next-post pull-right"><a href="/2023/06/20/openstack%E5%AF%B9%E6%8E%A5ceph%E5%AE%9E%E7%8E%B0%E8%B6%85%E8%9E%8D%E5%90%88/" title="OpenStack对接Ceph实现超融合"><img class="cover" src="/../jihu/wallpaper/used/ceph.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OpenStack对接Ceph实现超融合</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">O&M</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CI-CD%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">CI&#x2F;CD概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90"><span class="toc-number">1.1.</span> <span class="toc-text">持续集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.</span> <span class="toc-text">Jenkins概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins%E7%89%B9%E7%82%B9"><span class="toc-number">1.3.</span> <span class="toc-text">Jenkins特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Jenkins"><span class="toc-number">2.</span> <span class="toc-text">安装Jenkins</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6%E6%BA%90"><span class="toc-number">2.1.</span> <span class="toc-text">配置安装插件源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">安装插件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87Git%E4%BB%93%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">准备Git仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">本地仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96mysite%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.1.1.</span> <span class="toc-text">初始化mysite项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tag%E6%A0%87%E7%AD%BE"><span class="toc-number">3.1.2.</span> <span class="toc-text">tag标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7mysite"><span class="toc-number">3.1.3.</span> <span class="toc-text">升级mysite</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">3.2.</span> <span class="toc-text">远程仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.2.1.</span> <span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="toc-number">3.2.2.</span> <span class="toc-text">创建用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%88%E6%9D%83"><span class="toc-number">3.2.3.</span> <span class="toc-text">授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-number">3.2.4.</span> <span class="toc-text">设置免密登录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%A1%E7%90%86jenkins%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">管理jenkins项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.1.</span> <span class="toc-text">构建项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDgit%E6%8F%92%E4%BB%B6"><span class="toc-number">4.1.1.</span> <span class="toc-text">下载git插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E7%94%B1%E9%A3%8E%E6%A0%BC%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.1.2.</span> <span class="toc-text">创建自由风格项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86"><span class="toc-number">4.1.3.</span> <span class="toc-text">源码管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">4.1.4.</span> <span class="toc-text">构建工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E9%AA%8C%E7%BB%93%E6%9E%84"><span class="toc-number">4.1.5.</span> <span class="toc-text">检验结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E7%BB%93%E6%9E%9C"><span class="toc-number">4.1.6.</span> <span class="toc-text">查看本地结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text">分发服务器管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E6%9E%84%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">4.2.1.</span> <span class="toc-text">优化构建工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%88%86%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">配置分发服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%B7%A5%E7%A8%8B%E6%9E%84%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">4.2.3.</span> <span class="toc-text">修改工程构建工程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E6%A1%86%E6%9E%B6"><span class="toc-number">5.</span> <span class="toc-text">自动化部署框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2"><span class="toc-number">5.1.</span> <span class="toc-text">自动化部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%84%E5%88%92"><span class="toc-number">5.1.1.</span> <span class="toc-text">服务器规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%BA%94%E7%94%A8"><span class="toc-number">5.1.2.</span> <span class="toc-text">下载应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E6%96%87%E4%BB%B6"><span class="toc-number">5.1.3.</span> <span class="toc-text">校验文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%BA%94%E7%94%A8"><span class="toc-number">5.1.4.</span> <span class="toc-text">发布应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E5%AE%9E%E7%8E%B0"><span class="toc-number">6.</span> <span class="toc-text">自动化部署实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E5%8A%9F%E8%83%BD"><span class="toc-number">6.1.</span> <span class="toc-text">完成自动化部署功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99python%E8%84%9A%E6%9C%AC"><span class="toc-number">6.2.</span> <span class="toc-text">编写python脚本</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式"><img src="/../jihu/wallpaper/used/linux5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见文本处理工具和正则表达式"/></a><div class="content"><a class="title" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式">常见文本处理工具和正则表达式</a><time datetime="2024-09-22T16:00:00.000Z" title="发表于 2024-09-23 00:00:00">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理"><img src="/../jihu/wallpaper/used/linux4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用户和权限管理"/></a><div class="content"><a class="title" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理">用户和权限管理</a><time datetime="2024-08-30T16:00:00.000Z" title="发表于 2024-08-31 00:00:00">2024-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly"><img src="/../jihu/wallpaper/used/butterfiy.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo-Butterfly"/></a><div class="content"><a class="title" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly">Hexo-Butterfly</a><time datetime="2024-08-27T03:15:00.000Z" title="发表于 2024-08-27 11:15:00">2024-08-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向"><img src="/../jihu/wallpaper/used/linux3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux文件管理和IO重定向"/></a><div class="content"><a class="title" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向">Linux文件管理和IO重定向</a><time datetime="2024-08-26T16:00:00.000Z" title="发表于 2024-08-27 00:00:00">2024-08-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

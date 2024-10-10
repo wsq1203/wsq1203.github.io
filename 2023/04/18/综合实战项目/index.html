@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>集群综合项目实战 | Blog</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="集群综合项目实战：HaProxy、keepalived、Nginx、Ceph、MariaDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="集群综合项目实战">
+<meta property="og:url" content="http://example.com/2023/04/18/%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="集群综合项目实战：HaProxy、keepalived、Nginx、Ceph、MariaDB">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/jiqun.jpg">
+<meta property="article:published_time" content="2023-04-18T09:56:00.000Z">
+<meta property="article:modified_time" content="2024-10-10T08:24:19.181Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="Cluster">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/jiqun.jpg"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/04/18/%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '集群综合项目实战',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-10 16:24:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/jiqun.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Blog"><span class="site-name">Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">集群综合项目实战</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-18T09:56:00.000Z" title="发表于 2023-04-18 17:56:00">2023-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-10T08:24:19.181Z" title="更新于 2024-10-10 16:24:19">2024-10-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E4%BE%8B/">项目实例</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="集群综合项目实战"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="网站架构的演变"><a href="#网站架构的演变" class="headerlink" title="网站架构的演变"></a>网站架构的演变</h1><h2 id="单机版LNMP"><a href="#单机版LNMP" class="headerlink" title="单机版LNMP"></a>单机版LNMP</h2><ul>
+<li>用户量少时使用，简单、成本低、存在单点故障</li>
+</ul>
+<p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/1.png" alt="1.png"></p>
+<h2 id="独立数据库服务器"><a href="#独立数据库服务器" class="headerlink" title="独立数据库服务器"></a>独立数据库服务器</h2><ul>
+<li>解耦</li>
+<li>将数据库分类</li>
+<li>PHP或JAVA代码的执行需要消耗大量CPU资源</li>
+<li>数据库的增删改查 需要调用大量的内存资源</li>
+<li>将两者分离可以减轻服务器的压力</li>
+</ul>
+<p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/2.png" alt="2.png"></p>
+<h2 id="高可用服务器集群"><a href="#高可用服务器集群" class="headerlink" title="高可用服务器集群"></a>高可用服务器集群</h2><ul>
+<li>我们可以通过Nginx、Haproxy代理服务器实现Web负载均衡集群，也可以使用LVS调度器实现Web负载均衡集群</li>
+</ul>
+<p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/3.png" alt="3.png"></p>
+<h2 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h2><ul>
+<li>动态网站与静态网站分离</li>
+</ul>
+<p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/4.png" alt="4.png"></p>
+<h2 id="数据库集群"><a href="#数据库集群" class="headerlink" title="数据库集群"></a>数据库集群</h2><ul>
+<li>主从数据库、分库分表、读写分离</li>
+<li>共享存储</li>
+</ul>
+<p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/5.png" alt="5.png"></p>
+<h2 id="缓存服务器与业务模型"><a href="#缓存服务器与业务模型" class="headerlink" title="缓存服务器与业务模型"></a>缓存服务器与业务模型</h2><ul>
+<li>对于静态数据我们可以通过varnish、squid或者nginx进行缓存，将数据缓存到距离用户更近的位置，构建CDN（内容分发服务）架构</li>
+</ul>
+<p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/6.png" alt="6.png"></p>
+<h1 id="综合实战项目"><a href="#综合实战项目" class="headerlink" title="综合实战项目"></a>综合实战项目</h1><h2 id="项目整体拓扑"><a href="#项目整体拓扑" class="headerlink" title="项目整体拓扑"></a>项目整体拓扑</h2><p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/7.png" alt="7.png"></p>
+<table>
+<thead>
+<tr>
+<th>主机角色</th>
+<th>主机名</th>
+<th>ip</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代理服务器1</td>
+<td>proxy1</td>
+<td>ens33(192.168.4.5/24)<br />ens34(192.168.2.5/24)</td>
+</tr>
+<tr>
+<td>代理服务器2</td>
+<td>proxy2</td>
+<td>ens33(192.168.4.6/24)<br />ens34(192.168.2.6/24)</td>
+</tr>
+<tr>
+<td>web1服务器</td>
+<td>web1</td>
+<td>ens33(192.168.2.11/24)</td>
+</tr>
+<tr>
+<td>web2服务器</td>
+<td>web2</td>
+<td>ens33(192.168.2.12/24)</td>
+</tr>
+<tr>
+<td>web3服务器</td>
+<td>web3</td>
+<td>ens33(192.168.2.13/24)</td>
+</tr>
+<tr>
+<td>数据库服务器</td>
+<td>database</td>
+<td>ens33(192.168.2.21/24)</td>
+</tr>
+<tr>
+<td>ceph-node1</td>
+<td>node1</td>
+<td>ens33(192.168.2.31/24)</td>
+</tr>
+<tr>
+<td>ceph-node2</td>
+<td>node2</td>
+<td>ens33(192.168.2.31/24)</td>
+</tr>
+<tr>
+<td>ceph-node3</td>
+<td>node3</td>
+<td>ens33(192.168.2.31/24)</td>
+</tr>
+</tbody></table>
+<h2 id="项目一期"><a href="#项目一期" class="headerlink" title="项目一期"></a>项目一期</h2><p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/8.png" alt="8.png"></p>
+<h3 id="部署LNP服务器"><a href="#部署LNP服务器" class="headerlink" title="部署LNP服务器"></a>部署LNP服务器</h3><ul>
+<li>Linux+Nginx+PHP（仅先部署一台web）</li>
+<li>安装软件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># yum install -y gcc openssl-devel pcre-devel make</span></span><br><span class="line">[root@web1 ~]<span class="comment"># tar xf nginx-1.22.1.tar.gz </span></span><br><span class="line">[root@web1 ~]<span class="comment"># cd nginx-1.22.1/</span></span><br><span class="line">[root@web1 nginx-1.22.1]<span class="comment"># ./configure \</span></span><br><span class="line"> --with-http_ssl_module \</span><br><span class="line"> --with-http_stub_status_module</span><br><span class="line">[root@web1 nginx-1.22.1]<span class="comment"># make &amp;&amp; make install</span></span><br><span class="line">[root@web1 ~]<span class="comment"># yum install -y php php-fpm php-mysql</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改配置实现动静分离</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># vim /usr/local/nginx/conf/nginx.conf</span></span><br><span class="line">location / &#123;</span><br><span class="line">          root   html;</span><br><span class="line">          index  index.php index.html index.htm; <span class="comment">#修改默认页面</span></span><br><span class="line">      &#125;</span><br><span class="line">location ~ \.php$ &#123;</span><br><span class="line">          root           html;</span><br><span class="line">          fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">          fastcgi_index  index.php;</span><br><span class="line">          include        fastcgi.conf;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/</span></span><br><span class="line">[root@web1 ~]<span class="comment"># nginx </span></span><br><span class="line">[root@web1 ~]<span class="comment"># systemctl start php-fpm</span></span><br><span class="line">[root@web1 ~]<span class="comment"># systemctl enable php-fpm</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>关闭防火墙</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># systemctl disable --now firewalld</span></span><br><span class="line">[root@web1 ~]<span class="comment"># sed -i &#x27;s/SELINUX=enforcing/SELINUX=disabled/&#x27; /etc/selinux/config </span></span><br><span class="line">[root@web1 ~]<span class="comment"># setenforce 0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="systemd"><a href="#systemd" class="headerlink" title="systemd"></a>systemd</h3><ul>
+<li>使用systemd管理nginx</li>
+<li>可拷贝sshd服务文件修改</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># vim /usr/lib/systemd/system/nginx.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=The Nginx HTTP Server  <span class="comment">#描述信息</span></span><br><span class="line"><span class="comment">#启动顺序</span></span><br><span class="line">After=network.target remote-fs.target nss-lookup.target </span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking  <span class="comment">#服务类型</span></span><br><span class="line">PIDFile=/usr/local/nginx/logs/nginx.pid <span class="comment">#记录进程号</span></span><br><span class="line">ExecStart=/usr/local/nginx/sbin/nginx <span class="comment">#启动命令</span></span><br><span class="line">ExecReload=/usr/local/nginx/sbin/nginx -s reload <span class="comment">#重载命令</span></span><br><span class="line">ExecStop=/bin/kill -s QUIT <span class="variable">$&#123;MAINPID&#125;</span> <span class="comment">#关闭命令</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line">[root@web1 ~]<span class="comment"># systemctl enable nginx.service</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="部署Maria-DB数据库"><a href="#部署Maria-DB数据库" class="headerlink" title="部署Maria DB数据库"></a>部署Maria DB数据库</h3><ul>
+<li>database主机安装数据库</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@database ~]<span class="comment"># yum -y install mariadb mariadb-server mariadb-devel</span></span><br><span class="line">[root@database ~]<span class="comment"># mysql -uroot -p000000</span></span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; create database wordpress character <span class="built_in">set</span> utf8mb4;</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; grant all on wordpress.* to wordpress@<span class="string">&#x27;%&#x27;</span> identified by <span class="string">&#x27;wordpress&#x27;</span>;</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; flush privileges;</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; <span class="built_in">exit</span></span><br><span class="line"></span><br><span class="line">[root@database ~]<span class="comment"># systemctl disable --now firewalld</span></span><br><span class="line">[root@database ~]<span class="comment"># sed -i &#x27;s/SELINUX=enforcing/SELINUX=disabled/&#x27; /etc/selinux/config </span></span><br><span class="line">[root@database ~]<span class="comment"># setenforce 0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="上线Word-Press"><a href="#上线Word-Press" class="headerlink" title="上线Word Press"></a>上线Word Press</h3><ul>
+<li>将代码上线到LNMP平台</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># tar xf wordpress-4.7.3-zh_CN.tar.gz </span></span><br><span class="line">[root@web1 ~]<span class="comment"># cp -r wordpress/* /usr/local/nginx/html/</span></span><br><span class="line">[root@web1 ~]<span class="comment"># chown -R apache.apache /usr/local/nginx/html/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化wordpress"><a href="#初始化wordpress" class="headerlink" title="初始化wordpress"></a>初始化wordpress</h3><ul>
+<li>客户端访问<a target="_blank" rel="noopener" href="http://192.168.2.11/">http://192.168.2.11</a></li>
+</ul>
+<p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/9.png" alt="9.png"></p>
+<h2 id="项目二期"><a href="#项目二期" class="headerlink" title="项目二期"></a>项目二期</h2><p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/10.png" alt="10.png"></p>
+<h3 id="部署ceph存储集群"><a href="#部署ceph存储集群" class="headerlink" title="部署ceph存储集群"></a>部署ceph存储集群</h3><ul>
+<li>准备三台服务器（每台虚拟机台再加2块50磁盘）</li>
+<li>一个缓存盘，一个数据盘</li>
+<li>配置主机名、IP地址、yum源、修改hosts解析文件、防火墙和SELinux</li>
+<li>node1创建ssh密钥，远程其他主机无需密码</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]<span class="comment"># cat /etc/hosts</span></span><br><span class="line">192.168.2.31 node1</span><br><span class="line">192.168.2.32 node2</span><br><span class="line">192.168.2.33 node3</span><br><span class="line"></span><br><span class="line">[root@node1 ~]<span class="comment"># cat /etc/yum.repos.d/ceph.repo </span></span><br><span class="line">[MON]</span><br><span class="line">name=MON</span><br><span class="line">baseurl=ftp://192.168.2.31/ceph/MON</span><br><span class="line">gpgcheck=0</span><br><span class="line">[OSD]</span><br><span class="line">name=OSD</span><br><span class="line">baseurl=ftp://192.168.2.31/ceph/OSD</span><br><span class="line">gpgcheck=0</span><br><span class="line">[Tools]</span><br><span class="line">name=Tools</span><br><span class="line">baseurl=ftp://192.168.2.31/ceph/Tools</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">[root@node1 ~]<span class="comment"># systemctl disable --now firewalld</span></span><br><span class="line">[root@node1 ~]<span class="comment"># setenforce 0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>node1做时间服务器、其他节点与node1同步时间</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]<span class="comment"># vim /etc/chrony.conf </span></span><br><span class="line">allow 192.168.0.0/16</span><br><span class="line"><span class="built_in">local</span> stratum 10</span><br><span class="line">[root@node1 ~]<span class="comment"># systemctl restart chronyd</span></span><br><span class="line"></span><br><span class="line">[root@node2 ~]<span class="comment"># vim /etc/chrony.conf</span></span><br><span class="line">server 192.168.2.31 iburst</span><br><span class="line">[root@node2 ~]<span class="comment"># for i in node2 node3</span></span><br><span class="line"> <span class="keyword">do</span></span><br><span class="line">   scp /etc/chrony.conf <span class="variable">$i</span>:/chrony.conf</span><br><span class="line">   ssh <span class="variable">$i</span> <span class="string">&quot;systemctl restart chronyd&quot;</span></span><br><span class="line"> <span class="keyword">done</span></span><br><span class="line">[root@node2 ~]<span class="comment"># chronyc sources</span></span><br><span class="line">210 Number of sources = 1</span><br><span class="line">MS Name/IP address         Stratum Poll Reach LastRx Last sample               </span><br><span class="line">===============================================================================</span><br><span class="line">^* node1                        10   6    17    18  +3012ns[ +269us] +/- 1198us</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署MON集群"><a href="#部署MON集群" class="headerlink" title="部署MON集群"></a>部署MON集群</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]<span class="comment"># yum install -y ceph-deploy</span></span><br><span class="line">[root@node1 ~]<span class="comment"># for i in node1 node2 node3</span></span><br><span class="line"> <span class="keyword">do</span> </span><br><span class="line">   ssh <span class="variable">$i</span> <span class="string">&quot;yum install -y ceph-mon ceph-osd ceph-mds&quot;</span></span><br><span class="line"> <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">[root@node1 ~]<span class="comment"># mkdir ceph-cluster </span></span><br><span class="line">[root@node1 ~]<span class="comment"># cd ceph-cluster</span></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph-deploy new node1 node2 node3</span></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph-deploy mon create-initial</span></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph -s</span></span><br><span class="line">    cluster 88d5875c-2fa7-44a8-928e-871e2197c3f1</span><br><span class="line">     health HEALTH_ERR</span><br><span class="line">            clock skew detected on mon.node3</span><br><span class="line">            no osds</span><br><span class="line">            Monitor clock skew detected </span><br><span class="line">     monmap e1: 3 mons at &#123;node1=192.168.2.31:6789/0,node2=192.168.2.32:6789/0,node3=192.168.2.33:6789/0&#125;</span><br><span class="line">            election epoch 4, quorum 0,1,2 node1,node2,node3</span><br><span class="line">     osdmap e1: 0 osds: 0 up, 0 <span class="keyword">in</span></span><br><span class="line">            flags sortbitwise</span><br><span class="line">      pgmap v2: 64 pgs, 1 pools, 0 bytes data, 0 objects</span><br><span class="line">            0 kB used, 0 kB / 0 kB avail</span><br><span class="line">                  64 creating</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化磁盘设备"><a href="#初始化磁盘设备" class="headerlink" title="初始化磁盘设备"></a>初始化磁盘设备</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]<span class="comment"># cd ceph-cluster</span></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph-deploy disk zap node1:sdb node1:sdc node2:sdb node2:sdc node3:sdb node3:sdc</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="部署OSD集群"><a href="#部署OSD集群" class="headerlink" title="部署OSD集群"></a>部署OSD集群</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph-deploy osd create node1:sdc:/dev/sdb</span></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph-deploy osd create node2:sdc:/dev/sdb</span></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph-deploy osd create node3:sdc:/dev/sdb</span></span><br><span class="line"></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph -s</span></span><br><span class="line">    cluster 88d5875c-2fa7-44a8-928e-871e2197c3f1</span><br><span class="line">     health HEALTH_WARN</span><br><span class="line">            clock skew detected on mon.node3</span><br><span class="line">            Monitor clock skew detected </span><br><span class="line">     monmap e1: 3 mons at &#123;node1=192.168.2.31:6789/0,node2=192.168.2.32:6789/0,node3=192.168.2.33:6789/0&#125;</span><br><span class="line">            election epoch 4, quorum 0,1,2 node1,node2,node3</span><br><span class="line">     osdmap e14: 3 osds: 3 up, 3 <span class="keyword">in</span></span><br><span class="line">            flags sortbitwise</span><br><span class="line">      pgmap v26: 64 pgs, 1 pools, 0 bytes data, 0 objects</span><br><span class="line">            101 MB used, 61305 MB / 61406 MB avail</span><br><span class="line">                  64 active+clean</span><br><span class="line"></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph osd tree</span></span><br><span class="line">ID WEIGHT  TYPE NAME      UP/DOWN REWEIGHT PRIMARY-AFFINITY </span><br><span class="line">-1 0.05846 root default                                     </span><br><span class="line">-2 0.01949     host node1                                   </span><br><span class="line"> 0 0.01949         osd.0       up  1.00000          1.00000 </span><br><span class="line">-3 0.01949     host node2                                   </span><br><span class="line"> 1 0.01949         osd.1       up  1.00000          1.00000 </span><br><span class="line">-4 0.01949     host node3                                   </span><br><span class="line"> 2 0.01949         osd.2       up  1.00000          1.00000 </span><br></pre></td></tr></table></figure>
+
+<h3 id="启动MDS服务"><a href="#启动MDS服务" class="headerlink" title="启动MDS服务"></a>启动MDS服务</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]<span class="comment"># cd ceph-cluster/</span></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph-deploy mds create node3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建存储池"><a href="#创建存储池" class="headerlink" title="创建存储池"></a>创建存储池</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph osd pool create cephfs_data 64</span></span><br><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph osd pool create cephfs_metadata 64</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建文件系统"><a href="#创建文件系统" class="headerlink" title="创建文件系统"></a>创建文件系统</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ceph-cluster]<span class="comment"># ceph fs new myfs1 cephfs_metadata cephfs_data</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="迁移网站数据"><a href="#迁移网站数据" class="headerlink" title="迁移网站数据"></a>迁移网站数据</h3><ul>
+<li>备份wordpress数据</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># cd /usr/local/nginx/html/</span></span><br><span class="line">[root@web1 html]<span class="comment"># tar -czpf /root/html.tar.gz ./*</span></span><br><span class="line">[root@web1 html]<span class="comment"># rm -rf ./*</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>web服务器挂载ceph文件系统（软件在ceph10.iso）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># yum install -y libcephfs1</span></span><br><span class="line">[root@web1 ~]<span class="comment"># vim /etc/fstab </span></span><br><span class="line">192.168.2.31:6789:/     /usr/local/nginx/html   ceph    defaults,_netdev,name=admin,secret=AQD3UT5kg/gZLhAA0otQd7xthEws9+h7jqCHkg==     0 0</span><br><span class="line">[root@web1 ~]<span class="comment"># mount -a</span></span><br><span class="line">[root@web1 ~]<span class="comment"># tar xf html.tar.gz -C /usr/local/nginx/html/</span></span><br><span class="line"></span><br><span class="line">[root@web1 ~]<span class="comment"># df -h</span></span><br><span class="line">Filesystem               Size  Used Avail Use% Mounted on</span><br><span class="line">192.168.2.31:6789:/       60G  244M   60G   1% /usr/local/nginx/html</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="web服务器集群环境"><a href="#web服务器集群环境" class="headerlink" title="web服务器集群环境"></a>web服务器集群环境</h3><ul>
+<li>部署服务器（web2与web3做相同操作）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># yum install -y gcc openssl-devel pcre-devel make </span></span><br><span class="line">[root@web2 ~]<span class="comment"># tar xf nginx-1.22.1.tar.gz </span></span><br><span class="line">[root@web2 ~]<span class="comment"># cd nginx-1.22.1/</span></span><br><span class="line">[root@web2 nginx-1.22.1]<span class="comment"># ./configure \</span></span><br><span class="line"> --with-http_ssl_module \</span><br><span class="line">  --with-http_stub_status_module</span><br><span class="line">[root@web2 nginx-1.22.1]<span class="comment"># make &amp;&amp; make install</span></span><br><span class="line">[root@web2 nginx-1.22.1]<span class="comment"># yum install -y php php-fpm php-mysql</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改配置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># vim /usr/local/nginx/conf/nginx.conf</span></span><br><span class="line">location / &#123;</span><br><span class="line">          root   html;</span><br><span class="line">          index  index.php index.html index.htm; <span class="comment">#修改默认页面</span></span><br><span class="line">      &#125;</span><br><span class="line">location ~ \.php$ &#123;</span><br><span class="line">          root           html;</span><br><span class="line">          fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">          fastcgi_index  index.php;</span><br><span class="line">          include        fastcgi.conf;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># scp web1:/usr/lib/systemd/system/nginx.service /usr/lib/systemd/system/</span></span><br><span class="line">[root@web2 ~]<span class="comment"># systemctl start nginx</span></span><br><span class="line">[root@web2 ~]<span class="comment"># systemctl enable nginx</span></span><br><span class="line">[root@web2 ~]<span class="comment"># systemctl start php-fpm</span></span><br><span class="line">[root@web2 ~]<span class="comment"># systemctl enable php-fpm</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>关闭防火墙</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># systemctl disable --now firewalld</span></span><br><span class="line">[root@web2 ~]<span class="comment"># sed -i &#x27;s/SELINUX=enforcing/SELINUX=disabled/&#x27; /etc/selinux/config </span></span><br><span class="line">[root@web2 ~]<span class="comment"># setenforce 0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>web2服务器挂载ceph文件系统</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@web2 ~]<span class="comment"># yum install -y libcephfs1</span></span><br><span class="line">[root@web2 ~]<span class="comment"># vim /etc/fstab </span></span><br><span class="line">192.168.2.31:6789:/	/usr/local/nginx/html	ceph	defaults,_netdev,name=admin,secret=AQD3UT5kg/gZLhAA0otQd7xthEws9+h7jqCHkg==	0 0</span><br><span class="line"></span><br><span class="line">[root@web2 ~]<span class="comment"># mount -a</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以通过浏览器访问</li>
+<li>192.168.2.12</li>
+<li>192.168.2.13</li>
+</ul>
+<h2 id="项目三期"><a href="#项目三期" class="headerlink" title="项目三期"></a>项目三期</h2><p><img src="../../../../jihu/image/CLUSTRE/ClusterProject/11.png" alt="11.png"></p>
+<h3 id="部署代理服务器一"><a href="#部署代理服务器一" class="headerlink" title="部署代理服务器一"></a>部署代理服务器一</h3><ul>
+<li>部署代理服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@proxy1 ~]<span class="comment"># yum install -y haproxy</span></span><br><span class="line">[root@proxy1 ~]<span class="comment"># vim /etc/haproxy/haproxy.cfg </span></span><br><span class="line"><span class="comment">#手动添加</span></span><br><span class="line">listen websrv *:80</span><br><span class="line">    server web1 192.168.2.11:80 check</span><br><span class="line">    server web2 192.168.2.12:80 check</span><br><span class="line">    server web3 192.168.2.13:80 check</span><br><span class="line">    </span><br><span class="line">[root@proxy1 ~]<span class="comment"># systemctl enable --now haproxy.service </span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置keepalived实现高可用（主服务器）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@proxy1 ~]<span class="comment"># yum install -y keepalived  </span></span><br><span class="line">[root@proxy1 ~]<span class="comment"># vim /etc/keepalived/keepalived.conf</span></span><br><span class="line">global_defs &#123;</span><br><span class="line">   router_id proxy1</span><br><span class="line">   vrrp_iptables</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33  <span class="comment">#4网段网卡</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100  </span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.4.80</span><br><span class="line">    &#125;   </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">#后面可删除</span></span><br><span class="line">[root@proxy1 ~]<span class="comment"># systemctl enable --now keepalived.service</span></span><br><span class="line">[root@proxy1 ~]<span class="comment"># ip a s ens33</span></span><br><span class="line">2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 00:0c:29:f3:4b:59 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.4.5/24 brd 192.168.4.255 scope global noprefixroute ens33</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet 192.168.4.80/32 scope global ens33</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::2e84:2496:fa91:d96a/64 scope <span class="built_in">link</span> noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="部署代理服务器二"><a href="#部署代理服务器二" class="headerlink" title="部署代理服务器二"></a>部署代理服务器二</h3><ul>
+<li>部署代理服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@proxy2 ~]<span class="comment"># yum install -y haproxy</span></span><br><span class="line">[root@proxy2 ~]<span class="comment"># vim /etc/haproxy/haproxy.cfg </span></span><br><span class="line"><span class="comment">#手动添加</span></span><br><span class="line">listen websrv *:80</span><br><span class="line">    server web1 192.168.2.11:80 check</span><br><span class="line">    server web2 192.168.2.12:80 check</span><br><span class="line">    server web3 192.168.2.13:80 check</span><br><span class="line">    </span><br><span class="line">[root@proxy2 ~]<span class="comment"># systemctl enable --now haproxy.service </span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置keepalived实现高可用（备用服务器）</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@proxy2 ~]<span class="comment"># yum install keepalived -y </span></span><br><span class="line">[root@proxy2 ~]<span class="comment"># vim /etc/keepalived/keepalived.conf </span></span><br><span class="line">global_defs &#123;</span><br><span class="line">   router_id proxy2</span><br><span class="line">   vrrp_iptables</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface ens33  <span class="comment">#4网段网卡</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 80  </span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.4.80</span><br><span class="line">    &#125;   </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">#后面可删除</span></span><br><span class="line">[root@proxy2 ~]<span class="comment"># systemctl enable --now keepalived.service</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="客户端解析"><a href="#客户端解析" class="headerlink" title="客户端解析"></a>客户端解析</h3><ul>
+<li><p>正常情况下，我们应该部署一台DNS服务器完成域名解析</p>
+</li>
+<li><p>这里因为我们使用真实主机作为客户端，所以不再修改真机DNS</p>
+<p>否则，可能导致真机无法上网</p>
+</li>
+<li><p>这里我们直接修改hosts解析即可（域名labx.tedu.cn–192.168.4.80）</p>
+<p>Windows：C:\Windows\System32\drivers\etc\hosts</p>
+<p>Linux：/etc/hosts</p>
+</li>
+<li><p>如果使用域名访问还需要修改wordpress配置文件</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]<span class="comment"># vim  /usr/local/nginx/html/wp-config.php</span></span><br><span class="line">define(<span class="string">&#x27;WP_SITEURL&#x27;</span>,<span class="string">&#x27;http://labx.tedu.cn&#x27;</span>);</span><br><span class="line">define(<span class="string">&#x27;WP_HOME&#x27;</span>,<span class="string">&#x27;http://labx.tedu.cn&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过labx.tedu.cn或192.168.4.80访问</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/04/18/%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE/">http://example.com/2023/04/18/综合实战项目/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Cluster/">Cluster</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/jiqun.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/04/16/Kubernetes/" title="容器云相关赛题"><img class="cover" src="/../jihu/wallpaper/used/k8s4.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">容器云相关赛题</div></div></a></div><div class="next-post pull-right"><a href="/2023/05/12/tedu-Python/" title="Python"><img class="cover" src="/../jihu/wallpaper/used/python1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">O&M</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98"><span class="toc-number">1.</span> <span class="toc-text">网站架构的演变</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E6%9C%BA%E7%89%88LNMP"><span class="toc-number">1.1.</span> <span class="toc-text">单机版LNMP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8B%AC%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">独立数据库服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4"><span class="toc-number">1.3.</span> <span class="toc-text">高可用服务器集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="toc-number">1.4.</span> <span class="toc-text">动静分离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E7%BE%A4"><span class="toc-number">1.5.</span> <span class="toc-text">数据库集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8E%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.6.</span> <span class="toc-text">缓存服务器与业务模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">综合实战项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%95%B4%E4%BD%93%E6%8B%93%E6%89%91"><span class="toc-number">2.1.</span> <span class="toc-text">项目整体拓扑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%80%E6%9C%9F"><span class="toc-number">2.2.</span> <span class="toc-text">项目一期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2LNP%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text">部署LNP服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemd"><span class="toc-number">2.2.2.</span> <span class="toc-text">systemd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2Maria-DB%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.2.3.</span> <span class="toc-text">部署Maria DB数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E7%BA%BFWord-Press"><span class="toc-number">2.2.4.</span> <span class="toc-text">上线Word Press</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96wordpress"><span class="toc-number">2.2.5.</span> <span class="toc-text">初始化wordpress</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%BA%8C%E6%9C%9F"><span class="toc-number">2.3.</span> <span class="toc-text">项目二期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2ceph%E5%AD%98%E5%82%A8%E9%9B%86%E7%BE%A4"><span class="toc-number">2.3.1.</span> <span class="toc-text">部署ceph存储集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2MON%E9%9B%86%E7%BE%A4"><span class="toc-number">2.3.2.</span> <span class="toc-text">部署MON集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E7%A3%81%E7%9B%98%E8%AE%BE%E5%A4%87"><span class="toc-number">2.3.3.</span> <span class="toc-text">初始化磁盘设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2OSD%E9%9B%86%E7%BE%A4"><span class="toc-number">2.3.4.</span> <span class="toc-text">部署OSD集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8MDS%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.3.5.</span> <span class="toc-text">启动MDS服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E6%B1%A0"><span class="toc-number">2.3.6.</span> <span class="toc-text">创建存储池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.3.7.</span> <span class="toc-text">创建文件系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.8.</span> <span class="toc-text">迁移网站数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83"><span class="toc-number">2.3.9.</span> <span class="toc-text">web服务器集群环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%B8%89%E6%9C%9F"><span class="toc-number">2.4.</span> <span class="toc-text">项目三期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%80"><span class="toc-number">2.4.1.</span> <span class="toc-text">部署代理服务器一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%8C"><span class="toc-number">2.4.2.</span> <span class="toc-text">部署代理服务器二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%A7%A3%E6%9E%90"><span class="toc-number">2.4.3.</span> <span class="toc-text">客户端解析</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式"><img src="/../jihu/wallpaper/used/linux5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见文本处理工具和正则表达式"/></a><div class="content"><a class="title" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式">常见文本处理工具和正则表达式</a><time datetime="2024-09-22T16:00:00.000Z" title="发表于 2024-09-23 00:00:00">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理"><img src="/../jihu/wallpaper/used/linux4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用户和权限管理"/></a><div class="content"><a class="title" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理">用户和权限管理</a><time datetime="2024-08-30T16:00:00.000Z" title="发表于 2024-08-31 00:00:00">2024-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly"><img src="/../jihu/wallpaper/used/butterfiy.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo-Butterfly"/></a><div class="content"><a class="title" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly">Hexo-Butterfly</a><time datetime="2024-08-27T03:15:00.000Z" title="发表于 2024-08-27 11:15:00">2024-08-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向"><img src="/../jihu/wallpaper/used/linux3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux文件管理和IO重定向"/></a><div class="content"><a class="title" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向">Linux文件管理和IO重定向</a><time datetime="2024-08-26T16:00:00.000Z" title="发表于 2024-08-27 00:00:00">2024-08-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

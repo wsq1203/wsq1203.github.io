@@ -1,0 +1,507 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>公有云：(6)边缘计算平台部署应用 | Blog</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="边缘计算平台部署应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="公有云：(6)边缘计算平台部署应用">
+<meta property="og:url" content="http://example.com/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="边缘计算平台部署应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/bianyuanjisuan.jpg">
+<meta property="article:published_time" content="2023-08-11T22:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-10T08:13:04.766Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="HuaweiCloud">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/bianyuanjisuan.jpg"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '公有云：(6)边缘计算平台部署应用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-10 16:13:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/bianyuanjisuan.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Blog"><span class="site-name">Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">公有云：(6)边缘计算平台部署应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-11T22:00:00.000Z" title="发表于 2023-08-12 06:00:00">2023-08-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-10T08:13:04.766Z" title="更新于 2024-10-10 16:13:04">2024-10-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E9%87%8C%E9%9B%BE%E9%87%8C/">云里雾里</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>33分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="公有云：(6)边缘计算平台部署应用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="课程介绍"><a href="#课程介绍" class="headerlink" title="课程介绍"></a>课程介绍</h1><h2 id="模块简介"><a href="#模块简介" class="headerlink" title="模块简介"></a>模块简介</h2><p>本课程详细介绍了kubernetes容器云平台的部署过程以及kubeedge边缘计算环境的部署，此外详细介绍了云端数据监控服务的部署和智能边缘计算平台部署视觉服务。通过本模块的学习可以更好的掌握边缘计算的实际应用场景。</p>
+<h2 id="模块知识"><a href="#模块知识" class="headerlink" title="模块知识"></a>模块知识</h2><p>（1）了解容器的概念。</p>
+<p>（2）熟悉容器基础服务部署。</p>
+<p>（3）掌握kubernetes环境搭建。</p>
+<p>（4）掌握kubeedge环境搭建。</p>
+<p>（5）掌握视觉服务的基本部署和应用过程</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>准备四台虚拟机，包含3台4VCPU/12GB内存/100GB磁盘，另外包含一台桌面系统用来访问图形化页面。</p>
+<p>部署测试节点规划，见表1。</p>
+<p>表1 测试节点规划</p>
+<table>
+<thead>
+<tr>
+<th><strong>IP</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>节点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.26.3.33</td>
+<td>k8s-master</td>
+<td>云端主节点</td>
+</tr>
+<tr>
+<td>10.26.3.34</td>
+<td>k8s-node</td>
+<td>云端从节点</td>
+</tr>
+<tr>
+<td>10.26.18.145</td>
+<td>kubeedge-node</td>
+<td>边缘端节点</td>
+</tr>
+<tr>
+<td>无</td>
+<td>无</td>
+<td>图形化节点</td>
+</tr>
+</tbody></table>
+<h1 id="模块内容"><a href="#模块内容" class="headerlink" title="模块内容"></a>模块内容</h1><h2 id="边缘计算简介"><a href="#边缘计算简介" class="headerlink" title="边缘计算简介"></a>边缘计算简介</h2><h3 id="边缘计算简介-1"><a href="#边缘计算简介-1" class="headerlink" title="边缘计算简介"></a>边缘计算简介</h3><p>（1）边缘计算概念</p>
+<p>边缘计算是在靠近物或数据源头的网络边缘侧，通过融合网络、计算、存储、应用核心能力的分布式开放平台，就近提供边缘智能服务。简单点讲，边缘计算是将从终端采集到的数据，直接在靠近数据产生的本地设备或网络中进行分析，无需再将数据传输至云端数据处理中心。</p>
+<p>OpenStack社区对其定义的概念同样也是：“边缘计算是为应用开发者和服务提供商在网络的边缘侧提供云服务和IT环境服务；目标是在靠近数据输入或用户的地方提供计算、存储和网络带宽。”</p>
+<p>（2）边缘计算的作用</p>
+<p>① 为什么要使用边缘计算？<br>通俗一点来讲，边缘计算的本质还是一种服务，类似与云计算、大数据的服务，但是与他们不一样的地方在于，这种服务是非常接进用户的。那为什么这种服务要那么接近于用户呢？答案非常简单就是为了让用户在在使用上有较强的体验，这种体验会让用户觉得自己刷什么内容都是非常快的。<br>② 边缘计算解决了哪些问题？背景是什么？<br>随着物联网技术的快速发展，使得越来越多具备独立功能的普通物体实现了互联互通，实现万物互联。得益于物联网的转型，各行各业均在利用物联网技术快速实现数字化转型，越来越多的行业终端设备通过网络联接起来。<br>然而物联网作为庞大而复杂的系统，不同行业的应用场景也是各异。根据第三方机构分析统计，到2025年将有超过千亿的终端设备联网，终端数据量将达300ZB，如此大规模的数据量，按照传统数据处理方式，获取的所有数据均需上送云计算平台分析，云计算平台将面临着网络时延高、海量设备接入、海量数据处理难、带宽不够和功耗过高等高难度挑战。<br>为了解决传统数据处理方式下时延高、数据实时分析能力匮乏等弊端，边缘计算技术应运而生。举一个现实的例子，几乎所有人都遇到过手机App出现“无法访问错误”的情况 ，这样的一些错误就和网络状况、云服务器带宽限制有关系。由于资源条件的限制，云计算服务不可避免收到高延迟、和网络不稳定带来的影响，但是通过将部分或者全部处理程序迁移至靠近用户或数据收集点，边缘计算能够大大减少在云中心模式站点下给应用程序所带来的影响。<br>边缘计算技术是在靠近物或数据源头的网络边缘侧，通过融合网络、计算、存储、应用核心能力的分布式开放平台，就近提供边缘智能服务。如图1-1所示，简单来说，边缘计算是将从终端采集到的数据，直接在靠近数据产生的本地设备或网络中激进型分析，无需再将数据传输至云端数据处理中心。</p>
+<p><img src="../../../../jihu/image/DX/367.png" alt="367"></p>
+<p>图1-1 边缘计算架构图<br>边缘计算的核心是在靠近数据源或物的一侧提供计算、存储和应用服务，这与雾计算将计算和分析能力扩展至网络“边缘”的定义非常相近。</p>
+<p>（3）雾计算</p>
+<p>雾计算（Fog Computing）是云计算（Cloud Computing）的延伸概念，主要用于管理来自传感器和边缘设备的数据，将数据、（数据）处理和应用程序集中在网络边缘的设备中，而不是全部保存在云端数据中心。在终端设备和云端数据中心之间再加一层“雾”，即网络边缘层，比如再加一个带有存储器的小服务器或路由器，把一些并不需要放到云端的数据在这一层直接处理和存储，可以大大减少云端的计算和存储压力，提高效率，提升传输速率，减低时延。<br>雾计算技术采用分布式的计算方式，将计算、通信、控制和存储资源与服务分布给用户或靠近用户的设备与系统。可以说，雾计算扩大了云计算的网络计算模式，将网络计算从网络中心扩展到了网络边缘，从而更加广泛地应用于各种服务。雾计算在地理上分布更为广泛，而且具有更大范围的移动性，这让它适应如今越来越多不需要进行大量运算的智能设备。对一些对时间延迟敏感的应用如实时和流媒体应用中，雾计算也具有更大的优势。<br>雾计算并非由性能强大的服务器组成，而是由性能较弱、更为分散的，处于大型数据中心以外的庞大外围设备组成，这些外围设别包括智能终端本身，也包括把智能设备与云端相连接的网关或路由设备，可以渗入工厂、汽车、电器、街灯及人们物质生活中的各类可计算设备中。</p>
+<p><img src="../../../../jihu/image/DX/368.png" alt="368"></p>
+<p>图1-2 云计算雾计算结构组织</p>
+<p><img src="../../../../jihu/image/DX/369.png" alt="369"></p>
+<p>图1-3 边缘计算工作流程</p>
+<h3 id="云计算、边缘计算、雾计算之间区别"><a href="#云计算、边缘计算、雾计算之间区别" class="headerlink" title="云计算、边缘计算、雾计算之间区别"></a>云计算、边缘计算、雾计算之间区别</h3><p>（1） 边缘计算VS云计算</p>
+<p>边缘计算的概念是相对于云计算而言的，云计算的处理方式是将所有数据上传至计算资源集中的云端数据中心或服务器处理，任何需要访问该信息的请求都必须上送云端处理。</p>
+<p>因此，云计算面对物联网数据量爆发的时代，弊端逐渐凸显：</p>
+<p>① 云计算无法满足爆发式的海量数据处理诉求。</p>
+<p>随着互联网与各个行业的融合，特别是在物联网技术普及后，计算需求出现爆发式增长，传统云计算架构将不能满足如此庞大的计算需求。</p>
+<p>② 云计算不能满足数据实时处理的诉求。</p>
+<p>传统云计算模式下，物联网数据被终端采集后要先传输至云计算中心，再通过集群计算后返回结果，这必然出现较长的响应时间，但一些新兴的应用场景如无人驾驶、智慧矿山等，对响应时间有极高要求，依赖云计算并不现实。</p>
+<p>边缘计算的出现，可在一定程度上解决云计算遇到的这些问题。如图2-1所示，物联终端设备产生的数据不需要再传输至遥远的云数据中心处理，而是就近即在网络边缘侧完成数据分析和处理，相较于云计算更加高效和安全。</p>
+<p><img src="../../../../jihu/image/DX/370.png" alt="370"></p>
+<p>图1-4 边缘计算和云计算的对比</p>
+<p>（2）三者之间的区别</p>
+<p>云计算、边缘计算、雾计算三者之间的区别见表1-1。</p>
+<p>表1-1 云计算、边缘计算、雾计算之间区别对比</p>
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>云计算</strong></th>
+<th><strong>雾计算</strong></th>
+<th><strong>边缘计算</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算方式</td>
+<td>集中式</td>
+<td>去中心化</td>
+<td>去中心化</td>
+</tr>
+<tr>
+<td>计算地点</td>
+<td>远离终端</td>
+<td>靠近终端设备或网关</td>
+<td>靠近终端设备或网关</td>
+</tr>
+<tr>
+<td>延时性</td>
+<td>延时</td>
+<td>低延时</td>
+<td>低延时</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>需要采取措施</td>
+<td>隐私性较高</td>
+<td>隐私性较高</td>
+</tr>
+<tr>
+<td>数据存储</td>
+<td>存储所有信息</td>
+<td>仅向云端发送结果和数据</td>
+<td>仅向云端发送结果和数据</td>
+</tr>
+<tr>
+<td>部署成本</td>
+<td>高</td>
+<td>低</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h3 id="边缘计算分类和典型应用"><a href="#边缘计算分类和典型应用" class="headerlink" title="边缘计算分类和典型应用"></a>边缘计算分类和典型应用</h3><p>（1）边缘计算分类</p>
+<p>从市场应用区分纬度，边缘计算主要区分三类——电信运营商边缘计算、企业与物联网边缘计算、工业边缘计算。</p>
+<p>（2）边缘计算的典型应用</p>
+<p>正是基于这种更实时处理数据的能力、特性，更快的响应时间，边缘计算非常适合被应用于物联网领域，通过具有边缘计算能力的物联网关就近（网络边缘节点）提供设备管理控制等服务，解决物联网通信“最后一公里”的问题，最终实现物联网设备的智慧连接和高效管理。</p>
+<p>边缘计算网联网架构如图1-5所示，它聚焦于工业物联网领域，不仅支持丰富的工业协议和物联接口，可以广泛适应不同行业设备的联接场景，而且通过开放的边缘计算能力和云管理架构，快速满足不同行业边缘智能数据处理诉求：</p>
+<p>（1）联接：实现海量终端设备接入物联网络，主要通过边缘计算网关支持的各种物联接口（IP化PLC/RF/RS485/RS232等）连接各种传感器和终端，实现终端设备接入。</p>
+<p>（2）云管理：通过物联网平台，应用云计算技术，实现边缘物联设备（如网络、设备、容器及应用）的统一云化管理，同时北向支持与其他行业应用系统灵活对接。</p>
+<p>（3）行业应用：物联网平台提供标准的开放接口与不同合作伙伴的行业应用系统开放对接，构建广泛的行业适应性，可开发更多契合行业场景，深度定制化物联网行业应用。</p>
+<p><img src="../../../../jihu/image/DX/371.png" alt="371"></p>
+<p>图1-5 边缘计算网联网架构</p>
+<h2 id="实战案例——Kubekey安装kubernetes"><a href="#实战案例——Kubekey安装kubernetes" class="headerlink" title="实战案例——Kubekey安装kubernetes"></a>实战案例——Kubekey安装kubernetes</h2><h3 id="基础环境配置"><a href="#基础环境配置" class="headerlink" title="基础环境配置"></a>基础环境配置</h3><p>将三个节点主机分别修改主机名为k8s-master、k8s-node和kubeedge-node命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# hostnamectl set-hostname k8s-master</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换节点</span></span><br><span class="line">[root@localhost ~]# hostnamectl set-hostname k8s-node</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换节点</span></span><br><span class="line">[root@localhost ~]# hostnamectl set-hostname kubeedge-node</span><br></pre></td></tr></table></figure>
+
+<p>根据实际地址，分别配置三个节点主机映射，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# vi /etc/hosts</span><br><span class="line">127.0.0.1  localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1        localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">10.26.3.33 k8s-master</span><br><span class="line">10.26.3.34 k8s-node</span><br><span class="line">10.26.18.145 kubeedge-node</span><br><span class="line"> [root@k8s-node ~]# vi /etc/hosts</span><br><span class="line">127.0.0.1  localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1        localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">10.26.3.33 k8s-master</span><br><span class="line">10.26.3.34 k8s-node</span><br><span class="line">10.26.18.145 kubeedge-node </span><br><span class="line">[root@kubeedge-node ~]# vi /etc/hosts</span><br><span class="line">127.0.0.1  localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1        localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">10.26.3.33 k8s-master</span><br><span class="line">10.26.3.34 k8s-node</span><br><span class="line">10.26.18.145 kubeedge-node</span><br></pre></td></tr></table></figure>
+
+<p>将提供的安装包 kubernetes_kubeedge.tar.gz下载至k8s-master节点/root 目录，并解压到/opt目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# ls</span><br><span class="line">kubernetes_kubeedge.tar.gz</span><br><span class="line"></span><br><span class="line">[root@k8s-master ~]# tar -zxf kubernetes_kubeedge.tar.gz -C /opt/</span><br><span class="line">[root@k8s-master ~]# ls /opt/</span><br><span class="line">deploy.yaml                  ec-dashboard-sa.yaml                 k8simage  kk        kubekey</span><br><span class="line">docker-compose-Linux-x86_64  harbor-offline-installer-v2.5.0.tgz  k8s.yaml  kubeedge  yum</span><br></pre></td></tr></table></figure>
+
+<p>在配置本地Yum源，并安装vsftpd服务，共享软件库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# mv /etc/yum.repos.d/* /media/</span><br><span class="line">[root@k8s-master ~]# vi /etc/yum.repos.d/local.repo </span><br><span class="line">[docker]</span><br><span class="line">name=docker</span><br><span class="line">baseurl=file:///opt/yum</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line">[root@k8s-master ~]# yum install -y vsftpd</span><br><span class="line">[root@k8s-master ~]# echo anon_root=/opt &gt;&gt; /etc/vsftpd/vsftpd.conf</span><br><span class="line">[root@k8s-master ~]# systemctl enable vsftpd --now</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">设置服务开机自启，并启动</span></span><br></pre></td></tr></table></figure>
+
+<p>云端node节点（k8s-node）以及边缘端节点（kubeedge-node）Yum源配置，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]# mv /etc/yum.repos.d/* /media/</span><br><span class="line">[root@k8s-node ~]# vi /etc/yum.repos.d/ftp.repo</span><br><span class="line">[docker]</span><br><span class="line">name=docker</span><br><span class="line">baseurl=ftp://k8s-master/yum</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line">[root@kubeedge-node ~]# mv /etc/yum.repos.d/* /media/</span><br><span class="line">[root@kubeedge-node ~]# vi /etc/yum.repos.d/ftp.repo</span><br><span class="line">[docker]</span><br><span class="line">name=docker</span><br><span class="line">baseurl=ftp://k8s-master/yum</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Docker服务"><a href="#安装Docker服务" class="headerlink" title="安装Docker服务"></a>安装Docker服务</h3><p>在三个节点分别安装docker-ce，并配置镜像本地拉取，命令如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># yum install -y docker-ce</span><br><span class="line"># vi /etc/docker/daemon.json</span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;log-driver&quot;</span><span class="punctuation">:</span> <span class="string">&quot;json-file&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;log-opts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;max-size&quot;</span><span class="punctuation">:</span> <span class="string">&quot;200m&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;max-file&quot;</span><span class="punctuation">:</span> <span class="string">&quot;5&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;default-ulimits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;nofile&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nofile&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Hard&quot;</span><span class="punctuation">:</span> <span class="number">655360</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Soft&quot;</span><span class="punctuation">:</span> <span class="number">655360</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;nproc&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nproc&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Hard&quot;</span><span class="punctuation">:</span> <span class="number">655360</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;Soft&quot;</span><span class="punctuation">:</span> <span class="number">655360</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;live-restore&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;oom-score-adjust&quot;</span><span class="punctuation">:</span> <span class="number">-1000</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;max-concurrent-downloads&quot;</span><span class="punctuation">:</span> <span class="number">10</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;max-concurrent-uploads&quot;</span><span class="punctuation">:</span> <span class="number">10</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;insecure-registries&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;0.0.0.0/0&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"># systemctl daemon-reload</span><br><span class="line"># systemctl enable docker --now</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：三个节点做相同的操作。</strong></p>
+<h3 id="部署Harbor服务"><a href="#部署Harbor服务" class="headerlink" title="部署Harbor服务"></a>部署Harbor服务</h3><p>在云端主节点（k8s-master）安装部署Harbor，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# cd /opt/</span><br><span class="line">[root@k8s-master opt]# mv docker-compose-Linux-x86_64 /usr/bin/docker-compose</span><br><span class="line">[root@k8s-master opt]# tar -zxf harbor-offline-installer-v2.5.0.tgz</span><br><span class="line">[root@k8s-master harbor]# cd harbor &amp;&amp; cp harbor.yml.tmpl harbor.yml</span><br><span class="line">[root@k8s-master harbor]# vi harbor.yml</span><br><span class="line">hostname: 10.26.3.33</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改为k8s-master节点IP</span></span><br><span class="line">[root@k8s-master harbor]# ./install.sh</span><br><span class="line">……</span><br><span class="line">✔ ----Harbor has been installed and started successfully.----</span><br><span class="line">[root@k8s-master harbor]# docker login -u admin -p Harbor12345 k8s-master</span><br><span class="line">….</span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure>
+
+<p>在打开浏览器访问harbor UI。<a target="_blank" rel="noopener" href="http://10.26.3.33/">http://10.26.3.33/</a> ，登录用户名密码（admin/Harbor12345），并创建k8s命名空间，如图2-1所示：</p>
+<p><img src="../../../../jihu/image/DX/372.png" alt="372"></p>
+<p>图2-1 新建k8s项目</p>
+<p>加载并上传镜像至仓库，命令如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master harbor]<span class="comment"># cd ..</span></span><br><span class="line">[root@k8s-master opt]<span class="comment"># cd k8simage &amp;&amp; sh load.sh</span></span><br><span class="line">[root@k8s-master k8simage]<span class="comment"># sh push.sh </span></span><br><span class="line">请输入您的Harbor仓库地址(不需要带http):10.26.3.33</span><br><span class="line">….</span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置Kubekey部署kubernetes"><a href="#配置Kubekey部署kubernetes" class="headerlink" title="配置Kubekey部署kubernetes"></a>配置Kubekey部署kubernetes</h3><p>在云端主节点（k8s-master）配置kubekey服务，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master k8simage]# cd /opt/</span><br><span class="line">[root@k8s-master opt]# mv /opt/kk /usr/bin/</span><br></pre></td></tr></table></figure>
+
+<p>在云端主节点（k8s-master）以及云端从节点（k8s-node）安装依赖服务，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master opt]# yum install -y socat conntrack</span><br><span class="line">[root@k8s-node ~]# yum install -y socat conntrack</span><br></pre></td></tr></table></figure>
+
+<p>在云端主节点（k8s-master）修改kubekey部署kubernetes模板文件，命令如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@k8s-master</span> <span class="string">opt</span>]<span class="comment"># vi k8s.yaml</span></span><br><span class="line"><span class="attr">hosts:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">k8s-master</span>, <span class="attr">address:</span> <span class="number">10.26</span><span class="number">.3</span><span class="number">.33</span>, <span class="attr">internalAddress:</span> <span class="number">10.26</span><span class="number">.3</span><span class="number">.33</span>, <span class="attr">user:</span> <span class="string">root</span>, <span class="attr">password:</span> <span class="string">&quot;Abc@1234&quot;</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">k8s-node</span>, <span class="attr">address:</span> <span class="number">10.26</span><span class="number">.3</span><span class="number">.34</span>, <span class="attr">internalAddress:</span> <span class="number">10.26</span><span class="number">.3</span><span class="number">.34</span>, <span class="attr">user:</span> <span class="string">root</span>, <span class="attr">password:</span> <span class="string">&quot;Abc@1234&quot;</span>&#125;</span><br><span class="line">  <span class="attr">roleGroups:</span></span><br><span class="line">    <span class="attr">etcd:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-master</span>   <span class="comment">#修改成主节点</span></span><br><span class="line">    <span class="attr">control-plane:</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-master</span>   <span class="comment">#修改成主节点</span></span><br><span class="line">    <span class="attr">worker:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">k8s-node</span>    <span class="comment">#工作节点，根据情况来填写</span></span><br><span class="line"><span class="comment">#address 若云主机为本地，则修改成本地的IP。若是公有云，则修改成公网IP。</span></span><br><span class="line"><span class="comment">#internalAddress 若云主机为本地，则修改成本地的IP。若是公有云，则修改成内网IP。</span></span><br><span class="line"><span class="comment">#name 修改为节点的主机名</span></span><br><span class="line"><span class="attr">registry:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">harbor</span></span><br><span class="line">    <span class="attr">auths:</span></span><br><span class="line">      <span class="attr">&quot;10.26.3.33&quot;:</span>   <span class="comment">#harborip 修改为实际harbor地址</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">admin</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">Harbor12345</span></span><br><span class="line">    <span class="attr">privateRegistry:</span> <span class="string">&quot;10.26.3.33&quot;</span> <span class="comment">#harborip 修改为实际harbor地址</span></span><br><span class="line">    <span class="attr">namespaceOverride:</span> <span class="string">&quot;k8s&quot;</span>  <span class="comment">#添加实际命名空间</span></span><br></pre></td></tr></table></figure>
+
+<p>安装部署集群，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master opt] # kk create cluster -f k8s.yaml</span><br><span class="line">……</span><br><span class="line">Continue this installation? [yes/no]: yes</span><br><span class="line">……</span><br><span class="line">09:17:55 UTC Pipeline[CreateClusterPipeline] execute successfully</span><br><span class="line">Installation is complete</span><br><span class="line">[root@k8s-master opt]# kubectl get nodes</span><br><span class="line">NAME         STATUS   ROLES                  AGE   VERSION</span><br><span class="line">k8s-master   Ready    control-plane,master   85s   v1.22.1</span><br><span class="line">k8s-node     Ready    worker                 63s   v1.22.1</span><br></pre></td></tr></table></figure>
+
+<p><strong>注： 两个节点都为Ready状态表示部署成功。</strong></p>
+<h2 id="Kubeedge简介"><a href="#Kubeedge简介" class="headerlink" title="Kubeedge简介"></a>Kubeedge简介</h2><h3 id="什么是kubeedge？"><a href="#什么是kubeedge？" class="headerlink" title="什么是kubeedge？"></a>什么是kubeedge？</h3><p>Kubeedge 是一个开源项目，它将容器编排平台 Kubernetes 扩展到边缘计算环境中。边缘计算是一种将计算和数据处理能力推近到数据源头的计算模式，以便更快速地响应本地事件和减少数据传输到中央云的延迟。</p>
+<p>Kubeedge 的目标是在边缘设备和云之间提供一个一致的编程和管理模型，从而使开发者能够以类似于在云中运行应用程序的方式来开发和部署边缘应用程序。它提供了一个边缘节点（Edge Node）的运行时环境，该环境在边缘设备上运行，并与云端的 Kubernetes 集群进行通信和协同工作。</p>
+<p>使用 KubeEdge，可以很容易地将已有的复杂机器学习、图像识别、事件处理和其他高级应用程序部署到边缘端并进行使用。随着业务逻辑在边缘端上运行，可以在本地保护和处理大量数据。通过在边缘端处理数据，响应速度会显著提高，并且可以更好地保护数据隐私。</p>
+<h3 id="功能和特性"><a href="#功能和特性" class="headerlink" title="功能和特性"></a>功能和特性</h3><p>（1）边缘计算节点管理：Kubeedge 允许在边缘设备上运行 Kubernetes 节点，以便在边缘设备上调度和运行容器化应用程序。</p>
+<p>（2）边缘设备注册：边缘设备可以注册到云端的 Kubernetes 集群，从而与云端进行连接和通信。</p>
+<p>（3）边缘和云之间的数据同步：Kubeedge 提供了一种机制，可以在边缘设备和云端之间进行数据同步和传输，以便在边缘设备上进行本地处理和分析。</p>
+<p>（4）边缘设备状态管理：Kubeedge 允许在云端管理和监控边缘设备的状态和健康状况，以便进行集中管理和故障排除。</p>
+<p>（5）本地边缘规则执行：Kubeedge 支持在边缘设备上执行本地的业务逻辑和规则，而无需依赖云端的决策。</p>
+<p>Kubeedge 的设计目标是为边缘计算提供一个弹性、高效且可扩展的解决方案，同时与 Kubernetes 生态系统紧密集成，以便开发者能够充分利用 Kubernetes 的优势和工具来开发和管理边缘应用程序。</p>
+<h3 id="组件介绍"><a href="#组件介绍" class="headerlink" title="组件介绍"></a>组件介绍</h3><p>KubeEdge 由多个组件组成，每个组件负责不同的功能。以下是 Kubeedge 的主要组件及其功能：</p>
+<p>（1）Edge Core（边缘核心）：Edge Core 是 Kubeedge 的核心组件，运行在边缘节点上。它负责管理边缘节点的生命周期、与云端的通信和协调、容器运行时管理等。Edge Core 将边缘节点连接到云端的 Kubernetes 控制平面，实现边缘和云端之间的集成和交互。</p>
+<p>（2）Edge Hub（边缘消息中心）：Edge Hub 是边缘节点上的消息中间件，负责边缘设备和云端之间的消息传递和通信。它处理设备和应用程序之间的数据交换，支持设备状态的上报和命令的下发，并提供 MQTT 和 HTTP 协议的支持。</p>
+<p>（3）Edge Device Controller（边缘设备控制器）：Edge Device Controller 负责管理边缘设备，包括设备的注册、状态监控、设备影子（Device Shadow）的管理等。它提供了设备管理的 API，使开发者能够与边缘设备进行交互和控制。</p>
+<p>（4）Edge Function（边缘函数）：Edge Function 允许在边缘节点上运行函数式服务，以便在本地处理数据和执行特定的业务逻辑。它支持在边缘节点上部署、运行和管理函数，实现边缘计算的本地处理能力。</p>
+<p>（5）Edge Mesh（边缘网络）：Edge Mesh 提供边缘节点之间的网络互联，形成一个边缘网络拓扑结构。它通过构建虚拟网络和路由机制，实现了边缘节点之间的通信和数据交换。</p>
+<p>（6）Edge Sync（边缘数据同步）：Edge Sync 用于在边缘设备和云端之间进行数据同步和传输。它支持将云端的应用程序、配置文件和资源同步到边缘设备上，并将边缘设备上的数据同步回云端进行分析和处理。</p>
+<p>这些组件共同工作，为 Kubeedge 提供了一个完整的边缘计算解决方案，将边缘设备和云端的 Kubernetes 集群进行集成，并支持在边缘环境中进行应用程序的开发、部署和管理。</p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p>Kubeedge的工作流程如图3-1所示，介绍如下：</p>
+<p><img src="../../../../jihu/image/DX/373.png" alt="373"></p>
+<p>图3-1 Kubeedge的工作流程</p>
+<p><strong>云部分工作</strong>：</p>
+<p>（1）CloudHub：Websocket server，负责在云侧观察更改，缓存并向Edge Hub发送消息。</p>
+<p>（2）EdgeController：一个Kubernetes controller，它管理边缘节点和云侧的数据，以便可以将数据定向到特定的边缘节点。</p>
+<p>（3）DeviceController：一个Kubernetes controller，用于管理设备，以便可以在边缘和云之间同步设备元数据/状态数据。</p>
+<p>（4）SyncController：一个Kubernetes controller，用于将objectsyncs指定的资源触发一次同步。是1.2.1 里新增的conrtoller。</p>
+<p>目前Kubeedge提供了4种CRD：clusterobjectsyncs （集群级别的对象同步）、objectsyncs namespace（级别的对象同步）、devices（设备）和devicemodels（设备模板）。对应了2个controller：synccontroller和DeviceController。</p>
+<p><strong>边缘部分工作</strong>：</p>
+<p>（1）EdgeHub：Websocket 客户端，负责与Cloud Service进行交互，包括将云侧资源更新同步到边缘，并将边缘侧主机和设备状态更改报告给云。</p>
+<p>（2）Edged：在边缘节点上运行并管理容器化应用的Agent，类似kubelet，增强了cm，secret，等资源的cache。</p>
+<p>（3）EventBus：与MQTT服务器（mosquitto）进行交互的客户端，提供对其他组件的发布和订阅功能。</p>
+<p>（4）ServiceBus：与HTTP服务器（REST）交互的HTTP客户端，为云组件提供HTTP客户端功能，以访问在边缘运行的HTTP服务器，提供的是服务暴露的功能。</p>
+<p>（5）DeviceTwin：负责存储设备状态并将设备状态同步到云。它还为应用程序提供查询接口。</p>
+<p>（6）MetaManager：Edged和EdgeHub之间的消息处理器。它还负责将元数据存储到轻量级数据库（SQLite）或从中检索元数据。</p>
+<h2 id="实战案例——Kubeedge环境搭建"><a href="#实战案例——Kubeedge环境搭建" class="headerlink" title="实战案例——Kubeedge环境搭建"></a>实战案例——Kubeedge环境搭建</h2><h3 id="Kubeedge云端环境搭建"><a href="#Kubeedge云端环境搭建" class="headerlink" title="Kubeedge云端环境搭建"></a>Kubeedge云端环境搭建</h3><p>在云端主节点（k8s-master）配置云端所需要的软件包，及服务配置文件，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master opt]# cd /opt/kubeedge/</span><br><span class="line">[root@k8s-master kubeedge]# mv keadm /usr/bin/</span><br><span class="line">[root@k8s-master kubeedge]# mkdir /etc/kubeedge</span><br><span class="line">[root@k8s-master kubeedge]# tar -zxf kubeedge-1.11.1.tar.gz</span><br><span class="line">[root@k8s-master kubeedge]# cp -rf kubeedge-1.11.1/build/tools/* /etc/kubeedge/</span><br><span class="line">[root@k8s-master kubeedge]# cp -rf kubeedge-1.11.1/build/crds/ /etc/kubeedge/</span><br><span class="line">[root@k8s-master kubeedge]# tar -zxf kubeedge-v1.11.1-linux-amd64.tar.gz</span><br><span class="line">[root@k8s-master kubeedge]# cp -rf * /etc/kubeedge/</span><br></pre></td></tr></table></figure>
+
+<p>启动云端服务，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master kubeedge]# cd /etc/kubeedge/</span><br><span class="line">[root@k8s-master kubeedge]# keadm deprecated init --kubeedge-version=1.11.1 --advertise-address=10.26.3.33 </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--kubeedge-version=指定kubeedge的版本，离线安装必须指定，否则会去下载最新版本</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--advertise-address=暴露IP，此处填写keadm所在的节点内网IP。如果要与本地集群对接的话，则填写 公网IP。此处因为云上，所以只需要写内网IP。</span></span><br><span class="line">……</span><br><span class="line">KubeEdge cloudcore is running, For logs visit:  /var/log/kubeedge/cloudcore.log</span><br><span class="line">CloudCore started</span><br></pre></td></tr></table></figure>
+
+<p>检查云端服务，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master kubeedge]# netstat -ntpl |grep cloudcore</span><br><span class="line">tcp6  0  0 :::10000      :::*          LISTEN      60452/cloudcore     </span><br><span class="line">tcp6  0  0 :::10002      :::*          LISTEN      60452/cloudcore</span><br></pre></td></tr></table></figure>
+
+<h3 id="Kubeedge边缘端环境搭建"><a href="#Kubeedge边缘端环境搭建" class="headerlink" title="Kubeedge边缘端环境搭建"></a>Kubeedge边缘端环境搭建</h3><p>在边缘端节点（kubeedge-node）复制云端软件包至本地，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@kubeedge-node ~]# scp root@k8s-master:/usr/bin/keadm /usr/local/bin/</span><br><span class="line">root@k8s-master&#x27;s password:  #输入云端主节点主机密码</span><br><span class="line">keadm              100%   64MB  26.8MB/s   00:02</span><br><span class="line">[root@kubeedge-node ~]# mkdir /etc/kubeedge</span><br><span class="line">[root@kubeedge-node ~]# cd /etc/kubeedge/</span><br><span class="line">[root@kubeedge-node kubeedge]# scp -r root@k8s-master:/etc/kubeedge/* /etc/kubeedge/</span><br><span class="line">root@k8s-master&#x27;s password:  #输入云端主节点主机密码</span><br></pre></td></tr></table></figure>
+
+<p>在云端主节点查询出密钥，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]<span class="comment"># keadm gettoken</span></span><br><span class="line">37629685215a3ab6461c4bc4f868746edc62ba5db3885b75b26f4f8060ebb083.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODkxNTQ3NjN9.g8x_2Nnu_6ZI795LxOlSuGnCU4TVfguDOMRpYpHBIuA</span><br></pre></td></tr></table></figure>
+
+<p>使用命令加入集群，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@kubeedge-node kubeedge]# keadm deprecated join --cloudcore-ipport=10.26.3.33:10000 --kubeedge-version=1.11.1 --token=37629685215a3ab6461c4bc4f868746edc62ba5db3885b75b26f4f8060ebb083.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODkxNTQ3NjN9.g8x_2Nnu_6ZI795LxOlSuGnCU4TVfguDOMRpYpHBIuA</span><br><span class="line">……</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/edge/</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/edge/edgecore</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/version</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/csidriver/</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/csidriver/csidriver</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/iptablesmanager/</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/iptablesmanager/iptablesmanager</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/cloudcore/</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/cloudcore/cloudcore</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/controllermanager/</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/controllermanager/controllermanager</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/admission/</span><br><span class="line">kubeedge-v1.11.1-linux-amd64/cloud/admission/admission</span><br><span class="line"></span><br><span class="line">KubeEdge edgecore is running, For logs visit: journalctl -u edgecore.service -xe</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#如若提示YUM问题，删除多余yum源文件，重新执行加入集群命令##</span></span></span><br><span class="line">[root@kubeedge-node kubeedge]# rm -rf /etc/yum.repos.d/epel*</span><br><span class="line"></span><br><span class="line">[root@kubeedge-node kubeedge]# systemctl status edgecore</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看状态服务是否为active</span></span><br></pre></td></tr></table></figure>
+
+<p>在云端主节点检查边缘端节点是否正常加入，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# kubectl get nodes</span><br><span class="line">NAME       STATUS   ROLES         AGE     VERSION</span><br><span class="line">k8s-master     Ready  control-plane,master 57m     v1.22.1</span><br><span class="line">k8s-node      Ready  worker            56m     v1.22.1</span><br><span class="line">kubeedge-node Ready  agent,edge        5m35s  v1.22.6-kubeedge-v1.11.1</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Ready状态可以发现，边缘计算端加入成功</span></span><br></pre></td></tr></table></figure>
+
+<p>回到云端节点，进行设置亲和性配置，防止调度到边缘节点导致Pod资源失败，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# kubectl edit daemonset -n kube-system calico-node</span><br><span class="line">[root@k8s-master ~]# kubectl edit daemonset -n kube-system kube-proxy</span><br><span class="line">[root@k8s-master ~]# kubectl edit daemonset -n kube-system nodelocaldns</span><br><span class="line">增加亲和性配置</span><br><span class="line">spec:</span><br><span class="line">...</span><br><span class="line"> tmeplate:</span><br><span class="line"> ...</span><br><span class="line">  spec:</span><br><span class="line">      affinity:</span><br><span class="line">        nodeAffinity:</span><br><span class="line">          requiredDuringSchedulingIgnoredDuringExecution:</span><br><span class="line">            nodeSelectorTerms:</span><br><span class="line">              - matchExpressions:</span><br><span class="line">                 - key: node-role.kubernetes.io/edge</span><br><span class="line">                   operator: DoesNotExist</span><br></pre></td></tr></table></figure>
+
+<p>首先在边缘端节点停止服务，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@kubeedge-node kubeedge]# systemctl stop edgecore</span><br><span class="line">[root@kubeedge-node kubeedge]# systemctl status edgecore </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">服务为inactive (dead) 状态</span></span><br></pre></td></tr></table></figure>
+
+<p>在云端主节点移除边缘端节点，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# kubectl drain kubeedge-node --delete-local-data --force --ignore-daemonsets </span><br><span class="line">node/kubeedge-node cordoned</span><br><span class="line">node/kubeedge-node drained</span><br><span class="line">[root@k8s-master ~]# kubectl delete node kubeedge-node</span><br><span class="line">node &quot;kubeedge-node&quot; deleted</span><br></pre></td></tr></table></figure>
+
+<p>重新加入节点（边缘端节点操作kubeedge-node），命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@kubeedge-node kubeedge]# systemctl restart docker</span><br><span class="line">[root@kubeedge-node kubeedge]# systemctl start edgecore &amp;&amp;systemctl enable edgecore </span><br></pre></td></tr></table></figure>
+
+<p>重检查边缘端节点是否运行Pod，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# kubectl get pod -A -o wide | grep kubeedge-node</span><br></pre></td></tr></table></figure>
+
+<p>如果没有任何Pod运行，则成功搭建。</p>
+<h3 id="云端启用数据监控"><a href="#云端启用数据监控" class="headerlink" title="云端启用数据监控"></a>云端启用数据监控</h3><p>在云端主节点（k8s-master）配置证书，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# export CLOUDCOREIPS=&quot;10.26.3.33&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">此处设置的为云端masterIP</span></span><br><span class="line">[root@k8s-master ~]# cd /etc/kubeedge/</span><br><span class="line">[root@k8s-master kubeedge]# ./certgen.sh stream</span><br></pre></td></tr></table></figure>
+
+<p>更新云端的配置，命令如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@k8s-master</span> <span class="string">kubeedge</span>]<span class="comment"># vi /etc/kubeedge/config/cloudcore.yaml</span></span><br><span class="line"> <span class="attr">cloudStream:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment">#修改为true</span></span><br><span class="line">    <span class="attr">streamPort:</span> <span class="number">10003</span></span><br><span class="line"><span class="attr">router:</span></span><br><span class="line">    <span class="attr">address:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment">#修改为true</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">9443</span></span><br><span class="line">    <span class="attr">restTimeout:</span> <span class="number">60</span> </span><br></pre></td></tr></table></figure>
+
+<p>更新边缘端的配置，命令如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@kubeedge-node</span> <span class="string">kubeedge</span>]<span class="comment"># vi /etc/kubeedge/config/edgecore.yaml</span></span><br><span class="line"> <span class="attr">edgeStream:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment">#修改为true</span></span><br><span class="line">    <span class="attr">handshakeTimeout:</span> <span class="number">30</span></span><br><span class="line">[<span class="string">root@kubeedge-node</span> <span class="string">~</span>]<span class="comment"># vi /etc/kubeedge/config/edgecore.yaml</span></span><br><span class="line"><span class="attr">serviceBus:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment">#修改为true</span></span><br></pre></td></tr></table></figure>
+
+<p>重新启动云端服务，命令如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master kubeedge]<span class="comment"># kill -9 $(netstat -lntup |grep cloudcore |awk &#x27;NR==1 &#123;print $7&#125;&#x27; |cut -d &#x27;/&#x27; -f 1)</span></span><br><span class="line"> [root@k8s-master kubeedge]<span class="comment"># cp -rfv cloudcore.service /usr/lib/systemd/system/</span></span><br><span class="line">‘cloudcore.service’ -&gt; ‘/usr/lib/systemd/system/cloudcore.service’</span><br><span class="line">[root@k8s-master kubeedge]<span class="comment"># systemctl start  cloudcore.service </span></span><br><span class="line"><span class="comment">#通过netstat -lntup 查看端口，如果出现10003端口则表示成功开启cloudStream</span></span><br></pre></td></tr></table></figure>
+
+<p>重新启动边缘端服务，命令如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@kubeedge-node kubeedge]<span class="comment"># systemctl stop edgecore.service</span></span><br><span class="line">[root@kubeedge-node kubeedge]<span class="comment"># systemctl restart edgecore.service</span></span><br></pre></td></tr></table></figure>
+
+<p>在云端部署服务并查看收集指标，命令如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master kubeedge]<span class="comment"># cd /opt/</span></span><br><span class="line">[root@k8s-master opt]<span class="comment"># kubectl apply -f deploy.yaml</span></span><br><span class="line">serviceaccount/metrics-server created</span><br><span class="line">clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created</span><br><span class="line">clusterrole.rbac.authorization.k8s.io/system:metrics-server created</span><br><span class="line">rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader created</span><br><span class="line">clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator created</span><br><span class="line">clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created</span><br><span class="line">service/metrics-server created</span><br><span class="line">deployment.apps/metrics-server created</span><br><span class="line">apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created</span><br><span class="line">[root@k8s-master opt]<span class="comment"># kubectl top nodes</span></span><br><span class="line">NAME            CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%   </span><br><span class="line">k8s-master      469m         29%    2051Mi          66%       </span><br><span class="line">k8s-node        156m         9%     1202Mi          38%       </span><br><span class="line">kubeedge-node   23m          1%     565Mi           15%</span><br></pre></td></tr></table></figure>
+
+<p>metrics-server是离线监控数据组件。提供容器基础资源监控能力。</p>
+<h2 id="实战案例——kubeedge-dashboard"><a href="#实战案例——kubeedge-dashboard" class="headerlink" title="实战案例——kubeedge-dashboard"></a>实战案例——kubeedge-dashboard</h2><h3 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h3><p>k8s-node节点下载所需安装包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]# ls</span><br><span class="line"></span><br><span class="line">node-v14.9.0-linux-x64.tar.xz</span><br><span class="line">dashboard-main.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>安装nodejs：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]# tar -xvf node-v14.9.0-linux-x64.tar.xz</span><br><span class="line">[root@k8s-node ~]# ln -s /root/node-v14.9.0-linux-x64/bin/npm /usr/local/bin/npm</span><br><span class="line">[root@k8s-node ~]# ln -s /root/node-v14.9.0-linux-x64/bin/node /usr/local/bin/node</span><br><span class="line">[root@k8s-node ~]# npm -v</span><br><span class="line">6.14.8</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动dashboard应用"><a href="#启动dashboard应用" class="headerlink" title="启动dashboard应用"></a>启动dashboard应用</h3><p>解压kubeedge-dashboard压缩包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]# tar -zxvf dashboard-main.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>运行dashbaord应用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-node ~]# cd dashboard-main</span><br><span class="line">[root@k8s-node dashboard-main]# npm run dev --apiserver=https://10.26.3.134:6443 &amp; #IP地址为master地址</span><br></pre></td></tr></table></figure>
+
+<p>在master节点执行，获取登录token：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# kubectl create serviceaccount curl-user -n kube-system</span><br><span class="line">[root@k8s-master ~]# kubectl create clusterrolebinding curl-user-binding --clusterrole=cluster-admin --serviceaccount=kube-system:curl-user -n kube-system</span><br><span class="line">[root@k8s-master ~]# kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep curl-user | awk &#x27;&#123;print $1&#125;&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="页面展示与使用"><a href="#页面展示与使用" class="headerlink" title="页面展示与使用"></a>页面展示与使用</h3><p>浏览器打开<a target="_blank" rel="noopener" href="http://localhost:8000/">http://localhost:8000</a> 如图5-1所示。</p>
+<p><img src="../../../../jihu/image/DX/374.png" alt="374"></p>
+<p>图5-1 打开KubeEdge登录页面</p>
+<p>填入刚刚获取的token，单击“Login”按钮，首页会显示集群的一些相关信息如图5-2所示：</p>
+<p><img src="../../../../jihu/image/DX/375.png" alt="375"></p>
+<p>图5-2 登录KubeEdge首页</p>
+<p>展开左侧菜单node，单击nodes可以看到集群中的节点，可以查看节点详细信息，删除节点以及添加节点，如图5-3所示：</p>
+<p><img src="../../../../jihu/image/DX/376.png" alt="376"></p>
+<p>图5-3 集群节点信息</p>
+<p>展开左侧菜单Application，单击deployment可以看到已部署的deployment，其中我们之前部署的kubeedge-counter应用也有显示，如图5-4所示：</p>
+<p><img src="../../../../jihu/image/DX/377.png" alt="377"></p>
+<p>图5-4 Application显示</p>
+<p>展开左侧菜单 Kubernetes Policy可以看到集群的相关策略，如图5-5所示：</p>
+<p><img src="../../../../jihu/image/DX/378.png" alt="378"></p>
+<p>图5-5 集群的相关策略</p>
+<h2 id="实战案例——kubeedge-counter-demo"><a href="#实战案例——kubeedge-counter-demo" class="headerlink" title="实战案例——kubeedge-counter-demo"></a>实战案例——kubeedge-counter-demo</h2><h3 id="创建device-model和device"><a href="#创建device-model和device" class="headerlink" title="创建device model和device"></a>创建device model和device</h3><p>利用已搭建的kubeedge平台进行部署智能边缘计算平台。</p>
+<p>下载所需镜像和demo案例包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# ls</span><br><span class="line"></span><br><span class="line">edgepause.tar</span><br><span class="line">kubeedge-counter-app.tar</span><br><span class="line">kubeedge-pi-counter.tar</span><br><span class="line">kubeedge-counter-demo.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>创建device model：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# tar -zxvf kubeedge-counter-demo.tar.gz</span><br><span class="line">[root@k8s-master ~]# cd kubeedge-counter-demo/crds/</span><br><span class="line">[root@k8s-master crds]# kubectl create -f kubeedge-counter-model.yaml</span><br></pre></td></tr></table></figure>
+
+<p>创建device，根据你的实际情况修改matchExpressions：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master crds]# vi kubeedge-counter-instance.yaml </span><br><span class="line">apiVersion: devices.kubeedge.io/v1alpha2</span><br><span class="line">kind: Device</span><br><span class="line">metadata:</span><br><span class="line">  name: counter</span><br><span class="line">  labels:</span><br><span class="line">    description: &#x27;counter&#x27;</span><br><span class="line">spec:</span><br><span class="line">  deviceModelRef:</span><br><span class="line">    name: counter-model</span><br><span class="line">  nodeSelector:</span><br><span class="line">    nodeSelectorTerms:</span><br><span class="line">    - matchExpressions:</span><br><span class="line">      - key: &#x27; kubernetes.io/hostname &#x27;#修改此处</span><br><span class="line">        operator: In</span><br><span class="line">        values:</span><br><span class="line">        - kubeedge-node #修改此处为自己的kubeedge节点名称</span><br><span class="line"></span><br><span class="line">status:</span><br><span class="line">  twins:</span><br><span class="line">    - propertyName: status</span><br><span class="line">      desired:</span><br><span class="line">        metadata:</span><br><span class="line">          type: string</span><br><span class="line">        value: &#x27;OFF&#x27;</span><br><span class="line">      reported:</span><br><span class="line">        metadata:</span><br><span class="line">          type: string</span><br><span class="line">        value: &#x27;0&#x27;</span><br><span class="line">[root@k8s-master crds]# kubectl create -f kubeedge-counter-instance.yaml</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署云端应用"><a href="#部署云端应用" class="headerlink" title="部署云端应用"></a>部署云端应用</h3><p>导入镜像kubeedge-counter-app.tar：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master kubeedge-counter-demo]# cd</span><br><span class="line">[root@k8s-master ~]# docker load -i kubeedge-counter-app.tar</span><br><span class="line">[root@k8s-master ~]# cd kubeedge-counter-demo/crds/</span><br></pre></td></tr></table></figure>
+
+<p>修改apiVersion版本号：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@k8s-master</span> <span class="string">crds</span>]<span class="comment"># vi kubeedge-web-controller-app.yaml </span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s-app:</span> <span class="string">kubeedge-counter-app</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubeedge-counter-app</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">k8s-app:</span> <span class="string">kubeedge-counter-app</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">k8s-app:</span> <span class="string">kubeedge-counter-app</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">nodeSelector:</span></span><br><span class="line">        <span class="attr">node-role.kubernetes.io/master:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">kubeedge-counter-app</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">kubeedge/kubeedge-counter-app:v1.0.0</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/control-plane</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="string">┄</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1#修改此处的版本号</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Role</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubeedge-counter</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiGroups:</span> [<span class="string">&quot;devices.kubeedge.io&quot;</span>]</span><br><span class="line">  <span class="attr">resources:</span> [<span class="string">&quot;devices&quot;</span>]</span><br><span class="line">  <span class="attr">verbs:</span> [<span class="string">&quot;get&quot;</span>, <span class="string">&quot;patch&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="string">┄</span> </span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1#修改此处的版本号</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">RoleBinding</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kubeedge-counter-rbac</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">default</span></span><br><span class="line">[<span class="string">root@k8s-master</span> <span class="string">crds</span>]<span class="comment"># kubectl apply -f kubeedge-web-controller-app.yaml</span></span><br></pre></td></tr></table></figure>
+
+<p>查看是否存在8089端口（也可以浏览器打开k8s-master_IP:8089）:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master crds]# netstat -ntpl |grep 8089</span><br><span class="line">tcp6    0   0 :::8089         :::*          LISTEN   45700/kubeedge-coun</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署边缘端应用"><a href="#部署边缘端应用" class="headerlink" title="部署边缘端应用"></a>部署边缘端应用</h3><p>边缘端的pi-counter-app应用受云端应用控制，主要与mqtt服务器通信，进行简单的计数功能。</p>
+<p>将镜像发送至kubeedge节点并导入：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master ~]# cd</span><br><span class="line">[root@k8s-master ~]# scp edgepause.tar kubeedge-node:/root/</span><br><span class="line">[root@k8s-master ~]# scp kubeedge-pi-counter.tar kubeedge-node:/root/</span><br></pre></td></tr></table></figure>
+
+<p>kubeedge节点：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@kubeedge-node ~]# docker load -i  edgepause.tar</span><br><span class="line">[root@kubeedge-node ~]# docker load -i kubeedge-pi-counter.tar </span><br><span class="line">[root@k8s-master ~]# cd kubeedge-counter-demo/crds/</span><br><span class="line">[root@k8s-master crds]# vi  kubeedge-pi-counter-app.yaml    </span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: kubeedge-pi-counter</span><br><span class="line">  name: kubeedge-pi-counter</span><br><span class="line">  namespace: default</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      k8s-app: kubeedge-pi-counter</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        k8s-app: kubeedge-pi-counter</span><br><span class="line">    spec:</span><br><span class="line">     #nodeSelector: #注释此行</span><br><span class="line">     #  node-role.kubernetes.io/master: &quot;&quot; #注释此行</span><br><span class="line">      nodeName: kubeedge-node #添加此行</span><br><span class="line">      hostNetwork: true</span><br><span class="line">      containers:</span><br><span class="line">      - name: kubeedge-pi-counter</span><br><span class="line">        image: kubeedge/kubeedge-pi-counter:v1.0.0</span><br><span class="line">        imagePullPolicy: IfNotPresent</span><br><span class="line">      nodeSelector:</span><br><span class="line">        node-role.kubernetes.io/edge: &quot;&quot;</span><br><span class="line">      restartPolicy: Always</span><br><span class="line">[root@k8s-master crds]# kubectl apply -f kubeedge-pi-counter-app.yaml</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意！如果pod为runing状态则正常，若一直处于pending状态为不正常，可以切换到master节点执行以下操作，正常就无需执行。</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master crds]# kubectl delete -f kubeedge-pi-counter-app.yaml</span><br><span class="line">[root@k8s-master crds]# kubectl  delete pod kubeedge-pi-counter-674b9f4f74-2k67z  --force</span><br><span class="line">[root@k8s-master crds]# kubectl get objectsyncs -A</span><br><span class="line">NAMESPACE   NAME                                                 AGE</span><br><span class="line">default     kubeedge-node.ad7960f2-3832-49eb-8aad-dd3e9c148611   23s</span><br><span class="line">[root@k8s-master ~]# kubectl  delete objectsyncs  kubeedge-node.ad7960f2-3832-49eb-8aad-dd3e9c148611 </span><br><span class="line">objectsync.reliablesyncs.kubeedge.io &quot;kubeedge-node.ad7960f2-3832-49eb-8aad-dd3e9c148611&quot; deleted</span><br><span class="line">[root@k8s-master ~]# systemctl restart cloudcore</span><br><span class="line">[root@kubeedge-node ~]#systemctl restart edgecore.service</span><br></pre></td></tr></table></figure>
+
+<p>上述过程完成后，再次重新执行kubectl apply -f kubeedge-pi-counter-app.yaml命令。</p>
+<h3 id="测试应用"><a href="#测试应用" class="headerlink" title="测试应用"></a>测试应用</h3><p>通过WEB APP来控制COUNTER</p>
+<p>切换到带桌面的主机，右击选择“Open Terminal Here”选项：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/resolv.conf  #添加DNS</span><br><span class="line">nameserver 114.114.114.114</span><br></pre></td></tr></table></figure>
+
+<p>打开浏览器输入<a target="_blank" rel="noopener" href="http://masterip:8089/">http://masterIP:8089/</a> 在Web页面上选择ON，并单击“Execute”按钮，可以在edge节点上通过以下命令查看执行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@kubeedge-node ~]# docker logs -f c40aec9ff027     #容器的名称为k8s_kubeedge-pi-counter_kubeedge-开头</span><br><span class="line">turn on counter.</span><br><span class="line">Counter value: 1</span><br><span class="line">Counter value: 2</span><br><span class="line">Counter value: 3</span><br><span class="line">Counter value: 4</span><br><span class="line">Counter value: 5</span><br><span class="line">Counter value: 6</span><br></pre></td></tr></table></figure>
+
+<p>查看COUNTER STATUS</p>
+<p>在Web页面上选择STATUS，并单击“Execute”按钮，会在Web页面上返回counter当前的status，如图6-1所示</p>
+<p><img src="../../../../jihu/image/DX/379.png" alt="379"></p>
+<p>图6-1 通过WEB APP来控制COUNTER</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/">http://example.com/2023/08/12/6-边缘计算平台部署应用/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/HuaweiCloud/">HuaweiCloud</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/bianyuanjisuan.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例"><img class="cover" src="/../jihu/wallpaper/used/python5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">公有云：(5)公有云Python运维开发案例</div></div></a></div><div class="next-post pull-right"><a href="/2024/04/23/Day01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%92%8CLinux%E5%AE%89%E8%A3%85/" title="计算机基础和linux安装"><img class="cover" src="/../jihu/wallpaper/used/linux1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机基础和linux安装</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/12/1-%E5%85%AC%E6%9C%89%E4%BA%91%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%AE%9E%E6%93%8D%E6%A1%88%E4%BE%8B/" title="公有云：(1)公有云基础组件实操案例"><img class="cover" src="/../jihu/wallpaper/used/huawei.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(1)公有云基础组件实操案例</div></div></a></div><div><a href="/2023/08/12/2-%E5%85%AC%E6%9C%89%E4%BA%91%E5%BA%94%E7%94%A8%E4%B8%8A%E4%BA%91%E5%AE%9E%E6%93%8D%E6%A1%88%E4%BE%8B/" title="公有云：(2)公有云应用上云实操案例"><img class="cover" src="/../jihu/wallpaper/used/huawei.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(2)公有云应用上云实操案例</div></div></a></div><div><a href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例"><img class="cover" src="/../jihu/wallpaper/used/huawei.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(3)公有云CCE集群操作案例</div></div></a></div><div><a href="/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="公有云：(4)公有云Helm模板使用案例"><img class="cover" src="/../jihu/wallpaper/used/helm.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(4)公有云Helm模板使用案例</div></div></a></div><div><a href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例"><img class="cover" src="/../jihu/wallpaper/used/python5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(5)公有云Python运维开发案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">O&M</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%BE%E7%A8%8B%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">课程介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">模块简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9F%A5%E8%AF%86"><span class="toc-number">1.2.</span> <span class="toc-text">模块知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.3.</span> <span class="toc-text">环境准备</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%86%85%E5%AE%B9"><span class="toc-number">2.</span> <span class="toc-text">模块内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E7%AE%80%E4%BB%8B"><span class="toc-number">2.1.</span> <span class="toc-text">边缘计算简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E7%AE%80%E4%BB%8B-1"><span class="toc-number">2.1.1.</span> <span class="toc-text">边缘计算简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%91%E8%AE%A1%E7%AE%97%E3%80%81%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E3%80%81%E9%9B%BE%E8%AE%A1%E7%AE%97%E4%B9%8B%E9%97%B4%E5%8C%BA%E5%88%AB"><span class="toc-number">2.1.2.</span> <span class="toc-text">云计算、边缘计算、雾计算之间区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%88%86%E7%B1%BB%E5%92%8C%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.3.</span> <span class="toc-text">边缘计算分类和典型应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E2%80%94%E2%80%94Kubekey%E5%AE%89%E8%A3%85kubernetes"><span class="toc-number">2.2.</span> <span class="toc-text">实战案例——Kubekey安装kubernetes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">基础环境配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Docker%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.2.2.</span> <span class="toc-text">安装Docker服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2Harbor%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.2.3.</span> <span class="toc-text">部署Harbor服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEKubekey%E9%83%A8%E7%BD%B2kubernetes"><span class="toc-number">2.2.4.</span> <span class="toc-text">配置Kubekey部署kubernetes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kubeedge%E7%AE%80%E4%BB%8B"><span class="toc-number">2.3.</span> <span class="toc-text">Kubeedge简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFkubeedge%EF%BC%9F"><span class="toc-number">2.3.1.</span> <span class="toc-text">什么是kubeedge？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E5%92%8C%E7%89%B9%E6%80%A7"><span class="toc-number">2.3.2.</span> <span class="toc-text">功能和特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.3.3.</span> <span class="toc-text">组件介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">2.3.4.</span> <span class="toc-text">工作流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E2%80%94%E2%80%94Kubeedge%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.4.</span> <span class="toc-text">实战案例——Kubeedge环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kubeedge%E4%BA%91%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.4.1.</span> <span class="toc-text">Kubeedge云端环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kubeedge%E8%BE%B9%E7%BC%98%E7%AB%AF%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.4.2.</span> <span class="toc-text">Kubeedge边缘端环境搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%91%E7%AB%AF%E5%90%AF%E7%94%A8%E6%95%B0%E6%8D%AE%E7%9B%91%E6%8E%A7"><span class="toc-number">2.4.3.</span> <span class="toc-text">云端启用数据监控</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E2%80%94%E2%80%94kubeedge-dashboard"><span class="toc-number">2.5.</span> <span class="toc-text">实战案例——kubeedge-dashboard</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85nodejs"><span class="toc-number">2.5.1.</span> <span class="toc-text">安装nodejs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8dashboard%E5%BA%94%E7%94%A8"><span class="toc-number">2.5.2.</span> <span class="toc-text">启动dashboard应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">2.5.3.</span> <span class="toc-text">页面展示与使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B%E2%80%94%E2%80%94kubeedge-counter-demo"><span class="toc-number">2.6.</span> <span class="toc-text">实战案例——kubeedge-counter-demo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAdevice-model%E5%92%8Cdevice"><span class="toc-number">2.6.1.</span> <span class="toc-text">创建device model和device</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E4%BA%91%E7%AB%AF%E5%BA%94%E7%94%A8"><span class="toc-number">2.6.2.</span> <span class="toc-text">部署云端应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E8%BE%B9%E7%BC%98%E7%AB%AF%E5%BA%94%E7%94%A8"><span class="toc-number">2.6.3.</span> <span class="toc-text">部署边缘端应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%BA%94%E7%94%A8"><span class="toc-number">2.6.4.</span> <span class="toc-text">测试应用</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式"><img src="/../jihu/wallpaper/used/linux5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见文本处理工具和正则表达式"/></a><div class="content"><a class="title" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式">常见文本处理工具和正则表达式</a><time datetime="2024-09-22T16:00:00.000Z" title="发表于 2024-09-23 00:00:00">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理"><img src="/../jihu/wallpaper/used/linux4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用户和权限管理"/></a><div class="content"><a class="title" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理">用户和权限管理</a><time datetime="2024-08-30T16:00:00.000Z" title="发表于 2024-08-31 00:00:00">2024-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly"><img src="/../jihu/wallpaper/used/butterfiy.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo-Butterfly"/></a><div class="content"><a class="title" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly">Hexo-Butterfly</a><time datetime="2024-08-27T03:15:00.000Z" title="发表于 2024-08-27 11:15:00">2024-08-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向"><img src="/../jihu/wallpaper/used/linux3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux文件管理和IO重定向"/></a><div class="content"><a class="title" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向">Linux文件管理和IO重定向</a><time datetime="2024-08-26T16:00:00.000Z" title="发表于 2024-08-27 00:00:00">2024-08-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

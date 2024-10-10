@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>公有云：(4)公有云Helm模板使用案例 | Blog</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="公有云Helm模板使用案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="公有云：(4)公有云Helm模板使用案例">
+<meta property="og:url" content="http://example.com/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="公有云Helm模板使用案例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/helm.png">
+<meta property="article:published_time" content="2023-08-11T20:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-10T08:13:04.751Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="HuaweiCloud">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/helm.png"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '公有云：(4)公有云Helm模板使用案例',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-10 16:13:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/helm.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Blog"><span class="site-name">Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">公有云：(4)公有云Helm模板使用案例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-11T20:00:00.000Z" title="发表于 2023-08-12 04:00:00">2023-08-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-10T08:13:04.751Z" title="更新于 2024-10-10 16:13:04">2024-10-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E9%87%8C%E9%9B%BE%E9%87%8C/">云里雾里</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="公有云：(4)公有云Helm模板使用案例"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h1><p>本案例讲述如何在华为云公有云平台上的Kubernetes集群中通过Helm模板部署应用。</p>
+<h2 id="规划节点"><a href="#规划节点" class="headerlink" title="规划节点"></a>规划节点</h2><p>节点规划见表1-1。</p>
+<p>表1-1 节点规划</p>
+<table>
+<thead>
+<tr>
+<th><strong>IP</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>节点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>192.168.200.12</td>
+<td>k8s-chinaskill-node1</td>
+<td>K8s集群master控制节点</td>
+</tr>
+</tbody></table>
+<h2 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h2><p>准备华为云公有云平台账号，并充值金额，在华为云公有云平台上购买一个Kubernetes集群服务，购买单个master节点云服务器，给该云服务器绑定一个弹性公网EIP，在该Kubernetes集群服务中部署kubectl工具，并将该CCE集群的防火墙访问策略放开。</p>
+<h1 id="案例实施"><a href="#案例实施" class="headerlink" title="案例实施"></a>案例实施</h1><h2 id="Helm工具介绍"><a href="#Helm工具介绍" class="headerlink" title="Helm工具介绍"></a>Helm工具介绍</h2><p>（1）Helm工具概述</p>
+<p>Helm是Kubernetes的包管理器，主要用来管理Charts。Helm Chart是用来封装Kubernetes原生应用程序的一系列YAML文件。可以在部署应用的时候自定义应用程序的一些Metadata，以便应用程序的分发。对于应用发布者而言，可以通过Helm打包应用、管理应用依赖关系、管理应用版本并发布应用到软件仓库。对于使用者而言，使用Helm后不需要编写复杂的应用部署文件，可以以简单的方式在Kubernetes上查找、安装、升级、回滚、卸载应用程序。</p>
+<p>Helm和Kubernetes之间的关系可以如下类比：Helm之于Kubernetes相当于apt之于Ubuntu和yum之于CentOS。</p>
+<p>Helm工具架构如图1所示：</p>
+<p><img src="../../../../jihu/image/DX/355.png" alt="355"></p>
+<p>图1 Helm工具架构</p>
+<p>（2）Helm工具的作用</p>
+<p>Kubernetes的应用编排存在着一些问题，Helm可以用来解决这些问题，如下：</p>
+<ul>
+<li>管理、编辑与更新大量的Kubernetes配置文件。</li>
+<li>部署一个含有大量配置文件的复杂Kubernetes应用。</li>
+<li>分享和复用Kubernetes配置和应用。</li>
+<li>参数化配置模板支持多个环境。</li>
+<li>管理应用的发布，回滚、diff和查看发布历史。</li>
+<li>控制一个部署周期中的某一些环节。</li>
+<li>发布后的测试验证。</li>
+</ul>
+<p>（3）华为云中Helm工具的约束与限制</p>
+<p>华为云中Helm工具的约束与限制如下：</p>
+<ul>
+<li>单个用户可以上传模板的个数有限制，以各个Region控制台界面中提示的实际值为准。</li>
+<li>CCE使用的Helm版本为v3.8.2，支持上传Helm v3版本语法的模板包。</li>
+<li>模板若存在多个版本，则消耗对应数量的模板配额。</li>
+<li>由于模板的操作权限同时具有较高的集群操作权限，因此租户应当谨慎授予用户对于模板生命周期管理的权限，包括上传模板的权限，以及创建、删除和更新模板实例的权限。</li>
+</ul>
+<h2 id="安装Helm工具"><a href="#安装Helm工具" class="headerlink" title="安装Helm工具"></a>安装Helm工具</h2><p>（1）创建Kubernetes集群服务</p>
+<p>登录华为云网站，在华为云公有云平台上购买一个Kubernetes集群服务，购买单个master节点云服务器，给该云服务器绑定一个弹性公网EIP，设置防火墙的访问策略为允许访问所有，并在该Kubernetes集群服务中部署kubectl工具。结果如图2和3所示。</p>
+<p><img src="../../../../jihu/image/DX/356.png" alt="356"></p>
+<p>图2 Kubernetes集群</p>
+<p><img src="../../../../jihu/image/DX/357.png" alt="357"></p>
+<p>图3 Kubernetes集群控制节点</p>
+<p>（2）安装Helm工具</p>
+<p>使用CRT工具连接master节点的公网IP地址，通过用户名密码登录云服务器。接着使用连接工具将提供的Helm工具软件包上传到master节点/root目录，并解压。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-chinaskill-node1 ~]# ls</span><br><span class="line">helm-v3.3.0-linux-amd64.tar.gz</span><br><span class="line">[root@k8s-chinaskill-node1 ~]# tar -zxf helm-v3.3.0-linux-amd64.tar.gz</span><br><span class="line">[root@k8s-chinaskill-node1 ~]# ls</span><br><span class="line">helm-v3.3.0-linux-amd64.tar.gz linux-amd64 </span><br></pre></td></tr></table></figure>
+
+<p>将解压出的Helm程序文件移动到master节点的系统目录/usr/bin/，这样就可以将Helm当作系统命令来使用。移动完成后，查询Helm工具版本信息。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-chinaskill-node1 ~]# mv /root/linux-amd64/helm /usr/bin/</span><br><span class="line">[root@k8s-chinaskill-node1 ~]# helm version</span><br><span class="line">version.BuildInfo&#123;Version:&quot;v3.3.0&quot;, GitCommit:&quot;8a4aeec08d67a7b84472007529e8097ec3742105&quot;, GitTreeState:&quot;dirty&quot;, GoVersion:&quot;go1.14.7&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到Helm工具版本为v3.3，这样Helm工具就安装完成了。</p>
+<h2 id="模板市场部署Nginx"><a href="#模板市场部署Nginx" class="headerlink" title="模板市场部署Nginx"></a>模板市场部署Nginx</h2><p>（1）上传模板</p>
+<p>单击CCE集群K8S-chinaskill的名字，进入集群的管理界面，选择左侧菜单栏“运维→模板管理”，如图4所示：</p>
+<p><img src="../../../../jihu/image/DX/358.png" alt="358"></p>
+<p>图4 模板管理</p>
+<p>单击“上传模板”按钮，在弹出的对话框中单击“添加文件”按钮，选择提供的模板文件mychart-0.1.0.tgz，如图5所示：</p>
+<p><img src="../../../../jihu/image/DX/359.png" alt="359"></p>
+<p>图5 上传模板</p>
+<p>选中之后，单击“上传”按钮，完成mychart模板上传，可以看到“我的模板”中有了mychart模板，结果如图6所示：</p>
+<p><img src="../../../../jihu/image/DX/360.png" alt="360"></p>
+<p>图6 上传模板结果</p>
+<p>（2）安装模板实例mychart</p>
+<p>单击模板mychart的“安装”按钮，在弹框中填入名称nginx，命名空间默认选择default，版本默认为0.1.0。并修改该模板的service服务为使用NodePort模式，对外开放端口随机获取。配置完成后单击“安装”按钮，结果如图7所示：</p>
+<p><img src="../../../../jihu/image/DX/361.png" alt="361"></p>
+<p>图7 安装模板实例nginx</p>
+<p>（3）查看模板实例</p>
+<p>单击“模板实例”选项卡，查看已经安装的模板实例按钮，可以看到安装成功的nginx模板实例，结果如图8所示：</p>
+<p><img src="../../../../jihu/image/DX/362.png" alt="362"></p>
+<p>图8 nginx模板实例</p>
+<p>单击进入左侧菜单栏中的“工作负载”，可以在“无状态负载”列表中看到nginx模板实例生成的nginx-mychart工作负载。如图9所示：</p>
+<p><img src="../../../../jihu/image/DX/363.png" alt="363"></p>
+<p>图9 nginx-mychart工作负载</p>
+<p>（4）验证nginx模板实例</p>
+<p>单击nginx-mychart工作负载名字进入该工作负载详情页面，单击查看“访问方式”，结果如图10所示：</p>
+<p><img src="../../../../jihu/image/DX/364.png" alt="364"></p>
+<p>图10 Nginx访问方式</p>
+<p>可以看到，安装的nginx实例的随机节点端口为30845，打开Google浏览器新标签页，输入地址<a href="http://CCE集群节点外网IP:30845，访问Nginx服务，结果如图11所示：">http://CCE集群节点外网IP:30845，访问Nginx服务，结果如图11所示：</a></p>
+<p><img src="../../../../jihu/image/DX/365.png" alt="365"></p>
+<p>图11 查看Nginx服务</p>
+<h2 id="Helm部署MariaDB集群服务"><a href="#Helm部署MariaDB集群服务" class="headerlink" title="Helm部署MariaDB集群服务"></a>Helm部署MariaDB集群服务</h2><p>（1）解压模板chart文件</p>
+<p>使用CRT工具连接master节点，将提供的Helm模板chart包mariadb-7.3.14.tgz上传到master节点/root目录，并解压该chart包。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-chinaskill-node1 ~]# tar zxf mariadb-7.3.14.tgz</span><br><span class="line">[root@k8s-chinaskill-node1 ~]# ls /root/mariadb</span><br><span class="line">Chart.yaml files OWNERS README.md templates values-production.yaml values.schema.json values.yaml</span><br></pre></td></tr></table></figure>
+
+<p>（2）配置MariaDB集群服务模板</p>
+<p>使用vi命令编辑MariaDB模板文件values.yaml，在service的设置中，配置使用NodePort模式对MariaDB数据库服务进行访问，设置外部访问端口为32334。命令和结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-chinaskill-node1 ~]# vi /root/mariadb/values.yaml</span><br><span class="line">… …</span><br><span class="line">service:</span><br><span class="line"><span class="meta prompt_">  #</span><span class="language-bash"><span class="comment"># Kubernetes service type, ClusterIP and NodePort are supported at present</span></span></span><br><span class="line">  type: NodePort              #修改端口属性为NodePort模式</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">clusterIp:</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">  master: xx.xx.xx.xx</span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">  slave: xx.xx.xx.xx</span></span><br><span class="line">  port: 3306</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在下面添加NodePort配置</span></span><br><span class="line">  nodePort:</span><br><span class="line">    master: 32334</span><br><span class="line">… …</span><br></pre></td></tr></table></figure>
+
+<p>继续设置MariaDB数据库root用户密码为chinaskill。结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">… …</span><br><span class="line">rootUser:</span><br><span class="line"><span class="meta prompt_">  #</span><span class="language-bash"><span class="comment"># MariaDB admin password</span></span></span><br><span class="line"><span class="meta prompt_">  #</span><span class="language-bash"><span class="comment"># ref: https://github.com/bitnami/bitnami-docker-mariadb#setting-the-root-password-on-first-run</span></span></span><br><span class="line"><span class="meta prompt_">  #</span><span class="language-bash"><span class="comment">#</span></span></span><br><span class="line">  password: &quot;chinaskill&quot;                # 配置密码为chinaskill</span><br><span class="line">… …</span><br></pre></td></tr></table></figure>
+
+<p>继续设置该模板的MariaDB数据库集群中master节点和slave节点都仅使用空白文件目录，而不是PVC卷。结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">… …</span><br><span class="line">master:                              # 找到master节点配置</span><br><span class="line">… …</span><br><span class="line">  persistence:</span><br><span class="line">    ## If true, use a Persistent Volume Claim, If false, use emptyDir</span><br><span class="line">    ##</span><br><span class="line">    enabled: false                    # 修改状态为false关闭的</span><br><span class="line">… …</span><br><span class="line">slave:                              # 找到slave节点配置</span><br><span class="line">… …</span><br><span class="line">  persistence:</span><br><span class="line">    ## If true, use a Persistent Volume Claim, If false, use emptyDir</span><br><span class="line">    ##</span><br><span class="line">    enabled: false                    # 修改状态为false关闭的</span><br><span class="line">… …</span><br></pre></td></tr></table></figure>
+
+<p>设置完成后保存values.yaml文件并退出。</p>
+<p>（3）创建MariaDB数据库服务</p>
+<p>先检查修改后的Helm模板文件格式是否正确。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm lint /root/mariadb/ </span><br><span class="line">==&gt; Linting mariadb</span><br><span class="line"></span><br><span class="line">1 chart(s) linted, 0 chart(s) failed</span><br></pre></td></tr></table></figure>
+
+<p>使用Helm工具通过模板文件创建MariaDB数据库集群服务，模板实例名称为mydb，默认在default命名空间部署。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-chinaskill-node1 ~]# helm install mydb /root/mariadb/</span><br><span class="line">WARNING: This chart is deprecated</span><br><span class="line">NAME: mydb</span><br><span class="line">LAST DEPLOYED: Mon Oct 10 15:44:46 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">NOTES:</span><br><span class="line">This Helm chart is deprecated</span><br><span class="line">… …</span><br></pre></td></tr></table></figure>
+
+<p>（4）查看MariaDB数据库集群服务</p>
+<p>使用helm命令查看刚刚创建的模板实例mydb。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-chinaskill-node1 ~]# helm list</span><br><span class="line">NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION</span><br><span class="line">mydb    default         1               2022-10-10 15:44:46.388474776 +0800 CST deployed        mariadb-7.3.14  10.3.22    </span><br></pre></td></tr></table></figure>
+
+<p>使用kubrctl管理命令查看mydb模板实例的Pod服务和SVC服务详情。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-chinaskill-node1 ~]# kubectl get pod</span><br><span class="line">NAME                   READY      STATUS    RESTARTS     AGE</span><br><span class="line">mydb-mariadb-master-0   1/1       Running     0          2m43s</span><br><span class="line">mydb-mariadb-slave-0    1/1       Running     0          2m43s</span><br><span class="line">[root@k8s-chinaskill-node1 ~]# kubectl get svc</span><br><span class="line">NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP      PORT(S)          AGE</span><br><span class="line">kubernetes           ClusterIP   10.247.0.1       &lt;none&gt;           443/TCP          150m</span><br><span class="line">mydb-mariadb         NodePort    10.247.16.8      &lt;none&gt;           3306:32334/TCP   2m46s</span><br><span class="line">mydb-mariadb-slave   NodePort    10.247.237.153   &lt;none&gt;           3306:30642/TCP   2m46s</span><br></pre></td></tr></table></figure>
+
+<p>可以看到mydb模板实例数据库集群的主从节点都启动正常，也将主节点的数据库服务端口通过NodePort模式暴露。</p>
+<p>（5）验证MariaDB数据库集群服务</p>
+<p>使用kubectl命令进入Pod服务mydb-mariadb-master-0中，在该容器中使用mysql命令查看数据库列表。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-chinaskill-node1 ~]# kubectl exec -it mydb-mariadb-master-0 /bin/bash</span><br><span class="line">kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.</span><br><span class="line">I have no name!@mydb-mariadb-master-0:/$ mysql -h192.168.0.41 -P32334 -uroot -pchinaskill -e &quot;show databases;&quot;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| my_database        |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| test               |</span><br><span class="line">+--------------------+</span><br></pre></td></tr></table></figure>
+
+<p>其中-h后为k8s-chinaskill-node1节点地址，端口号为配置的32334，root用户的密码为chinaskill。</p>
+<p>可以看到数据库列表中有数据库my_database存在，说明该数据库集群确实是刚刚使用Helm工具创建的模板实例。</p>
+<p>（6）在华为云平台上查看mydb模板实例</p>
+<p>使用命令行创建的Helm模板实例，也可以在华为云平台上查看管理。</p>
+<p>单击进入CCE服务中k8s-chinaskill集群，选择左侧菜单栏“运维→模板管理”，单击“模板实例”选项卡，查看模板实例。列表详情如图12所示。</p>
+<p><img src="../../../../jihu/image/DX/366.png" alt="366"></p>
+<p>图12 模板管理mydb</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/12/4-%E5%85%AC%E6%9C%89%E4%BA%91Helm%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/">http://example.com/2023/08/12/4-公有云Helm模板使用案例/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/HuaweiCloud/">HuaweiCloud</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/helm.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例"><img class="cover" src="/../jihu/wallpaper/used/huawei.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">公有云：(3)公有云CCE集群操作案例</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例"><img class="cover" src="/../jihu/wallpaper/used/python5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">公有云：(5)公有云Python运维开发案例</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/12/1-%E5%85%AC%E6%9C%89%E4%BA%91%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%AE%9E%E6%93%8D%E6%A1%88%E4%BE%8B/" title="公有云：(1)公有云基础组件实操案例"><img class="cover" src="/../jihu/wallpaper/used/huawei.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(1)公有云基础组件实操案例</div></div></a></div><div><a href="/2023/08/12/2-%E5%85%AC%E6%9C%89%E4%BA%91%E5%BA%94%E7%94%A8%E4%B8%8A%E4%BA%91%E5%AE%9E%E6%93%8D%E6%A1%88%E4%BE%8B/" title="公有云：(2)公有云应用上云实操案例"><img class="cover" src="/../jihu/wallpaper/used/huawei.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(2)公有云应用上云实操案例</div></div></a></div><div><a href="/2023/08/12/3-%E5%85%AC%E6%9C%89%E4%BA%91CCE%E9%9B%86%E7%BE%A4%E6%93%8D%E4%BD%9C%E6%A1%88%E4%BE%8B/" title="公有云：(3)公有云CCE集群操作案例"><img class="cover" src="/../jihu/wallpaper/used/huawei.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(3)公有云CCE集群操作案例</div></div></a></div><div><a href="/2023/08/12/5-%E5%85%AC%E6%9C%89%E4%BA%91Python%E8%BF%90%E7%BB%B4%E5%BC%80%E5%8F%91%E6%A1%88%E4%BE%8B/" title="公有云：(5)公有云Python运维开发案例"><img class="cover" src="/../jihu/wallpaper/used/python5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(5)公有云Python运维开发案例</div></div></a></div><div><a href="/2023/08/12/6-%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/" title="公有云：(6)边缘计算平台部署应用"><img class="cover" src="/../jihu/wallpaper/used/bianyuanjisuan.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="title">公有云：(6)边缘计算平台部署应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">O&M</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">案例描述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">规划节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87"><span class="toc-number">1.2.</span> <span class="toc-text">基础准备</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD"><span class="toc-number">2.</span> <span class="toc-text">案例实施</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Helm%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.</span> <span class="toc-text">Helm工具介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Helm%E5%B7%A5%E5%85%B7"><span class="toc-number">2.2.</span> <span class="toc-text">安装Helm工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%B8%82%E5%9C%BA%E9%83%A8%E7%BD%B2Nginx"><span class="toc-number">2.3.</span> <span class="toc-text">模板市场部署Nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Helm%E9%83%A8%E7%BD%B2MariaDB%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.4.</span> <span class="toc-text">Helm部署MariaDB集群服务</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式"><img src="/../jihu/wallpaper/used/linux5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见文本处理工具和正则表达式"/></a><div class="content"><a class="title" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式">常见文本处理工具和正则表达式</a><time datetime="2024-09-22T16:00:00.000Z" title="发表于 2024-09-23 00:00:00">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理"><img src="/../jihu/wallpaper/used/linux4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用户和权限管理"/></a><div class="content"><a class="title" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理">用户和权限管理</a><time datetime="2024-08-30T16:00:00.000Z" title="发表于 2024-08-31 00:00:00">2024-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly"><img src="/../jihu/wallpaper/used/butterfiy.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo-Butterfly"/></a><div class="content"><a class="title" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly">Hexo-Butterfly</a><time datetime="2024-08-27T03:15:00.000Z" title="发表于 2024-08-27 11:15:00">2024-08-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向"><img src="/../jihu/wallpaper/used/linux3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux文件管理和IO重定向"/></a><div class="content"><a class="title" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向">Linux文件管理和IO重定向</a><time datetime="2024-08-26T16:00:00.000Z" title="发表于 2024-08-27 00:00:00">2024-08-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

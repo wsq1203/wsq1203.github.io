@@ -1,0 +1,443 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>k8s：(6)基于Helm3实现服务发布案例 | Blog</title><meta name="author" content="W"><meta name="copyright" content="W"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="基于Helm3实现服务发布案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s：(6)基于Helm3实现服务发布案例">
+<meta property="og:url" content="http://example.com/2023/08/11/6-%E5%9F%BA%E4%BA%8EHelm3%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="基于Helm3实现服务发布案例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/jihu/wallpaper/used/helm.png">
+<meta property="article:published_time" content="2023-08-10T22:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-10T08:13:04.763Z">
+<meta property="article:author" content="W">
+<meta property="article:tag" content="Kubernetes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/jihu/wallpaper/used/helm.png"><link rel="shortcut icon" href="/../jihu/wallpaper/used/user.jpg"><link rel="canonical" href="http://example.com/2023/08/11/6-%E5%9F%BA%E4%BA%8EHelm3%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'k8s：(6)基于Helm3实现服务发布案例',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-10 16:13:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../jihu/wallpaper/used/user.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../jihu/wallpaper/used/helm.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Blog"><span class="site-name">Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">k8s：(6)基于Helm3实现服务发布案例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-10T22:00:00.000Z" title="发表于 2023-08-11 06:00:00">2023-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-10T08:13:04.763Z" title="更新于 2024-10-10 16:13:04">2024-10-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%91%E9%87%8C%E9%9B%BE%E9%87%8C/">云里雾里</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="k8s：(6)基于Helm3实现服务发布案例"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h1><p>（1）了解Helm3的基本使用。</p>
+<p>（2）了解自定义charts包的制作。</p>
+<p>（3）掌握使用Helm3部署服务到Kubernetes集群。</p>
+<h3 id="规划节点"><a href="#规划节点" class="headerlink" title="规划节点"></a>规划节点</h3><p>节点规划，见表1。</p>
+<p>表1 节点规划</p>
+<table>
+<thead>
+<tr>
+<th><strong>IP</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>节点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.24.2.5</td>
+<td>master</td>
+<td>master、worker节点</td>
+</tr>
+</tbody></table>
+<h3 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h3><p>Kubernetes v1.22集群已部署完成。将提供的软件包 Helm.tar.gz上传至master节点/root目录下并解压。</p>
+<h1 id="案例实施"><a href="#案例实施" class="headerlink" title="案例实施"></a>案例实施</h1><h2 id="Helm简介"><a href="#Helm简介" class="headerlink" title="Helm简介"></a>Helm简介</h2><h3 id="Helm介绍"><a href="#Helm介绍" class="headerlink" title="Helm介绍"></a>Helm介绍</h3><p>Helm是Deis开发的一个用于Kubernetes应用的包管理工具，主要用来管理Charts。类似于Ubuntu中的apt或CentOS中的yum。Helm Chart是用来封装Kubernetes原生应用程序的一系列YAML文件。可以在部署应用的时候自定义应用程序的一些Metadata，以便于应用程序的分发。对于应用发布者而言，可以通过Helm打包应用、管理应用依赖关系、管理应用版本并发布应用到软件仓库。对于使用者而言，使用Helm后不用需要编写复杂的应用部署文件，可以以简单的方式在Kubernetes上查找、安装、升级、回滚、卸载应用程序。</p>
+<p>Helm的主要功能如下：</p>
+<p>● 查找要安装和使用的预打包软件</p>
+<p>● 轻松创建和托管自己的软件包</p>
+<p>● 将软件包安装到任何K8S集群中</p>
+<p>● 查询集群以查看已安装和正在运行的程序包</p>
+<p>● 更新、删除、回滚或查看已安装软件包的历史记录</p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>Helm主要有三个核心概念：Chart、Repos和Release。</p>
+<p>Helm使用的包格式称为chart，它是一个描述Kubernetes相关资源对象的文件集合。它的技术特点类似jinja模版，以渲染模版的方式，生成运行一个服务实例所需的一系列资源对象文件，并以此进行服务的发布。通过这种方式，我们也可以十分简单的制作自定义的chart。</p>
+<p>Helm chart可以被存储在专用的HTTP服务器上，称为chart仓库（repositories)，和yum repository类似，chart仓库提供了一个index.yaml来描述一批chart，并且提供了每个chart的下载地址信息。</p>
+<p>当chart被发布后，Helm库会创建一个release来跟踪这个发布的对象，它的实质是在Kubernetes中运行的各种资源，service、deployment、configmap、secret等，在K8S集群中的直接的表现就是一个或多个Pod。</p>
+<h2 id="创建自定义文件"><a href="#创建自定义文件" class="headerlink" title="创建自定义文件"></a>创建自定义文件</h2><p>Helm最核心的就是模板，即模板化的Kubernetes manifests文件。</p>
+<p>它本质上就是一个Go的template模板。Helm在Go template模板的基础上，还会增加很多东西。如一些自定义的元数据信息、扩展的库以及一些类似于编程形式的工作流，例如条件语句、管道等等。这些东西都会使得我们的模板变得更加丰富。</p>
+<h3 id="定义chart"><a href="#定义chart" class="headerlink" title="定义chart"></a>定义chart</h3><p>解压软件包并导入镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# tar -zxvf Helm.tar.gz</span><br><span class="line">[root@k8s-master-node1 ~]# docker load -i Helm/images.tar</span><br></pre></td></tr></table></figure>
+
+<p>一个chart包就是一个文件夹的集合，文件夹名称就是chart包的名称，比如创建一个mychart的chart包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm create mychart</span><br><span class="line">Creating mychart</span><br></pre></td></tr></table></figure>
+
+<p>chart基本元素释义如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# tree mychart/</span><br><span class="line">mychart/</span><br><span class="line">├── charts    	             #可选:本chart依赖的其他chart；</span><br><span class="line">├── Chart.yaml             #必选:描述chart相关信息，包括名称、描述等信息；</span><br><span class="line">├── templates              #必选:作用于kubernetes资源的yaml模版；</span><br><span class="line">│   ├── deployment.yaml   # deployment的yaml模版，发布应用的基本元素；</span><br><span class="line">│   ├── _helpers.tpl        #用于定义一些可重用的模板片断；</span><br><span class="line">│   ├── hpa.yaml          #用于生成hpa的yaml模版；</span><br><span class="line">│   ├── ingress.yaml       #用于生成ingress的yaml模版；</span><br><span class="line">│   ├── NOTES.txt        #必选:用于介绍chart部署后的一些信息；</span><br><span class="line">│   ├── serviceaccount.yaml  #用于生成serviceaccount资源的yaml模版</span><br><span class="line">│   ├── service.yaml        #用于生成service资源的yaml模版；</span><br><span class="line">│   └── tests               #helm的测试钩子</span><br><span class="line">│       └── test-connection.yaml</span><br><span class="line">└── values.yaml           #必选:用于存储要渲染至templates/下模版文件中的值</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义YAML文件"><a href="#自定义YAML文件" class="headerlink" title="自定义YAML文件"></a>自定义YAML文件</h3><p>删除templates目录下面所有文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# rm -rfv mychart/templates/*</span><br></pre></td></tr></table></figure>
+
+<p>自定义Deployment模板文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/deployment.yaml</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: null</span><br><span class="line">  labels:</span><br><span class="line">    app: nginx</span><br><span class="line">  name: nginx</span><br><span class="line">spec:</span><br><span class="line">  replicas: 1</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nginx</span><br><span class="line">  strategy: &#123;&#125;</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - image: nginx</span><br><span class="line">        name: nginx</span><br><span class="line">        resources: &#123;&#125;</span><br><span class="line">status: &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上现在就是一个可安装的chart包了，通过helm install命令来进行安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web mychart</span><br><span class="line">NAME: web</span><br><span class="line">LAST DEPLOYED: Tue Jan 25 15:24:51 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">TEST SUITE: None</span><br></pre></td></tr></table></figure>
+
+<p>可以看到资源对象已经创建了，这样部署与直接使用“kubectl apply”部署差别不大。</p>
+<p>查看release：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm list</span><br><span class="line">NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION</span><br><span class="line">web     default         1               2022-01-25 17:24:51.115137421 +0800 CST deployed        mychart-0.1.0   1.16.0</span><br></pre></td></tr></table></figure>
+
+<p>查看Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# kubectl get pods</span><br><span class="line">NAME                 READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx-6799fc88d8-ns99r   1/1       Running     0            79s</span><br></pre></td></tr></table></figure>
+
+<p>使用如下命令可以看到实际的模板被渲染过后的资源文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm get manifest web</span><br><span class="line">---</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Source: mychart/templates/deployment.yaml</span></span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: null</span><br><span class="line">  labels:</span><br><span class="line">    app: nginx</span><br><span class="line">  name: nginx</span><br><span class="line">spec:</span><br><span class="line">  replicas: 1</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nginx</span><br><span class="line">  strategy: &#123;&#125;</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - image: nginx</span><br><span class="line">        name: nginx</span><br><span class="line">        resources: &#123;&#125;</span><br><span class="line">status: &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>删除当前release：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm delete web</span><br><span class="line">release &quot;web&quot; uninstalled</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义模板"><a href="#定义模板" class="headerlink" title="定义模板"></a>定义模板</h2><h3 id="创建模板"><a href="#创建模板" class="headerlink" title="创建模板"></a>创建模板</h3><p>可以看到上面我们定义的Service和Deployment的名字是固定的，但往往这并不是一种很好的做法，可以通过插入release的名称来生成资源的名称，这就需要用到Chart的模板定义方法了。</p>
+<p>Helm hart模板使用的是Go语言模板编写而成，并添加了Sprig库中的50多个附件模板函数以及一些其他特殊函数。</p>
+<p>编辑Deployment模板：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@k8s-master-node1</span> <span class="string">~</span>]<span class="comment"># cat mychart/templates/deployment.yaml </span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">creationTimestamp:</span> <span class="literal">null</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">chart:</span> &#123;&#123; <span class="string">.Chart.Name</span> &#125;&#125;</span><br><span class="line">    <span class="attr">app:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;</span><br><span class="line">  <span class="attr">name:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;</span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> &#123;&#123; <span class="string">.Values.replicas</span>&#125;&#125;</span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> &#123;&#123; <span class="string">.Values.label</span> &#125;&#125;</span><br><span class="line">  <span class="attr">strategy:</span> &#123;&#125;</span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">creationTimestamp:</span> <span class="literal">null</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> &#123;&#123; <span class="string">.Values.label</span> &#125;&#125;</span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">image:</span> &#123;&#123; <span class="string">.Values.image</span> &#125;&#125;<span class="string">:&#123;&#123;</span> <span class="string">.Values.imageTag</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">name:</span> &#123;&#123; <span class="string">.Release.Name</span> &#125;&#125;</span><br><span class="line">        <span class="attr">resources:</span> &#123;&#125;</span><br><span class="line"><span class="attr">status:</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>这里将资源名称替换成了 <code>&#123;&#123; .Release.Name &#125;&#125;</code> , 其中包含在 <code>&#123;&#123; &#125;&#125;</code> 之中的就是模板指令, <code>&#123;&#123; .Release.Name &#125;&#125;</code> 将release的名称注入到模板中来，这样最终生成的资源名称就是以release的名称开头的了。这里的Release模板对象属于Helm内置的一种对象。</p>
+<p>编辑传入变量的values.yaml：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/values.yaml </span><br><span class="line">replicas: 3</span><br><span class="line">image: nginx</span><br><span class="line">imageTag: 1.17</span><br><span class="line">label: nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>Helm提供了–dry-run –debug这个可选参数，在执行helm install的时候带上这两个参数就可以把对应的values值和生成的最终的资源清单文件打印出来，而不会真正的去部署一个release实例，比如调试上面创建的chart包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web01 --dry-run mychart/</span><br><span class="line">NAME: web01</span><br><span class="line">LAST DEPLOYED: Tue Jan 25 17:28:37 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: pending-install</span><br><span class="line">REVISION: 1</span><br><span class="line">TEST SUITE: None</span><br><span class="line">HOOKS:</span><br><span class="line">MANIFEST:</span><br><span class="line">---</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Source: mychart/templates/deployment.yaml</span></span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: null</span><br><span class="line">  labels:</span><br><span class="line">    chart: mychart</span><br><span class="line">    app: web01</span><br><span class="line">  name: web01</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nginx</span><br><span class="line">  strategy: &#123;&#125;</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - image: nginx:1.17</span><br><span class="line">        name: web01</span><br><span class="line">        resources: &#123;&#125;</span><br><span class="line">status: &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调试过程无报错就可以进行安装了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web01 mychart/</span><br><span class="line">NAME: web01</span><br><span class="line">LAST DEPLOYED: Tue Jan 25 17:28:59 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">TEST SUITE: None</span><br></pre></td></tr></table></figure>
+
+<p>查看Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# kubectl get pods</span><br><span class="line">NAME                READY   STATUS    RESTARTS   AGE</span><br><span class="line">web-76f5f6d7f5-gc62p   1/1        Running    0            15s</span><br><span class="line">web-76f5f6d7f5-l5w5b   1/1        Running    0            15s</span><br><span class="line">web-76f5f6d7f5-zjfkm   1/1        Running    0            15s</span><br></pre></td></tr></table></figure>
+
+<h3 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h3><p>刚刚使用<code>&#123;&#123;.Release.Name&#125;&#125;</code>将release的名称插入到模板中。这里的Release就是Helm的内置对象，下面是一些常用的内置对象：</p>
+<p>● Release.Name：release名称；</p>
+<p>● Release.Time：release的时间；</p>
+<p>● Release.Namespace：release的namespace（如果清单未覆盖）；</p>
+<p>● Release.Service：release服务的名称（始终是Tiller）；</p>
+<p>● Release.Revision：此release的修订版本号，从1开始累加；</p>
+<p>● Release.IsUpgrade：如果当前操作是升级或回滚，则将其设置为true；</p>
+<p>● Release.IsInstall：如果当前操作是安装，则设置为true。</p>
+<p>上面这些值可用于任何顶级模板，要注意内置对象始终以大写字母开头。这也符合Go的命名约定。</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>此时如果想更新配置就比较方便了，比如将nginx镜像的版本换成1.18：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/values.yaml </span><br><span class="line">replicas: 3</span><br><span class="line">image: nginx</span><br><span class="line">imageTag: 1.18</span><br><span class="line">label: nginx</span><br><span class="line">[root@k8s-master-node1 ~]# helm upgrade web01 mychart</span><br><span class="line">Release &quot;web01&quot; has been upgraded. Happy Helming!</span><br><span class="line">NAME: web01</span><br><span class="line">LAST DEPLOYED: Tue Jan 25 17:29:48 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 2</span><br><span class="line">TEST SUITE: None</span><br></pre></td></tr></table></figure>
+
+<h3 id="Values"><a href="#Values" class="headerlink" title="Values"></a>Values</h3><p>Values对象是为Chart模板提供值，这个对象的值有4个来源：</p>
+<p>● chart包中的values.yaml文件</p>
+<p>● 父chart包的values.yaml文件</p>
+<p>● 通过helm install或helm upgrade的-f或者–values参数传入的自定义的yaml文件</p>
+<p>● 通过–set参数传入的值</p>
+<p>chart的values.yaml提供的值可以被用户提供的values文件覆盖，而该文件同样可以被–set提供的参数所覆盖。</p>
+<p>例如新建一个应用，副本数只有1个：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web02 --set replicas=1 mychart</span><br><span class="line">NAME: web02</span><br><span class="line">LAST DEPLOYED: Tue Jan 25 15:42:07 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">TEST SUITE: None</span><br></pre></td></tr></table></figure>
+
+<p>删除release：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# helm delete web01 web02</span><br><span class="line">release &quot;web01&quot; uninstalled</span><br><span class="line">release &quot;web02&quot; uninstalled</span><br></pre></td></tr></table></figure>
+
+<h2 id="Chart的管道与函数"><a href="#Chart的管道与函数" class="headerlink" title="Chart的管道与函数"></a>Chart的管道与函数</h2><h3 id="模板函数"><a href="#模板函数" class="headerlink" title="模板函数"></a>模板函数</h3><p>模块实质上就是将值传给模板引擎进行渲染，这些信息都是直接传入模板引擎中进行渲染的，有的时候需要转换一下这些数据才进行渲染，模板引擎支持对拿到数据进行二次处理，这就需要使用到Go模板语言中的一些其他用法。</p>
+<p>例如给标签（labels）加双引号，修改Deployment模板template字段：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/deployment.yaml</span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &#123;&#123; quote .Values.label &#125;&#125;</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+<p>调试查看结果：</p>
+<p>[root@k8s-master-node1 ~]# helm install web03 –dry-run mychart</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web03 --dry-run mychart</span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &quot;nginx&quot;</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>可以看到标签“nginx”加上了一个双引号。</p>
+<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><p>模板语言除了提供了丰富的内置函数之外，其另一个强大的功能就是管道的概念。和UNIX中一样，管道也通常称为Pipeline，是一个链在一起的一系列模板命令的工具，以紧凑地表达一系列转换。简单来说，管道是可以按顺序完成一系列事情的一种方法。</p>
+<p>比如使用管道重写上面的Deployment模板：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/deployment.yaml</span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &#123;&#123; .Values.label | quote &#125;&#125;</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>调试查看运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web03 --dry-run mychart</span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &quot;nginx&quot;</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>可以看到标签“nginx”加上了一个双引号，效果和之前一样。</p>
+<h3 id="default函数"><a href="#default函数" class="headerlink" title="default函数"></a>default函数</h3><p>default函数（default DEFAULT_VALUE GIVEN_VALUE）允许在模板内部指定默认值，以防止该值被忽略掉了。</p>
+<p>例如新加一个值：test: demotest，修改Deployment模板template字段：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/deployment.yaml</span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &#123;&#123; quote .Values.label &#125;&#125;</span><br><span class="line">        test: &#123;&#123; default &quot;demotest&quot; .Values.test &#125;&#125;</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>调试查看运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web03 --dry-run mychart/</span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &quot;nginx&quot;</span><br><span class="line">        test: demotest</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>可以看到，定义的test: demotest已经生效。</p>
+<p>因为没有在values.yaml中定义test的值，所以默认其值为demotest。如果在values.yaml中定义了，其值就以values.yaml中的值为准。</p>
+<p>例如在values.yaml中把test的值定义为123456：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/values.yaml </span><br><span class="line">replicas: 3</span><br><span class="line">image: nginx</span><br><span class="line">imageTag: 1.18</span><br><span class="line">label: nginx</span><br><span class="line">test: 123456</span><br></pre></td></tr></table></figure>
+
+<p>调试查看运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web03 --dry-run mychart/</span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &quot;nginx&quot;</span><br><span class="line">        test: 123456</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>可以看到test的值被渲染成了123456。</p>
+<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><p>模板函数和管道是通过转换信息并将其插入到YAML文件中。有时候需要添加一些比插入字符串更复杂一些的模板逻辑，这就需要使用到模板语言中提供的控制结构了。</p>
+<p>控制流程为提供了控制模板生成流程的一种能力，Helm的模板语言提供了以下几种流程控制：</p>
+<p>● if/else条件块</p>
+<p>● with指定范围</p>
+<p>● range循环块</p>
+<p>除此之外，它还提供了一些声明和使用命名模板段的操作：</p>
+<p>● define在模板中声明一个新的命名模板</p>
+<p>● template导入一个命名模板</p>
+<p>● block声明了一种特殊的可填写的模板区域</p>
+<h3 id="if"><a href="#if" class="headerlink" title="if"></a>if</h3><p>if/else块是用于在模板中有条件地包含文本块的方法，条件块的基本结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; if PIPELINE &#125;&#125;</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Do something</span></span><br><span class="line">&#123;&#123; else if OTHER PIPELINE &#125;&#125;</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Do something <span class="keyword">else</span></span></span><br><span class="line">&#123;&#123; else &#125;&#125;</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Default <span class="keyword">case</span></span></span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然要使用条件块就得判断条件是否为真，如果值为下面的几种情况，则管道的结果为 false：</p>
+<p>● 一个布尔类型的假</p>
+<p>● 一个数字0</p>
+<p>● 一个空的字符串</p>
+<p>● 一个nil（空或null）</p>
+<p>● 一个空的集合（map、slice、tuple、dict、array）</p>
+<p>除了上面的这些情况外，其他所有条件都为真。</p>
+<p>例如判断test的值来赋予一个新的值，修改Deployment模板template字段：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/deployment.yaml </span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &#123;&#123; quote .Values.label &#125;&#125;</span><br><span class="line">        &#123;&#123;- if eq .Values.test &quot;devops&quot;&#125;&#125;</span><br><span class="line">        devops: k8s</span><br><span class="line">        &#123;&#123;- else &#125;&#125;</span><br><span class="line">        devops: docker</span><br><span class="line">        &#123;&#123;- end &#125;&#125;</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>修改values.yaml中test的值，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/values.yaml </span><br><span class="line">replicas: 3</span><br><span class="line">image: nginx</span><br><span class="line">imageTag: 1.18</span><br><span class="line">label: nginx</span><br><span class="line">test: devops</span><br></pre></td></tr></table></figure>
+
+<p>调试查看运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web03 --dry-run mychart/</span><br><span class="line">…… </span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      creationTimestamp: null</span><br><span class="line">      labels:</span><br><span class="line">        app: &quot;nginx&quot;</span><br><span class="line">        devops: k8s</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>可以看到，根据values的值，可以判断赋予devops这个字段的值。</p>
+<p>其中运算符eq是判断是否相等的操作，除此之外，还有 ne、 lt、 gt、 and、 or等运算符。</p>
+<p>其中渲染出来会有多余的空行，这是因为当模板引擎运行时，会将控制指令删除，所有之前占的位置也就空白了，所以需要使用 <code>&#123;undefined&#123;- if …&#125;&#125;</code> 的方式消除此空行。</p>
+<h3 id="with"><a href="#with" class="headerlink" title="with"></a>with</h3><p>with用来控制变量作用域。<code>&#123;&#123; .Release.xxx &#125;&#125;</code> 或者 <code>&#123;&#123; .Values.xxx &#125;&#125;</code> 中的.就是表示对当前范围的引用，.Values就是告诉模板在当前范围中查找Values对象的值。而with语句就可以来控制变量的作用域范围，其语法和一个简单的if语句比较类似：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; with PIPELINE &#125;&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">restricted scope</span></span><br><span class="line">&#123;&#123; end &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例如添加一个标签，修改values.yaml文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/values.yaml </span><br><span class="line">replicas: 3</span><br><span class="line">image: nginx</span><br><span class="line">imageTag: 1.18</span><br><span class="line">label: nginx</span><br><span class="line">test: devops</span><br><span class="line">nodeSelector:</span><br><span class="line">  team: chongqing</span><br><span class="line">  gpu: ok</span><br></pre></td></tr></table></figure>
+
+<p>在Deployment模板中containers字段前面加入if判断内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/deployment.yaml</span><br><span class="line">…… </span><br><span class="line">    spec:</span><br><span class="line">      &#123;&#123;- if .Values.nodeSelector &#125;&#125;</span><br><span class="line">      nodeSelector:</span><br><span class="line">        team: &#123;&#123; .Values.nodeSelector.team &#125;&#125;</span><br><span class="line">        gpu: &#123;&#123; .Values.nodeSelector.gpu &#125;&#125;</span><br><span class="line">      &#123;&#123;- end &#125;&#125;</span><br><span class="line">      containers:</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>调试查看运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web --dry-run mychart/</span><br><span class="line">…… </span><br><span class="line">    spec:</span><br><span class="line">      nodeSelector:</span><br><span class="line">        team: chongqing</span><br><span class="line">        gpu: ok</span><br><span class="line">      containers:</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>可以看到渲染的YAML文件中加入了指定的内容。</p>
+<p>修改Deployment模板中containers字段前的内容，改为使用with：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/deployment.yaml</span><br><span class="line">…… </span><br><span class="line">    spec:</span><br><span class="line">      &#123;&#123;- with .Values.nodeSelector &#125;&#125;</span><br><span class="line">      nodeSelector:</span><br><span class="line">        team: &#123;&#123; .team &#125;&#125;</span><br><span class="line">        gpu: &#123;&#123; .gpu &#125;&#125;</span><br><span class="line">      &#123;&#123;- end &#125;&#125;</span><br><span class="line">      containers:</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>调试查看运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web --dry-run mychart/</span><br><span class="line">…… </span><br><span class="line">    spec:</span><br><span class="line">      nodeSelector:</span><br><span class="line">        team: chongqing</span><br><span class="line">        gpu: ok</span><br><span class="line">      containers:</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>可以看到效果和之前一致。</p>
+<p>这种方式还不够简化，要指定key值，可以用toYaml函数来处理，修改Deployment模板：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/deployment.yaml</span><br><span class="line">…… </span><br><span class="line">    spec:</span><br><span class="line">      &#123;&#123;- with .Values.nodeSelector &#125;&#125;</span><br><span class="line">      nodeSelector:</span><br><span class="line">        &#123;&#123;- toYaml . | nindent 8 &#125;&#125;</span><br><span class="line">      &#123;&#123;- end &#125;&#125;</span><br><span class="line">      containers:</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>再次调试运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web --dry-run mychart/</span><br></pre></td></tr></table></figure>
+
+<p>运行得到的结果和前面一样。其中with是一个循环构造，使用.Values.nodeSelector中的值将其转换为YAML。 toYaml之后的点是循环中.Values.nodeSelector的当前值。使用nindent 8是因为用toYaml函数得到的值都是顶格，需要缩进8个字符，保持语法正确，并且每缩进一行都需要换行。</p>
+<h3 id="range"><a href="#range" class="headerlink" title="range"></a>range</h3><p>在Helm模板语言中，range用于进行循环操作。</p>
+<p>在values.yaml文件中添加上一个变量列表：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/values.yaml </span><br><span class="line">replicas: 3</span><br><span class="line">image: nginx</span><br><span class="line">imageTag: 1.18</span><br><span class="line">label: nginx</span><br><span class="line">test: devops</span><br><span class="line">nodeSelector:</span><br><span class="line">  team: chongqing</span><br><span class="line">  gpu: ok</span><br><span class="line">ceshi:</span><br><span class="line">  - 1</span><br><span class="line">  - 2</span><br><span class="line">  - 3</span><br></pre></td></tr></table></figure>
+
+<p>在templates目录下面新建一个configmap.yaml文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cat mychart/templates/configmap.yaml </span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  name: &#123;&#123; .Release.Name &#125;&#125;</span><br><span class="line">data:</span><br><span class="line">  test: |</span><br><span class="line">  &#123;&#123;- range .Values.ceshi &#125;&#125;</span><br><span class="line">    &#123;&#123; . &#125;&#125;</span><br><span class="line">  &#123;&#123;- end &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调试运行查看结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm install web --dry-run mychart/</span><br><span class="line">…… </span><br><span class="line">data:</span><br><span class="line">  test: |</span><br><span class="line">    1</span><br><span class="line">    2</span><br><span class="line">    3</span><br><span class="line">…… </span><br></pre></td></tr></table></figure>
+
+<p>可以看到被渲染的YAML文件中加入了指定的内容。</p>
+<h2 id="打包chart"><a href="#打包chart" class="headerlink" title="打包chart"></a>打包chart</h2><h3 id="打包chart-1"><a href="#打包chart-1" class="headerlink" title="打包chart"></a>打包chart</h3><p>使用helm package命令打包chart：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# helm package mychart/</span><br><span class="line">Successfully packaged chart and saved it to: /root/mychart-0.1.0.tgz</span><br></pre></td></tr></table></figure>
+
+<p>查看chart包：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# ls</span><br><span class="line">Helm  Helm.tar.gz  mychart  mychart-0.1.0.tgz</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署EFK服务"><a href="#部署EFK服务" class="headerlink" title="部署EFK服务"></a>部署EFK服务</h2><p>系统运维人员通过日志对系统应用进行监控运维管理，甚至基于日志进行一些数据分析工作，保障系统应用运行的稳定性，且帮助开发人员快速定位错误。</p>
+<p>当项目迁移到Kubernetes进行部署管理之后，虽然在弹性伸缩以及服务器资源的利用率方面得到了优化，但是Kubernetes在日志管理方面并没有提供相关的支持，由于应用服务会动态调节，即部署到不同的服务器上面，因此应用日志的管理单纯依赖挂载日志文件已经不能很好的解决应用日志管理的问题，迫切需要一个日志采集系统对Kubernetes上面的应用日志进行统一采集管理，才能保证应用运行稳定性。</p>
+<p>EFK不是一个软件，而是一套解决方案，开源软件之间的互相配合使用，高效的满足了很多场合的应用，是目前主流的一种日志系统。EFK是三个开源软件的缩写，分别表示：Elasticsearch、FileBeat和Kabana。其中ELasticsearch负责日志保存和搜索，FileBeat负责收集日志，Kibana负责界面。EFK和ELK的区别在于EFK把ELK的Logstash替换成了FileBeat，因为Filebeat相对于Logstash来说侵入低，无需修改程序目前任何代码和配置，且性能更高。</p>
+<h3 id="部署Elasticsearch"><a href="#部署Elasticsearch" class="headerlink" title="部署Elasticsearch"></a>部署Elasticsearch</h3><p>部署Elasticsearch：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# cd Helm/</span><br><span class="line">[root@k8s-master-node1 Helm]# helm install elasticsearch efk/elasticsearch/</span><br><span class="line">NAME: elasticsearch</span><br><span class="line">LAST DEPLOYED: Thu Jan 27 10:57:52 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">NOTES:</span><br><span class="line">1. Watch all cluster members come up.</span><br><span class="line"><span class="meta prompt_">  $ </span><span class="language-bash">kubectl get pods --namespace=default -l app=elasticsearch-master -w2. Test cluster health using Helm <span class="built_in">test</span>.</span></span><br><span class="line"><span class="meta prompt_">  $ </span><span class="language-bash">helm --namespace=default <span class="built_in">test</span> elasticsearch</span></span><br></pre></td></tr></table></figure>
+
+<p>查看release：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# helm list</span><br><span class="line">NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION</span><br><span class="line">elasticsearch   default         1               2022-01-27 10:57:52.575082785 +0800 CST deployed        elasticsearch-7.16.3    7.16.3</span><br></pre></td></tr></table></figure>
+
+<p>查看Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# kubectl get pods</span><br><span class="line">NAME               READY   STATUS    RESTARTS   AGE</span><br><span class="line">elasticsearch-master-0   1/1       Running     0           81s</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署FileBeat"><a href="#部署FileBeat" class="headerlink" title="部署FileBeat"></a>部署FileBeat</h3><p>部署FileBeat：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# helm install filebeat efk/filebeat/</span><br><span class="line">NAME: filebeat</span><br><span class="line">LAST DEPLOYED: Thu Jan 27 11:00:27 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">TEST SUITE: None</span><br><span class="line">NOTES:</span><br><span class="line">Watch all containers come up.</span><br><span class="line"><span class="meta prompt_">  $ </span><span class="language-bash">kubectl get pods --namespace=default -l app=filebeat-filebeat -w</span></span><br></pre></td></tr></table></figure>
+
+<p>查看release：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# helm list</span><br><span class="line">NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION</span><br><span class="line">elasticsearch   default         1               2022-01-27 10:57:52.575082785 +0800 CST deployed        elasticsearch-7.16.3    7.16.3     </span><br><span class="line">filebeat        default         1               2022-01-27 11:00:27.643251833 +0800 CST deployed        filebeat-7.16.3         7.16.3  </span><br></pre></td></tr></table></figure>
+
+<p>查看Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# kubectl get pods</span><br><span class="line">NAME                READY   STATUS    RESTARTS   AGE</span><br><span class="line">elasticsearch-master-0    1/1       Running     0            3m59s</span><br><span class="line">filebeat-filebeat-fdwfv    1/1       Running     0            83s</span><br><span class="line">filebeat-filebeat-mg5gh   1/1       Running     0            84s</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署Kibana"><a href="#部署Kibana" class="headerlink" title="部署Kibana"></a>部署Kibana</h3><p>部署Kinaba：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# helm install kibana efk/kibana/</span><br><span class="line">NAME: kibana</span><br><span class="line">LAST DEPLOYED: Thu Jan 27 11:02:20 2022</span><br><span class="line">NAMESPACE: default</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">TEST SUITE: None</span><br></pre></td></tr></table></figure>
+
+<p>查看release：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# helm list</span><br><span class="line">NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION</span><br><span class="line">elasticsearch   default         1               2022-01-27 10:57:52.575082785 +0800 CST deployed        elasticsearch-7.16.3    7.16.3     </span><br><span class="line">filebeat        default         1               2022-01-27 11:00:27.643251833 +0800 CST deployed        filebeat-7.16.3         7.16.3     </span><br><span class="line">kibana          default         1               2022-01-27 11:02:20.810746584 +0800 CST deployed        kibana-7.16.3           7.16.3</span><br></pre></td></tr></table></figure>
+
+<p>查看Pod：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 Helm]# kubectl get pods</span><br><span class="line">NAME                      READY   STATUS    RESTARTS   AGE</span><br><span class="line">elasticsearch-master-0          1/1       Running     0            5m58s</span><br><span class="line">filebeat-filebeat-fdwfv          1/1       Running     0            3m22s</span><br><span class="line">filebeat-filebeat-mg5gh         1/1       Running     0            3m23s</span><br><span class="line">kibana-kibana-fc976c796-zqtmv  1/1       Running     0            89s</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问EFK"><a href="#访问EFK" class="headerlink" title="访问EFK"></a>访问EFK</h3><p>查看Service：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master-node1 ~]# kubectl get svc</span><br><span class="line">NAME                            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                         AGE</span><br><span class="line">elasticsearch-master            NodePort    10.96.4.117            9200:35662/TCP,9300:38205/TCP   7m6s</span><br><span class="line">elasticsearch-master-headless   ClusterIP   None                   9200/TCP,9300/TCP               7m6s</span><br><span class="line">kibana-kibana                   NodePort    10.96.22.156           5601:64357/TCP                  2m37s</span><br><span class="line">kubernetes                      ClusterIP   10.96.0.1              443/TCP                         41h</span><br></pre></td></tr></table></figure>
+
+<p>可以看到Kinaba对外暴露的NodePort端口为64357，通过<a href="http://master:64357访问Kibana，如图所示：">http://master:64357访问Kibana，如图所示：</a></p>
+<p><img src="../../../../jihu/image/DX/122.png" alt="122"></p>
+<p>图1</p>
+<p>点击“Explore on my own”，如图所示：</p>
+<p><img src="../../../../jihu/image/DX/123.png" alt="123"><br>图2</p>
+<p>点击“Try sample data”，如图所示：</p>
+<p><img src="../../../../jihu/image/DX/124.png" alt="124"><br>图3</p>
+<p>选择样例数据中的任意一个，如选择“Sample eCommerce orders”，然后点击“Add data”，耐心等待数据添加结束，数据添加完成后如图所示：</p>
+<p><img src="../../../../jihu/image/DX/125.png" alt="125"><br>图4</p>
+<p>点击“View data”→“Dashboard”，可以看到一些样例数据的内容展现，如图所示：</p>
+<p><img src="../../../../jihu/image/DX/126.png" alt="126"><br>图5</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">W</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/11/6-%E5%9F%BA%E4%BA%8EHelm3%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/">http://example.com/2023/08/11/6-基于Helm3实现服务发布案例/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Kubernetes/">Kubernetes</a></div><div class="post_share"><div class="social-share" data-image="/../jihu/wallpaper/used/helm.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/11/5-%E5%9F%BA%E4%BA%8EKubernetes_+_Istio%E5%AE%9E%E7%8E%B0%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/" title="k8s：(5)基于Kubernetes+Istio实现灰度发布案例"><img class="cover" src="/../jihu/wallpaper/used/istio.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">k8s：(5)基于Kubernetes+Istio实现灰度发布案例</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/11/7-%E5%9F%BA%E4%BA%8EKubernetes%E6%9E%84%E5%BB%BACICD%E6%A1%88%E4%BE%8B/" title="k8s：(7)基于Kubernetes构建CICD案例"><img class="cover" src="/../jihu/wallpaper/used/cicd.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">k8s：(7)基于Kubernetes构建CICD案例</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/11/1-K8s%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%BF%90%E7%BB%B4/" title="k8s：(1)K8s平台部署与基础运维"><img class="cover" src="/../jihu/wallpaper/used/k8s2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(1)K8s平台部署与基础运维</div></div></a></div><div><a href="/2023/08/11/2-%E5%9F%BA%E4%BA%8Edocker-compose%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/" title="k8s：(2)基于docker-compose编排部署微服务快速开发框架"><img class="cover" src="/../jihu/wallpaper/used/docker-compose1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(2)基于docker-compose编排部署微服务快速开发框架</div></div></a></div><div><a href="/2023/08/11/3-%E5%9F%BA%E4%BA%8Edocker-compose+Django%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/" title="k8s：(3)基于docker-compose+Django编排部署博客系统"><img class="cover" src="/../jihu/wallpaper/used/docker-compose2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(3)基于docker-compose+Django编排部署博客系统</div></div></a></div><div><a href="/2023/08/11/4-%E5%9F%BA%E4%BA%8Edocker-compose%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2Hyperf/" title="k8s：(4)基于docker-compose编排部署Hyperf"><img class="cover" src="/../jihu/wallpaper/used/docker-compose3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(4)基于docker-compose编排部署Hyperf</div></div></a></div><div><a href="/2023/08/11/5-%E5%9F%BA%E4%BA%8EKubernetes_+_Istio%E5%AE%9E%E7%8E%B0%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83%E6%A1%88%E4%BE%8B/" title="k8s：(5)基于Kubernetes+Istio实现灰度发布案例"><img class="cover" src="/../jihu/wallpaper/used/istio.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(5)基于Kubernetes+Istio实现灰度发布案例</div></div></a></div><div><a href="/2023/08/11/7-%E5%9F%BA%E4%BA%8EKubernetes%E6%9E%84%E5%BB%BACICD%E6%A1%88%E4%BE%8B/" title="k8s：(7)基于Kubernetes构建CICD案例"><img class="cover" src="/../jihu/wallpaper/used/cicd.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-11</div><div class="title">k8s：(7)基于Kubernetes构建CICD案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../jihu/wallpaper/used/user.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">W</div><div class="author-info__description">O&M</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">63</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">案例描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9"><span class="toc-number">1.0.1.</span> <span class="toc-text">规划节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87"><span class="toc-number">1.0.2.</span> <span class="toc-text">基础准备</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD"><span class="toc-number">2.</span> <span class="toc-text">案例实施</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Helm%E7%AE%80%E4%BB%8B"><span class="toc-number">2.1.</span> <span class="toc-text">Helm简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Helm%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.1.</span> <span class="toc-text">Helm介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.2.</span> <span class="toc-text">核心概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">创建自定义文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89chart"><span class="toc-number">2.2.1.</span> <span class="toc-text">定义chart</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89YAML%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.2.</span> <span class="toc-text">自定义YAML文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.3.</span> <span class="toc-text">定义模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.3.1.</span> <span class="toc-text">创建模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95"><span class="toc-number">2.3.2.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.3.</span> <span class="toc-text">内置对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0"><span class="toc-number">2.3.4.</span> <span class="toc-text">更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Values"><span class="toc-number">2.3.5.</span> <span class="toc-text">Values</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chart%E7%9A%84%E7%AE%A1%E9%81%93%E4%B8%8E%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">Chart的管道与函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.1.</span> <span class="toc-text">模板函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93"><span class="toc-number">2.4.2.</span> <span class="toc-text">管道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#default%E5%87%BD%E6%95%B0"><span class="toc-number">2.4.3.</span> <span class="toc-text">default函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">2.5.</span> <span class="toc-text">流程控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#if"><span class="toc-number">2.5.1.</span> <span class="toc-text">if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#with"><span class="toc-number">2.5.2.</span> <span class="toc-text">with</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#range"><span class="toc-number">2.5.3.</span> <span class="toc-text">range</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8C%85chart"><span class="toc-number">2.6.</span> <span class="toc-text">打包chart</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%8C%85chart-1"><span class="toc-number">2.6.1.</span> <span class="toc-text">打包chart</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2EFK%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.7.</span> <span class="toc-text">部署EFK服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2Elasticsearch"><span class="toc-number">2.7.1.</span> <span class="toc-text">部署Elasticsearch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2FileBeat"><span class="toc-number">2.7.2.</span> <span class="toc-text">部署FileBeat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2Kibana"><span class="toc-number">2.7.3.</span> <span class="toc-text">部署Kibana</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AEEFK"><span class="toc-number">2.7.4.</span> <span class="toc-text">访问EFK</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式"><img src="/../jihu/wallpaper/used/linux5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见文本处理工具和正则表达式"/></a><div class="content"><a class="title" href="/2024/09/23/Day05-%E5%B8%B8%E8%A7%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E5%92%8C%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="常见文本处理工具和正则表达式">常见文本处理工具和正则表达式</a><time datetime="2024-09-22T16:00:00.000Z" title="发表于 2024-09-23 00:00:00">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理"><img src="/../jihu/wallpaper/used/linux4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用户和权限管理"/></a><div class="content"><a class="title" href="/2024/08/31/Day04-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="用户和权限管理">用户和权限管理</a><time datetime="2024-08-30T16:00:00.000Z" title="发表于 2024-08-31 00:00:00">2024-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly"><img src="/../jihu/wallpaper/used/butterfiy.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo-Butterfly"/></a><div class="content"><a class="title" href="/2024/08/27/Hexo+Butterfly/" title="Hexo-Butterfly">Hexo-Butterfly</a><time datetime="2024-08-27T03:15:00.000Z" title="发表于 2024-08-27 11:15:00">2024-08-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向"><img src="/../jihu/wallpaper/used/linux3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux文件管理和IO重定向"/></a><div class="content"><a class="title" href="/2024/08/27/Day03-Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%E5%92%8CIO%E9%87%8D%E5%AE%9A%E5%90%91/" title="Linux文件管理和IO重定向">Linux文件管理和IO重定向</a><time datetime="2024-08-26T16:00:00.000Z" title="发表于 2024-08-27 00:00:00">2024-08-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By W</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
