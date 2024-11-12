@@ -1,0 +1,403 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>私有云：(6)OpenStack私有云应用部署案例 | ૮(˶ᵔ ᵕ ᵔ˶)ა</title><meta name="author" content="૮(˶ᵔ ᵕ ᵔ˶)ა"><meta name="copyright" content="૮(˶ᵔ ᵕ ᵔ˶)ა"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="OpenStack私有云应用部署案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="私有云：(6)OpenStack私有云应用部署案例">
+<meta property="og:url" content="http://example.com/2023/08/10/DX-OpenStack%E7%A7%81%E6%9C%89%E4%BA%91%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/index.html">
+<meta property="og:site_name" content="૮(˶ᵔ ᵕ ᵔ˶)ა">
+<meta property="og:description" content="OpenStack私有云应用部署案例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/title/openstack1.png">
+<meta property="article:published_time" content="2023-08-09T21:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-08T11:57:09.701Z">
+<meta property="article:author" content="૮(˶ᵔ ᵕ ᵔ˶)ა">
+<meta property="article:tag" content="OpenStack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/title/openstack1.png"><link rel="shortcut icon" href="/../images/title/user.webp"><link rel="canonical" href="http://example.com/2023/08/10/DX-OpenStack%E7%A7%81%E6%9C%89%E4%BA%91%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '私有云：(6)OpenStack私有云应用部署案例',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2024-11-08 19:57:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../images/title/user.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../images/title/openstack1.png')"><nav id="nav"><span id="blog-info"><a href="/" title="૮(˶ᵔ ᵕ ᵔ˶)ა"><span class="site-name">૮(˶ᵔ ᵕ ᵔ˶)ა</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">私有云：(6)OpenStack私有云应用部署案例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-09T21:00:00.000Z" title="发表于 2023-08-10 05:00:00">2023-08-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-08T11:57:09.701Z" title="更新于 2024-11-08 19:57:09">2024-11-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%9D%E5%89%91%E9%94%8B%E4%BB%8E%E7%A3%A8%E7%A0%BA%E5%87%BA/">宝剑锋从磨砺出</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>19分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="私有云：(6)OpenStack私有云应用部署案例"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h1><p>本案例共讲述了Elasticsearch服务的搭建，以及搭建SkyWalking对应用商城利用探针方式进行检测。具体如下：</p>
+<p>（1）搭建Elasticsearch服务；</p>
+<p>（2）搭建SkyWalking OAP服务；</p>
+<p>（3）搭建SkyWalking UI服务；</p>
+<p>（4）搭建并启动应用商城服务，并配置 SkyWalking Agent。</p>
+<h3 id="规划节点"><a href="#规划节点" class="headerlink" title="规划节点"></a>规划节点</h3><p>节点规划见表1。</p>
+<p>表1 节点规划</p>
+<table>
+<thead>
+<tr>
+<th><strong>IP</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>节点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>172.128.11.32</td>
+<td>node-1</td>
+<td>Skywalking实验节点</td>
+</tr>
+<tr>
+<td>172.128.11.42</td>
+<td>Mall</td>
+<td>商城搭建节点</td>
+</tr>
+</tbody></table>
+<h3 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h3><p>登录物理OpenStack平台，使用CentOS 7.9镜像创建两台云主机，云主机类型使用4VCPU/8GB内存/40GB硬盘。创建后的云主机作为本次案例的实验节点。</p>
+<h1 id="案例实施"><a href="#案例实施" class="headerlink" title="案例实施"></a>案例实施</h1><h3 id="部署Elasticsearch服务"><a href="#部署Elasticsearch服务" class="headerlink" title="部署Elasticsearch服务"></a>部署Elasticsearch服务</h3><p>Elasticsearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。Elasticsearch是用Java语言开发的，并作为Apache许可条款下的开放源码发布，是一种流行的企业级搜索引擎。Elasticsearch用于云计算中，能够达到实时搜索，稳定，可靠，快速，安装使用方便。官方客户端在Java、.NET（C#）、PHP、Python、Apache Groovy、Ruby和许多其他语言中都是可用的。根据DB-Engines的排名显示，Elasticsearch是最受欢迎的企业搜索引擎，其次是Apache Solr，也是基于Lucene。</p>
+<p>（1）修改主机名，修改完成后，使用CRT软件断开重新连接node-1节点，以生效新主机名。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 ~]# hostnamectl set-hostname node-1</span><br><span class="line">[root@node-1 ~]# hostnamectl </span><br><span class="line">   Static hostname: node-1</span><br><span class="line">         Icon name: computer-vm</span><br><span class="line">           Chassis: vm</span><br><span class="line">        Machine ID: cc2c86fe566741e6a2ff6d399c5d5daa</span><br><span class="line">           Boot ID: 6c32a0c1d29e4f30929422c8032239ca</span><br><span class="line">    Virtualization: kvm</span><br><span class="line">  Operating System: CentOS Linux 7 (Core)</span><br><span class="line">       CPE OS Name: cpe:/o:centos:centos:7</span><br><span class="line">            Kernel: Linux 3.10.0-1160.el7.x86_64</span><br><span class="line">      Architecture: x86-64</span><br></pre></td></tr></table></figure>
+
+<p>（2）将提供的elasticsearch-7.17.0-linux-x86_64.tar.gz软件包上传到此节点并解压到/opt目录，进入解压后的目录并创建data目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 ~]# tar -zxvf elasticsearch-7.17.0-linux-x86_64.tar.gz -C /opt</span><br><span class="line">[root@node-1 ~]# cd /opt/elasticsearch-7.17.0/</span><br><span class="line">[root@node-1 elasticsearch-7.17.0]# mkdir data</span><br></pre></td></tr></table></figure>
+
+<p>（3）修改Elasticsearch配置，修改并添加如下几行内容，按“i”建进入编辑模式进行配置，按ESC键输入:wq保存退出。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 elasticsearch-7.17.0]# vi config/elasticsearch.yml</span><br><span class="line">…</span><br><span class="line">cluster.name: my-application</span><br><span class="line">node.name: node-1</span><br><span class="line">path.data: /opt/elasticsearch-7.17.0/data</span><br><span class="line">path.logs: /opt/elasticsearch-7.17.0/logs</span><br><span class="line">network.host: 0.0.0.0</span><br><span class="line">cluster.initial_master_nodes: [&quot;node-1&quot;]</span><br><span class="line">…</span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br><span class="line">http.cors.allow-headers: Authorization,X-Requested-With,Content-Length,Content-Type</span><br></pre></td></tr></table></figure>
+
+<p>（4）创建Elasticsearch启动用户，并设置属组及权限：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 elasticsearch-7.17.0]# groupadd elsearch</span><br><span class="line">[root@node-1 elasticsearch-7.17.0]# useradd elsearch -g elsearch -p elasticsearch</span><br><span class="line">[root@node-1 elasticsearch-7.17.0]# chown -R elsearch:elsearch /opt/elasticsearch-7.17.0</span><br></pre></td></tr></table></figure>
+
+<p>（5）修改资源限制及内核配置，添加如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 elasticsearch-7.17.0]# vi /etc/security/limits.conf</span><br><span class="line">…</span><br><span class="line">* hard    nofile           65536</span><br><span class="line">* soft    nofile           65536</span><br><span class="line">[root@node-1 elasticsearch-7.17.0]# vi /etc/sysctl.conf</span><br><span class="line">vm.max_map_count=262144</span><br><span class="line">[root@node-1 elasticsearch-7.17.0]# sysctl -p</span><br><span class="line">[root@node-1 elasticsearch-7.17.0]# reboot</span><br></pre></td></tr></table></figure>
+
+<p>（6）启动Elasticsearch服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 ~]# cd /opt/elasticsearch-7.17.0/</span><br><span class="line">[root@node-1 elasticsearch-7.17.0]# su elsearch</span><br><span class="line">[elsearch@node-1 elasticsearch-7.17.0]$ ./bin/elasticsearch -d</span><br><span class="line">按Ctrl+D退出</span><br></pre></td></tr></table></figure>
+
+<p>（7）查询端口，存在9200则成功启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 elasticsearch-7.17.0]# netstat -ntpl</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address      Foreign Address       State       PID/Program name </span><br><span class="line">tcp        0      0 0.0.0.0:22         0.0.0.0:*             LISTEN      1081/sshd       </span><br><span class="line">tcp        0      0 127.0.0.1:25       0.0.0.0:*             LISTEN      1041/master     </span><br><span class="line">tcp        0      0 0.0.0.0:111        0.0.0.0:*             LISTEN      610/rpcbind     </span><br><span class="line">tcp6       0      0 :::9300            :::*                  LISTEN      2261/java       </span><br><span class="line">tcp6       0      0 :::22              :::*                  LISTEN      1081/sshd       </span><br><span class="line">tcp6       0      0 ::1:25             :::*                  LISTEN      1041/master     </span><br><span class="line">tcp6       0      0 :::111             :::*                  LISTEN      610/rpcbind     </span><br><span class="line">tcp6       0      0 :::9200            :::*                  LISTEN      2261/java</span><br></pre></td></tr></table></figure>
+
+<p>（8）使用浏览器访问IP:9200，如图1所示：</p>
+<p><img src="../../../../images/image/DX/56.png" alt="56"></p>
+<p>图1 Elasticsearch服务访问</p>
+<hr>
+<h3 id="部署SkyWalking-OAP服务"><a href="#部署SkyWalking-OAP服务" class="headerlink" title="部署SkyWalking OAP服务"></a>部署SkyWalking OAP服务</h3><p>SkyWalking：中国人吴晟（华为）开源的一款分布式追踪，分析，告警的工具，现在是Apache旗下开源项目，对云原生支持，目前增长势头强劲，社区活跃，中文文档没有语言障碍。</p>
+<p>SkyWalking是分布式系统的应用程序性能监视工具，专为微服务、云原生架构和基于容器（Docker、K8S、Mesos）架构而设计，是观察性分析平台和应用性能管理系统。架构如图2所示：</p>
+<p><img src="../../../../images/image/DX/57.png" alt="57"></p>
+<p>图2 SkyWalking架构图</p>
+<p>整个架构，分成上、下、左、右四部分：</p>
+<p>上部分Agent：负责从应用中，收集链路信息，发送给 SkyWalking OAP 服务器。目前支持 SkyWalking、Zikpin、Jaeger 等提供的 Tracing 数据信息。而我们目前采用的是，SkyWalking Agent 收集 SkyWalking Tracing 数据，传递给服务器。</p>
+<p>下部分SkyWalking OAP：负责接收Agent发送的Tracing数据信息，然后进行分析（Analysis Core），存储到外部存储器（Storage），最终提供查询（Query）功能。</p>
+<p>右部分Storage：Tracing数据存储。目前支持ES、MySQL、Sharding Sphere、TiDB、H2多种存储器。而我们目前采用的是ES，主要考虑是SkyWalking开发团队自己的生产环境采用ES为主。</p>
+<p>左部分SkyWalking UI：负责提供控台，查看链路等等。</p>
+<p>（1）使用提供的jdk-8u144-linux-x64.tar.gz软件包，上传jdk软件包，配置jdk如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 ~]# tar -zxvf jdk-8u144-linux-x64.tar.gz -C /usr/local/</span><br><span class="line">[root@node-1 ~]# vi /etc/profile</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/etc/profile</span></span><br><span class="line">export JAVA_HOME=/usr/local/jdk1.8.0_144</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/jre/lib/rt.jar:$&#123;JAVA_HOME&#125;/lib/dt.jar:$&#123;JAVA_HOME&#125;/lib/tools.jar</span><br><span class="line">export PATH=$PATH:$&#123;JAVA_HOME&#125;/bin</span><br><span class="line">…</span><br><span class="line">[root@node-1 ~]# source /etc/profile</span><br><span class="line">[root@node-1 ~]# java -version</span><br><span class="line">java version &quot;1.8.0_144&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_144-b01)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.144-b01, mixed mode)</span><br></pre></td></tr></table></figure>
+
+<p>（2）上传apache-skywalking-apm-es7-8.0.0.tar.gz软件包至node-1节点上并加压到/opt目录下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 ~]# tar -zxvf apache-skywalking-apm-es7-8.0.0.tar.gz -C /opt</span><br></pre></td></tr></table></figure>
+
+<p>（3）进入解压后目录，修改OAP配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 ~]# cd /opt/apache-skywalking-apm-bin-es7/</span><br><span class="line">[root@node-1 apache-skywalking-apm-bin-es7]# vi config/application.yml</span><br><span class="line">…</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">集群配置使用单机版</span></span><br><span class="line">cluster:</span><br><span class="line">  selector: $&#123;SW_CLUSTER:standalone&#125;</span><br><span class="line">  standalone:</span><br><span class="line">…</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">数据库使用elasticsearch7</span></span><br><span class="line">storage:</span><br><span class="line">  selector: $&#123;SW_STORAGE:elasticsearch7&#125;</span><br><span class="line">…</span><br><span class="line">  elasticsearch7:</span><br><span class="line">    nameSpace: $&#123;SW_NAMESPACE:&quot;&quot;&#125;</span><br><span class="line">    clusterNodes: $&#123;SW_STORAGE_ES_CLUSTER_NODES:172.128.11.32:9200&#125;</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
+
+<p>（4）启动OAP服务，查询端口，存在11800与12800则成功启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 apache-skywalking-apm-bin-es7]# ./bin/oapService.sh </span><br><span class="line">SkyWalking OAP started successfully!</span><br><span class="line">[root@node-1 apache-skywalking-apm-bin-es7]# netstat -ntpl</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address        Foreign Address      State      PID/Program name </span><br><span class="line">tcp        0      0 0.0.0.0:22           0.0.0.0:*            LISTEN     1081/sshd       </span><br><span class="line">tcp        0      0 127.0.0.1:25         0.0.0.0:*            LISTEN     1041/master     </span><br><span class="line">tcp        0      0 0.0.0.0:111          0.0.0.0:*            LISTEN     610/rpcbind     </span><br><span class="line">tcp6       0      0 :::9300              :::*                 LISTEN     2261/java       </span><br><span class="line">tcp6       0      0 :::22                :::*                 LISTEN     1081/sshd       </span><br><span class="line">tcp6       0      0 :::11800             :::*                 LISTEN     2416/java       </span><br><span class="line">tcp6       0      0 ::1:25               :::*                 LISTEN     1041/master     </span><br><span class="line">tcp6       0      0 :::12800             :::*                 LISTEN     2416/java       </span><br><span class="line">tcp6       0      0 :::111               :::*                 LISTEN     610/rpcbind     </span><br><span class="line">tcp6       0      0 :::9200              :::*                 LISTEN     2261/java</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="部署SkyWalking-UI服务"><a href="#部署SkyWalking-UI服务" class="headerlink" title="部署SkyWalking UI服务"></a>部署SkyWalking UI服务</h3><p>（1）由于SkyWalking UI的默认地址是8080，与很多中间件可能存在冲突，修改一下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 apache-skywalking-apm-bin-es7]# vi webapp/webapp.yml</span><br><span class="line">…</span><br><span class="line">server:</span><br><span class="line">  port: 8888</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
+
+<p>（2）启动SkyWalking UI服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 apache-skywalking-apm-bin-es7]# ./bin/webappService.sh </span><br><span class="line">SkyWalking Web Application started successfully!</span><br></pre></td></tr></table></figure>
+
+<p>（3）查看端口，存在8888则成功启动：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@node-1 apache-skywalking-apm-bin-es7]# netstat -ntpl</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address        Foreign Address     State       PID/Program name </span><br><span class="line">tcp        0      0 0.0.0.0:22           0.0.0.0:*           LISTEN      1081/sshd       </span><br><span class="line">tcp        0      0 127.0.0.1:25         0.0.0.0:*           LISTEN      1041/master     </span><br><span class="line">tcp        0      0 0.0.0.0:111          0.0.0.0:*           LISTEN      610/rpcbind     </span><br><span class="line">tcp6       0      0 :::9300              :::*                LISTEN      2261/java       </span><br><span class="line">tcp6       0      0 :::22                :::*                LISTEN      1081/sshd       </span><br><span class="line">tcp6       0      0 :::8888              :::*                LISTEN      3133/java       </span><br><span class="line">tcp6       0      0 :::11800             :::*                LISTEN      2416/java       </span><br><span class="line">tcp6       0      0 ::1:25               :::*                LISTEN      1041/master     </span><br><span class="line">tcp6       0      0 :::12800             :::*                LISTEN      2416/java       </span><br><span class="line">tcp6       0      0 :::111               :::*                LISTEN      610/rpcbind     </span><br><span class="line">tcp6       0      0 :::9200              :::*                LISTEN      2261/java</span><br></pre></td></tr></table></figure>
+
+<p>（4）使用浏览器访问IP:8888，此时访问页面无数据，如图3所示：</p>
+<p><img src="../../../../images/image/DX/58.png" alt="58"></p>
+<p>图3 访问SkyWalking UI服务</p>
+<hr>
+<h3 id="搭建并启动应用商城服务，并配置SkyWalking-Agent"><a href="#搭建并启动应用商城服务，并配置SkyWalking-Agent" class="headerlink" title="搭建并启动应用商城服务，并配置SkyWalking Agent"></a>搭建并启动应用商城服务，并配置SkyWalking Agent</h3><p>（1）修改mall节点主机名，修改完成后，使用CRT软件断开重新连接节点，以生效新主机名。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# hostnamectl set-hostname mall</span><br><span class="line">[root@mall ~]# hostnamectl </span><br><span class="line">   Static hostname: mall</span><br><span class="line">         Icon name: computer-vm</span><br><span class="line">           Chassis: vm</span><br><span class="line">        Machine ID: cc2c86fe566741e6a2ff6d399c5d5daa</span><br><span class="line">           Boot ID: 51559d155ec14aafad2411ca8b85db42</span><br><span class="line">    Virtualization: kvm</span><br><span class="line">  Operating System: CentOS Linux 7 (Core)</span><br><span class="line">       CPE OS Name: cpe:/o:centos:centos:7</span><br><span class="line">            Kernel: Linux 3.10.0-1160.el7.x86_64</span><br><span class="line">      Architecture: x86-64</span><br></pre></td></tr></table></figure>
+
+<p>修改/etc/hosts配置文件如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# cat /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line"></span><br><span class="line">172.128.11.42 mall</span><br></pre></td></tr></table></figure>
+
+<p>（2）配置本地YUM源</p>
+<p>将提供的gpmall包上传到服务器的/root目录下并解压gpmall.tar.gz，配置本地local.repo文件，具体代码如下所示。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# mv /etc/yum.repos.d/* /media/</span><br><span class="line">[root@mall ~]# tar xf gpmall.tar.gz</span><br><span class="line">[root@mall ~]# cd gpmall/</span><br><span class="line">[root@mall gpmall]# tar -zxvf gpmall-repo.tar.gz -C  /root/</span><br><span class="line">[root@mall ~]# cat /etc/yum.repos.d/local.repo </span><br><span class="line">[mall]</span><br><span class="line">name=mall</span><br><span class="line">baseurl=file:///root/gpmall-repo</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure>
+
+<p>（3）安装基础服务</p>
+<p>安装基础服务，包括Java JDK环境、数据库、Redis、Nginx等，安装基础服务的命令具体如下。</p>
+<p>①安装Java环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel</span><br><span class="line">...</span><br><span class="line">[root@mall ~]# java -version</span><br><span class="line">openjdk version &quot;1.8.0_322&quot;</span><br><span class="line">OpenJDK Runtime Environment (build 1.8.0_322-b06)</span><br><span class="line">OpenJDK 64-Bit Server VM (build 25.322-b06, mixed mode) </span><br></pre></td></tr></table></figure>
+
+<p>②安装Redis缓存服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# yum install redis -y</span><br></pre></td></tr></table></figure>
+
+<p>③安装Nginx服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# yum install nginx -y</span><br></pre></td></tr></table></figure>
+
+<p>④安装MariaDB数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# yum install mariadb mariadb-server -y</span><br></pre></td></tr></table></figure>
+
+<p>安装ZooKeeper服务，将提供的zookeeper-3.4.14.tar.gz上传至mall节点上，解压压缩包命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# tar -zxvf zookeeper-3.4.14.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>进入到zookeeper-3.4.14/conf目录下，将zoo_sample.cfg文件重命名为zoo.cfg，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# cd zookeeper-3.4.14/conf/</span><br><span class="line">[root@mall conf]# mv zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
+
+<p>进入到zookeeper-3.4.14/bin目录下，启动ZooKeeper服务，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@mall conf]# cd ../bin</span><br><span class="line">[root@mall bin]# ./zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /root/zookeeper-3.4.14/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
+
+<p>查看ZooKeeper状态，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@mall bin]# ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /root/zookeeper-3.4.14/bin/../conf/zoo.cfg</span><br><span class="line">Mode: standalone</span><br></pre></td></tr></table></figure>
+
+<p>安装Kafka服务，将提供的kafka_2.11-1.1.1.tgz包上传到mall节点上，解压该压缩包，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@mall bin]# cd</span><br><span class="line">[root@mall ~]# tar -zxvf kafka_2.11-1.1.1.tgz</span><br></pre></td></tr></table></figure>
+
+<p>进入到kafka_2.11-1.1.1/bin目录下，启动Kafka服务，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# cd kafka_2.11-1.1.1/bin/</span><br><span class="line">[root@mall bin]# ./kafka-server-start.sh -daemon ../config/server.properties</span><br></pre></td></tr></table></figure>
+
+<p>使用jps或者netstat -ntpl命令查看Kafka是否成功启动，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@mall bin]# jps</span><br><span class="line">6039 Kafka</span><br><span class="line">1722 QuorumPeerMain</span><br><span class="line">6126 Jps</span><br><span class="line">[root@mall bin]# netstat -ntpl</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address        Foreign Address     State       PID/Program name    </span><br><span class="line">tcp        0      0 0.0.0.0:22           0.0.0.0:*           LISTEN      1008/sshd   </span><br><span class="line">tcp        0      0 127.0.0.1:25         0.0.0.0:*           LISTEN      887/master   </span><br><span class="line">tcp6       0      0 :::9092              :::*                LISTEN      6039/java   </span><br><span class="line">tcp6       0      0 :::46949             :::*                LISTEN      6039/java   </span><br><span class="line">tcp6       0      0 :::2181              :::*                LISTEN      1722/java   </span><br><span class="line">tcp6       0      0 :::48677             :::*                LISTEN      1722/java   </span><br><span class="line">tcp6       0      0 :::22                :::*                LISTEN      1008/sshd   </span><br><span class="line">tcp6       0      0 ::1:25               :::*                LISTEN      887/master </span><br></pre></td></tr></table></figure>
+
+<p>运行结果查看到Kafka服务和9092端口，说明Kafka服务已启动。</p>
+<p>（4）启动服务</p>
+<p>①启动数据库并配置</p>
+<p>修改数据库配置文件并启动MariaDB数据库，设置root用户密码为123456，并创建gpmall数据库，将提供的gpmall.sql导入。</p>
+<p>修改/etc/my.cnf文件，添加字段如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@mall bin]# cd</span><br><span class="line">[root@mall ~]# vi /etc/my.cnf</span><br><span class="line">[mysqld]</span><br><span class="line">…</span><br><span class="line">!includedir /etc/my.cnf.d</span><br><span class="line">init_connect=&#x27;SET collation_connection = utf8_unicode_ci&#x27;</span><br><span class="line">init_connect=&#x27;SET NAMES utf8&#x27;</span><br><span class="line">character-set-server=utf8</span><br><span class="line">collation-server=utf8_unicode_ci</span><br><span class="line">skip-character-set-client-handshake</span><br></pre></td></tr></table></figure>
+
+<p>启动数据库命令如下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# systemctl start mariadb</span><br></pre></td></tr></table></figure>
+
+<p>设置root用户的密码为123456并登录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# mysqladmin -uroot password 123456</span><br><span class="line">[root@mall ~]# mysql -uroot -p123456</span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MariaDB connection id is 3</span><br><span class="line">Server version: 5.5.68-MariaDB MariaDB Server</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt;</span><br></pre></td></tr></table></figure>
+
+<p>设置root用户的权限，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; grant all privileges on *.* to root@localhost identified by &#x27;123456&#x27; with grant option;</span><br><span class="line">Query OK, 0 rows affected (0.001 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; grant all privileges on *.* to root@&quot;%&quot; identified by &#x27;123456&#x27; with grant option;</span><br><span class="line">Query OK, 0 rows affected (0.001 sec)</span><br></pre></td></tr></table></figure>
+
+<p>将gpmall.sql文件上传至云主机的/root目录下。创建数据库gpmall并导入gpmall.sql文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; create database gpmall;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">MariaDB [(none)]&gt; use gpmall;</span><br><span class="line">MariaDB [gpmall]&gt; source /root/gpmall/gpmall.sql</span><br></pre></td></tr></table></figure>
+
+<p>退出数据库并设置开机自启。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [gpmall]&gt; Ctrl-C -- exit!</span><br><span class="line">Aborted</span><br><span class="line">[root@mall ~]# systemctl enable mariadb</span><br><span class="line">Created symlink from /etc/systemd/system/mysql.service to /usr/lib/systemd/system/mariadb.service.</span><br><span class="line">Created symlink from /etc/systemd/system/mysqld.service to /usr/lib/systemd/system/mariadb.service.</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/mariadb.service to /usr/lib/systemd/system/mariadb.service.</span><br></pre></td></tr></table></figure>
+
+<p>②启动Redis服务</p>
+<p>修改Redis配置文件，编辑/etc/redis.conf文件。</p>
+<p>将bind 127.0.0.1这一行注释掉；将protected-mode yes 改为 protected-mode no。</p>
+<p>启动Redis服务命令如下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# vi /etc/redis.conf</span><br><span class="line">…</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">bind</span> 127.0.0.1</span></span><br><span class="line">protected-mode no</span><br><span class="line">…</span><br><span class="line">[root@mall ~]# systemctl start redis</span><br><span class="line">[root@mall ~]# systemctl enable redis</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/redis.service to /usr/lib/systemd/system/redis.service.</span><br></pre></td></tr></table></figure>
+
+<p>③启动Nginx服务</p>
+<p>启动Nginx服务命令如下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# systemctl start nginx</span><br><span class="line">[root@mall ~]# systemctl enable nginx</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service to /usr/lib/systemd/system/nginx.service.</span><br></pre></td></tr></table></figure>
+
+<p>（5）应用系统部署</p>
+<p>使用提供gpmall-shopping-0.0.1-SNAPSHOT.jar、gpmall-user-0.0.1-SNAPSHOT.jar、shopping-provider-0.0.1-SNAPSHOT.jar、user-provider-0.0.1-SNAPSHOT.jar 、dist这5个包部署应用系统，其中4个jar包为后端服务包，dist为前端包。（包在gpmall目录下）</p>
+<p>①全局变量配置</p>
+<p>修改/etc/hosts文件，修改项目全局配置文件如下（原有的172.128.11.42 mall映射删除）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# cat /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">172.128.11.42 kafka.mall</span><br><span class="line">172.128.11.42 mysql.mall</span><br><span class="line">172.128.11.42 redis.mall</span><br><span class="line">172.128.11.42 zookeeper.mall</span><br></pre></td></tr></table></figure>
+
+<p>②部署前端</p>
+<p>清空默认项目路径下的文件，将dist目录下的文件，复制到Nginx默认项目路径（文件在gpmall目录下）。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# rm -rf /usr/share/nginx/html/*</span><br><span class="line">[root@mall ~]# cp -rvf gpmall/dist/* /usr/share/nginx/html/</span><br></pre></td></tr></table></figure>
+
+<p>修改Nginx配置文件/etc/nginx/nginx.conf，添加映射如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# vi /etc/nginx/nginx.conf</span><br><span class="line">…</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        listen       [::]:80;</span><br><span class="line">        server_name  _;</span><br><span class="line">        root         /usr/share/nginx/html;</span><br><span class="line"></span><br><span class="line">        # Load configuration files for the default server block.</span><br><span class="line">        include /etc/nginx/default.d/*.conf;</span><br><span class="line">         </span><br><span class="line">        location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        location /user &#123;</span><br><span class="line">            proxy_pass http://127.0.0.1:8082;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /shopping &#123;</span><br><span class="line">            proxy_pass http://127.0.0.1:8081;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /cashier &#123;</span><br><span class="line">            proxy_pass http://127.0.0.1:8083;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page 404 /404.html;</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
+
+<p>重启Nginx服务，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# systemctl restart nginx</span><br></pre></td></tr></table></figure>
+
+<p>到此，前端部署完毕。</p>
+<p>③ 部署后端</p>
+<p>将node-1节点的/opt/apache-skywalking-apm-bin-es7目录下的agent目录复制到mall节点下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# scp -r 172.128.11.32:/opt/apache-skywalking-apm-bin-es7/agent  /root</span><br></pre></td></tr></table></figure>
+
+<p>修改SkyWalking agent配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# vi agent/config/agent.config</span><br><span class="line">…</span><br><span class="line">agent.service_name=$&#123;SW_AGENT_NAME:my-application&#125;</span><br><span class="line">agent.sample_n_per_3_secs=$&#123;SW_AGENT_SAMPLE:1&#125;</span><br><span class="line">…</span><br><span class="line">collector.backend_service=$&#123;SW_AGENT_COLLECTOR_BACKEND_SERVICES:172.128.11.32:11800&#125;</span><br><span class="line">…</span><br></pre></td></tr></table></figure>
+
+<p>采样率修改：agent.sample_n_per_3_secs配置说明：</p>
+<p>在访问量较少时，链路全量收集不会对系统带来太大负担，能够完整的观测到系统的运行状况。但是在访问量较大时，全量的链路收集，对链路收集的客户端（agent探针）、服务端（SkyWalking OAP）、存储器（例如说Elastcsearch）都会带来较大的性能开销，甚至会影响应用的正常运行。在访问量级较大的情况下，往往会选择抽样采样，只收集部分链路信息。SkyWalking Agent在agent/config/agent.config 配置文件中，定义了agent.sample_n_per_3_secs配置项，设置每3秒可收集的链路数据的数量。</p>
+<p>将提供的4个jar包上传到服务器的/root目录下，放置探针并启动，通过设置启动参数的方式检测系统，启动命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@mall ~]# nohup java -javaagent:/root/agent/skywalking-agent.jar  -jar gpmall/shopping-provider-0.0.1-SNAPSHOT.jar &amp;</span><br><span class="line">[1] 20086</span><br><span class="line">[root@mall ~]# nohup: ignoring input and appending output to ‘nohup.out’</span><br><span class="line"></span><br><span class="line">[root@mall ~]# nohup java -javaagent:/root/agent/skywalking-agent.jar  -jar gpmall/user-provider-0.0.1-SNAPSHOT.jar &amp;</span><br><span class="line">[2] 20132</span><br><span class="line">[root@mall ~]# nohup: ignoring input and appending output to ‘nohup.out’</span><br><span class="line"></span><br><span class="line">[root@mall ~]# nohup java -javaagent:/root/agent/skywalking-agent.jar  -jar gpmall/gpmall-shopping-0.0.1-SNAPSHOT.jar &amp;</span><br><span class="line">[3] 20177</span><br><span class="line">[root@mall ~]# nohup: ignoring input and appending output to ‘nohup.out’</span><br><span class="line"></span><br><span class="line">[root@mall ~]# nohup java -javaagent:/root/agent/skywalking-agent.jar  -jar gpmall/gpmall-user-0.0.1-SNAPSHOT.jar &amp;</span><br><span class="line">[4] 20281</span><br><span class="line">[root@mall ~]# nohup: ignoring input and appending output to ‘nohup.out’</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">httpd访问网络配置</span></span><br><span class="line">[root@mall ~]# setsebool -P httpd_can_network_connect 1</span><br></pre></td></tr></table></figure>
+
+<p>按照顺序运行4个jar包后，至此后端服务部署完毕。</p>
+<p>④网站访问</p>
+<p>打开浏览器，在地址栏中输入<a target="_blank" rel="noopener" href="http://172.128.11.42,访问界面,如图4所示./">http://172.128.11.42，访问界面，如图4所示。</a></p>
+<p><img src="../../../../images/image/DX/59.png" alt="59"></p>
+<p>图4 商城首页</p>
+<p>单击右上角“头像”，进行登录操作，使用用户名/密码为test/test进行登录，如图5所示。</p>
+<p><img src="../../../../images/image/DX/60.png" alt="60"></p>
+<p>图5 登录界面</p>
+<p>登录后，可进行购买商品操作，单击首页“地平线8号”旅行箱图片，如图6所示。</p>
+<p><img src="../../../../images/image/DX/61.png" alt="61"></p>
+<p>图6 商品页面</p>
+<p>进入购买界面，单击“现在购买”按钮，进行购买商品操作，如图7所示。</p>
+<p><img src="../../../../images/image/DX/62.png" alt="62"></p>
+<p>图7 购买界面</p>
+<p>单机完“现在购买”按钮，跳转到提交订单界面，如图8所示。</p>
+<p><img src="../../../../images/image/DX/63.png" alt="63"></p>
+<p>图8 订单界面</p>
+<p>至此，单机部署应用系统完成。</p>
+<p>（6）再次访问SkyWalking UI，点击右上角的自动按钮，发现已有数据产生，如图9与图10所示。</p>
+<p><img src="../../../../images/image/DX/64.png" alt="64"></p>
+<p>图9 访问SkyWalking UI</p>
+<p><img src="../../../../images/image/DX/65.png" alt="65"></p>
+<p>图10 拓扑展示</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">૮(˶ᵔ ᵕ ᵔ˶)ა</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/10/DX-OpenStack%E7%A7%81%E6%9C%89%E4%BA%91%E5%BA%94%E7%94%A8%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/">http://example.com/2023/08/10/DX-OpenStack私有云应用部署案例/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">૮(˶ᵔ ᵕ ᵔ˶)ა</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OpenStack/">OpenStack</a></div><div class="post_share"><div class="social-share" data-image="/../images/title/openstack1.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/10/DX-OpenStack%E6%9C%8D%E5%8A%A1%E8%BF%90%E7%BB%B4%E6%A1%88%E4%BE%8B/" title="私有云：(5)OpenStack服务运维案例"><img class="cover" src="/../images/title/openstack5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">私有云：(5)OpenStack服务运维案例</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/10/DX-Linux%E7%B3%BB%E7%BB%9F%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B/" title="私有云：(7)Linux系统集群部署应用案例"><img class="cover" src="/../images/title/linux4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">私有云：(7)Linux系统集群部署应用案例</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/10/DX-Ansible%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/" title="私有云：(11)Ansible集群服务部署案例"><img class="cover" src="/../images/title/ansible.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(11)Ansible集群服务部署案例</div></div></a></div><div><a href="/2023/08/10/DX-Linux%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B/" title="私有云：(8)Linux系统调优案例"><img class="cover" src="/../images/title/linux5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(8)Linux系统调优案例</div></div></a></div><div><a href="/2023/08/10/DX-Linux%E7%B3%BB%E7%BB%9F%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B/" title="私有云：(7)Linux系统集群部署应用案例"><img class="cover" src="/../images/title/linux4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(7)Linux系统集群部署应用案例</div></div></a></div><div><a href="/2023/08/10/DX-OpenStack%E5%9F%BA%E7%A1%80%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/" title="私有云：(2)OpenStack基础平台部署案例"><img class="cover" src="/../images/title/openstack2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(2)OpenStack基础平台部署案例</div></div></a></div><div><a href="/2023/08/10/DX-OpenStack%E5%B9%B3%E5%8F%B0%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E4%B8%8E%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/" title="私有云：(9)OpenStack平台安全管理与优化案例"><img class="cover" src="/../images/title/openstack2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(9)OpenStack平台安全管理与优化案例</div></div></a></div><div><a href="/2023/08/10/DX-OpenStack%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="私有云：(3)OpenStack基础服务使用案例"><img class="cover" src="/../images/title/openstack3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(3)OpenStack基础服务使用案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../images/title/user.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">૮(˶ᵔ ᵕ ᵔ˶)ა</div><div class="author-info__description">这家伙很勤奋，什么都留下了</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">案例描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9"><span class="toc-number">1.0.1.</span> <span class="toc-text">规划节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87"><span class="toc-number">1.0.2.</span> <span class="toc-text">基础准备</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD"><span class="toc-number">2.</span> <span class="toc-text">案例实施</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2Elasticsearch%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.0.1.</span> <span class="toc-text">部署Elasticsearch服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2SkyWalking-OAP%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.0.2.</span> <span class="toc-text">部署SkyWalking OAP服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2SkyWalking-UI%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.0.3.</span> <span class="toc-text">部署SkyWalking UI服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8%E5%95%86%E5%9F%8E%E6%9C%8D%E5%8A%A1%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AESkyWalking-Agent"><span class="toc-number">2.0.4.</span> <span class="toc-text">搭建并启动应用商城服务，并配置SkyWalking Agent</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/08/ST-Linux%E5%AE%9E%E7%94%A8%E7%94%A8%E8%84%9A%E6%9C%AC/" title="Linux 实用脚本"><img src="/../images/title/ST.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux 实用脚本"/></a><div class="content"><a class="title" href="/2024/11/08/ST-Linux%E5%AE%9E%E7%94%A8%E7%94%A8%E8%84%9A%E6%9C%AC/" title="Linux 实用脚本">Linux 实用脚本</a><time datetime="2024-11-07T16:10:00.000Z" title="发表于 2024-11-08 00:10:00">2024-11-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/05/SRE-Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/" title="shell脚本编程"><img src="/../images/title/linux2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shell脚本编程"/></a><div class="content"><a class="title" href="/2024/11/05/SRE-Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/" title="shell脚本编程">shell脚本编程</a><time datetime="2024-11-04T16:00:00.000Z" title="发表于 2024-11-05 00:00:00">2024-11-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/25/MY-ElasticsearchPOD%E4%B8%80%E7%9B%B4%E5%A4%84%E4%BA%8Epending%E7%8A%B6%E6%80%81/" title="部署 ELK pod 处于 pending 状态"><img src="/../images/title/Elastic-err.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="部署 ELK pod 处于 pending 状态"/></a><div class="content"><a class="title" href="/2024/10/25/MY-ElasticsearchPOD%E4%B8%80%E7%9B%B4%E5%A4%84%E4%BA%8Epending%E7%8A%B6%E6%80%81/" title="部署 ELK pod 处于 pending 状态">部署 ELK pod 处于 pending 状态</a><time datetime="2024-10-25T06:10:00.000Z" title="发表于 2024-10-25 14:10:00">2024-10-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/25/HXC-%E5%9F%BA%E4%BA%8EEFK%E6%9E%84%E5%BB%BA%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E5%B9%B3%E5%8F%B0/" title="基于EFK构建日志收集平台"><img src="/../images/title/k8s3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于EFK构建日志收集平台"/></a><div class="content"><a class="title" href="/2024/10/25/HXC-%E5%9F%BA%E4%BA%8EEFK%E6%9E%84%E5%BB%BA%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E5%B9%B3%E5%8F%B0/" title="基于EFK构建日志收集平台">基于EFK构建日志收集平台</a><time datetime="2024-10-24T16:00:00.000Z" title="发表于 2024-10-25 00:00:00">2024-10-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ૮(˶ᵔ ᵕ ᵔ˶)ა</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

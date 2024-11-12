@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>私有云：(11)Ansible集群服务部署案例 | ૮(˶ᵔ ᵕ ᵔ˶)ა</title><meta name="author" content="૮(˶ᵔ ᵕ ᵔ˶)ა"><meta name="copyright" content="૮(˶ᵔ ᵕ ᵔ˶)ა"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Ansible集群服务部署案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="私有云：(11)Ansible集群服务部署案例">
+<meta property="og:url" content="http://example.com/2023/08/10/DX-Ansible%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/index.html">
+<meta property="og:site_name" content="૮(˶ᵔ ᵕ ᵔ˶)ა">
+<meta property="og:description" content="Ansible集群服务部署案例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/title/ansible.jpg">
+<meta property="article:published_time" content="2023-08-10T03:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-08T11:57:09.650Z">
+<meta property="article:author" content="૮(˶ᵔ ᵕ ᵔ˶)ა">
+<meta property="article:tag" content="OpenStack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/title/ansible.jpg"><link rel="shortcut icon" href="/../images/title/user.webp"><link rel="canonical" href="http://example.com/2023/08/10/DX-Ansible%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '私有云：(11)Ansible集群服务部署案例',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2024-11-08 19:57:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/../images/title/user.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../images/title/ansible.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="૮(˶ᵔ ᵕ ᵔ˶)ა"><span class="site-name">૮(˶ᵔ ᵕ ᵔ˶)ა</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">私有云：(11)Ansible集群服务部署案例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-10T03:00:00.000Z" title="发表于 2023-08-10 11:00:00">2023-08-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-08T11:57:09.650Z" title="更新于 2024-11-08 19:57:09">2024-11-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%9D%E5%89%91%E9%94%8B%E4%BB%8E%E7%A3%A8%E7%A0%BA%E5%87%BA/">宝剑锋从磨砺出</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="私有云：(11)Ansible集群服务部署案例"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h1><p>本案例讲述了在多个节点部署Elk集群日志分析系统，分别在三个节点使用Ansible部署Kibana、Logstash以及Elasticsearch服务。</p>
+<h3 id="规划节点"><a href="#规划节点" class="headerlink" title="规划节点"></a>规划节点</h3><p>节点规划见表1-1。</p>
+<p>表1-1 节点规划</p>
+<table>
+<thead>
+<tr>
+<th><strong>IP</strong></th>
+<th><strong>主机名</strong></th>
+<th><strong>节点</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>172.128.11.162</td>
+<td>ansible</td>
+<td>Ansible节点</td>
+</tr>
+<tr>
+<td>172.128.11.217</td>
+<td>node1</td>
+<td>Elasticsearch/Kibana</td>
+</tr>
+<tr>
+<td>172.128.11.170</td>
+<td>node2</td>
+<td>Elasticsearch/Logstash</td>
+</tr>
+<tr>
+<td>172.128.11.248</td>
+<td>node1</td>
+<td>Elasticsearch</td>
+</tr>
+<tr>
+<td>172.128.11.218</td>
+<td></td>
+<td>桌面化测试节点</td>
+</tr>
+</tbody></table>
+<h3 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h3><p>登录物理OpenStack平台，使用CentOS 7.9镜像创建四台云主机，云主机类型使用1VCPU/2GB内存/20GB硬盘。创建后的云主机作为本次案例的实验节点。另有一台桌面化的节点作为Ansible服务的测试节点。</p>
+<h1 id="案例实施"><a href="#案例实施" class="headerlink" title="案例实施"></a>案例实施</h1><h3 id="ELK常见架构"><a href="#ELK常见架构" class="headerlink" title="ELK常见架构"></a>ELK常见架构</h3><p>（1）Elasticsearch+Logstash+Kibana：这种架构是最常见的一种，也是最简单的一种架构，这种架构通过Logstash收集日志，运用Elasticsearch分析日志，最后通过Kibana中展示日志信息。</p>
+<ul>
+<li>Elasticsearch：是一个开源分布式搜索引擎，它提供存储、分析、搜索功能。有分布式、基于reasful风格、支持海量高并发的准实时搜索场景、稳定、可靠、快速、使用方便等特点。其作用是接收搜集海量结构化日志数据，并提供给Kibana查询分析。</li>
+<li>Logstash：是一个开源日志搜集、分析、过滤框架，支持多种数据输入输出方式。 它用于收集日志，对日志进行过滤形成结构化数据，并转发到Elasticsearch中。</li>
+<li>Kibana：是一个开源日志报表系统，对Elasticsearch以及Logstash有良好的Web页面支持。它能对Elasticsearch提供的数据进行分析展示。</li>
+</ul>
+<p><img src="../../../../images/image/DX/70.png" alt="70"></p>
+<p>图1 ELK架构</p>
+<p>（2）Elasticsearch+Logstash+Filebeat+Kibana：在这种架构中增加了一个Filebeat模块。这个模块在上面的内容中没有对它详细介绍，它是一款轻量的日志收集代理，用来部署在客户端中。这个服务较Logstash来说能够节省资源，一般在生产环境中大多采用这种架构，但是这种架构有一个弊端，那就是当Logstash出现故障后，会造成日志的丢失。</p>
+<p>（3）Elasticsearch+Logstash+lebeat+Redis（及其他中间件）+Kibana：这种架构等于是上面第二种的完善，通过增加中间件避免数据丢失，当Logstash出现故障后，日志依旧留存在中间件内，当Logstash再次启动，则会读取中间件中积压的日志。在出现“too many open files”报错的时候，大多数情况是由于程序没有正常关闭一些资源引起的，所以出现这种情况时需要检查I/O读写、socket通讯等是否正常关闭等。当然也可以通过修改参数，将系统的文件句柄限制提高，来缓解这一压力。</p>
+<h3 id="ELK部署"><a href="#ELK部署" class="headerlink" title="ELK部署"></a>ELK部署</h3><p>（1）配置主机映射：</p>
+<p>修改当前节点主机名为ansible，并修改ansible节点主机映射，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# hostnamectl set-hostname ansible</span><br><span class="line">[root@localhost ~]# bash</span><br><span class="line">[root@ansible ~]# cat /etc/hosts</span><br><span class="line">127.0.0.1  localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1     localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">172.128.11.162 ansible</span><br><span class="line">172.128.11.217 node1</span><br><span class="line">172.128.11.170 node2</span><br><span class="line">172.128.11.248 node3</span><br></pre></td></tr></table></figure>
+
+<p>配置免密访问，虚拟机root用户密码为000000，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible ~]# ssh-keygen</span><br><span class="line">[root@ansible ~]# ssh-copy-id node1</span><br><span class="line">[root@ansible ~]# ssh-copy-id node2</span><br><span class="line">[root@ansible ~]# ssh-copy-id node3</span><br></pre></td></tr></table></figure>
+
+<p>将ansible节点的域名解析文件复制给安装Elasticsearch集群服务的三个节点，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible ~]# scp /etc/hosts node1:/etc/</span><br><span class="line">[root@ansible ~]# scp /etc/hosts node2:/etc/</span><br><span class="line">[root@ansible ~]# scp /etc/hosts node3:/etc/</span><br></pre></td></tr></table></figure>
+
+<p>关闭ansible节点的防火墙和Selinux配置（如已关闭，则不需要操作），命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible ~]# setenforce 0</span><br></pre></td></tr></table></figure>
+
+<p>（2）软件包下载及uum源配置</p>
+<p>修将提供的Elasticsearch、Kibana以及Logstash软件包下载至ansible节点/root目录下，并将相应服务的软件包拷贝至不同节点。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible ~]# ls</span><br><span class="line">Ansible.tar.gz elasticsearch-6.0.0.rpm kibana-6.0.0-x86_64.rpm logstash-6.0.0.rpm</span><br><span class="line">[root@ansible ~]# tar -zxvf Ansible.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>将Elasticsearch软件包拷贝至三个节点，将Kibana软件包拷贝至node1节点，将Logstash软件包拷贝至node2节点，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible ~]# scp elasticsearch-6.0.0.rpm node1:/root/</span><br><span class="line">[root@ansible ~]# scp elasticsearch-6.0.0.rpm node2:/root/</span><br><span class="line">[root@ansible ~]# scp elasticsearch-6.0.0.rpm node3:/root/</span><br><span class="line">[root@ansible ~]# scp kibana-6.0.0-x86_64.rpm node1:/root/</span><br><span class="line">[root@ansible ~]# scp kibana-6.0.0-x86_64.rpm node2:/root/</span><br><span class="line">[root@ansible ~]# scp kibana-6.0.0-x86_64.rpm node3:/root/</span><br><span class="line">[root@ansible ~]# scp logstash-6.0.0.rpm node1:/root/</span><br><span class="line">[root@ansible ~]# scp logstash-6.0.0.rpm node2:/root/</span><br><span class="line">[root@ansible ~]# scp logstash-6.0.0.rpm node3:/root/</span><br></pre></td></tr></table></figure>
+
+<p>将软件包ansible.tar.gz上传至ansible节点配置本地yum源，并安装Ansible：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible ~]# tar -zxvf ansible.tar.gz -C /opt/</span><br><span class="line">[root@ansible ~]# mv /etc/yum.repos.d/* /media/</span><br><span class="line">[root@ansible ~]# vi /etc/yum.repos.d/local.repo</span><br><span class="line">[ansible]</span><br><span class="line">name=ansible </span><br><span class="line">baseurl=file:///opt/ansible</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line">[root@ansible ~]# yum -y install ansible</span><br></pre></td></tr></table></figure>
+
+<p>（3）配置Ansible主机映射</p>
+<p>创建示例目录，并配置Ansible主机映射。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible ~]# mkdir example</span><br><span class="line">[root@ansible ~]# cd example</span><br><span class="line">[root@ansible example]# vi /etc/ansible/hosts </span><br><span class="line">[node1]</span><br><span class="line">172.128.11.217</span><br><span class="line">[node2]</span><br><span class="line">172.128.11.170</span><br><span class="line">[node3]</span><br><span class="line">172.128.11.248</span><br></pre></td></tr></table></figure>
+
+<p>使用CentOS-7-x86_64-DVD-2009.iso镜像文件作为安装库，将镜像挂载至/opt/centos，编写yum源文件，安装vsftpd服务，用于给远程主机安装Java。命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# mkdir /opt/centos</span><br><span class="line">[root@ansible example]# mount CentOS-7-x86_64-DVD-2009.iso /opt/centos/</span><br><span class="line">[root@ansible example]# vi /etc/yum.repos.d/local.repo </span><br><span class="line">[ansible]</span><br><span class="line">name=ansible</span><br><span class="line">baseurl=file:///opt/ansible</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line">[centos]</span><br><span class="line">name=centos</span><br><span class="line">baseurl=file:///opt/centos</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line">[root@ansible example]# yum install -y vsftpd</span><br><span class="line">[root@ansible example]# vi /etc/vsftpd/vsftpd.conf</span><br><span class="line">anon_root=/opt</span><br><span class="line">[root@ansible example]# systemctl restart vsftpd</span><br><span class="line">[root@ansible example]# vi ftp.repo</span><br><span class="line">[centos]</span><br><span class="line">name=centos</span><br><span class="line">baseurl=ftp://172.128.11.162/centos/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure>
+
+<p>（4）安装Elasticsearch获取配置文件</p>
+<p>安装Elasticsearch服务并编写node1节点配置文件，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# rpm -ivh /root/elasticsearch-6.0.0.rpm</span><br><span class="line">[root@ansible example]# cp -rf /etc/elasticsearch/elasticsearch.yml elk1.yml</span><br><span class="line">[root@ansible example]# cat elk1.yml | grep -Ev &quot;^$|^#&quot;</span><br><span class="line">cluster.name: ELK</span><br><span class="line">node.name: node1</span><br><span class="line">node.master: true</span><br><span class="line">node.data: false</span><br><span class="line">path.data: /var/lib/elasticsearch</span><br><span class="line">path.logs: /var/log/elasticsearch</span><br><span class="line">network.host: 172.128.11.217</span><br><span class="line">http.port: 9200</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;node1&quot;,&quot;node2&quot;,&quot;node3&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>编写node2节点配置文件，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# cp elk1.yml elk2.yml</span><br><span class="line">[root@ansible example]# cat elk2.yml | grep -Ev &quot;^$|^#&quot;</span><br><span class="line">cluster.name: ELK</span><br><span class="line">node.name: node2</span><br><span class="line">node.master: false</span><br><span class="line">node.data: true</span><br><span class="line">path.data: /var/lib/elasticsearch</span><br><span class="line">path.logs: /var/log/elasticsearch</span><br><span class="line">network.host: 172.128.11.170</span><br><span class="line">http.port: 9200</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;node1&quot;,&quot;node2&quot;,&quot;node3&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>编写node3节点配置文件，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# cp elk1.yml elk3.yml</span><br><span class="line">[root@ansible example]# cat elk3.yml | grep -Ev &quot;^$|^#&quot;</span><br><span class="line">cluster.name: ELK</span><br><span class="line">node.name: node3</span><br><span class="line">node.master: false</span><br><span class="line">node.data: true</span><br><span class="line">path.data: /var/lib/elasticsearch</span><br><span class="line">path.logs: /var/log/elasticsearch</span><br><span class="line">network.host: 172.128.11.248</span><br><span class="line">http.port: 9200</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;node1&quot;,&quot;node2&quot;,&quot;node3&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>（5）安装Kibana获取配置文件</p>
+<p>安装Kibana服务并编写配置文件，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# rpm -ivh /root/kibana-6.0.0-x86_64.rpm </span><br><span class="line">[root@ansible example]# cp -rf /etc/kibana/kibana.yml .</span><br><span class="line">[root@ansible example]# cat kibana.yml |grep -v ^#</span><br><span class="line">server.port: 5601</span><br><span class="line">server.host: &quot;172.128.11.217&quot;</span><br><span class="line">elasticsearch.url: &quot;http://172.128.11.217:9200&quot;</span><br></pre></td></tr></table></figure>
+
+<p>（6）安装Logstash获取配置文件</p>
+<p>安装Logstash服务并获取配置文件，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# rpm -ivh /root/logstash-6.0.0.rpm</span><br><span class="line">[root@ansible example]# cp -rf /etc/logstash/logstash.yml .</span><br><span class="line">[root@ansible example]# vi logstash.yml</span><br><span class="line">http.host: &quot;172.128.11.170&quot;</span><br></pre></td></tr></table></figure>
+
+<p>新建日志输出文件，内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# vi syslog.conf</span><br><span class="line">input &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        path =&gt; &quot;/var/log/messages&quot; #指定文件的路径</span><br><span class="line">        type =&gt; &quot;systemlog&quot; #定义日志类型，可自定义</span><br><span class="line">        start_position =&gt; &quot;beginning&quot; #指定何时开始收集</span><br><span class="line">        stat_interval =&gt; &quot;3&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">    if [type] == &quot;systemlog&quot; &#123;</span><br><span class="line">        elasticsearch &#123;</span><br><span class="line">            hosts =&gt; [&quot;172.128.11.217:9200&quot;]   #这里的地址为node1主机地址</span><br><span class="line">            index =&gt; &quot;system-log-%&#123;+YYYY.MM.dd&#125;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（7）编写剧本文件</p>
+<p>安编写Playbook剧本文件，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# vi cscc_install.yaml</span><br><span class="line">- hosts: all</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">    - name: rm repo</span><br><span class="line">      shell: rm -rf /etc/yum.repos.d/*</span><br><span class="line">    - name: copy repo</span><br><span class="line">      copy: src=ftp.repo dest=/etc/yum.repos.d/</span><br><span class="line">    - name: install java</span><br><span class="line">      shell: yum -y install java-1.8.0-*</span><br><span class="line">    - name: install elk</span><br><span class="line">      shell: rpm -ivh elasticsearch-6.0.0.rpm</span><br><span class="line">- hosts: node1</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">    - name: copy config</span><br><span class="line">      copy: src=elk1.yml dest=/etc/elasticsearch/elasticsearch.yml</span><br><span class="line">    - name: daemon-reload</span><br><span class="line">      shell: systemctl daemon-reload</span><br><span class="line">    - name: start elk</span><br><span class="line">      shell: systemctl start elasticsearch &amp;&amp; systemctl enable elasticsearch</span><br><span class="line">    - name: install kibana</span><br><span class="line">      shell: rpm -ivh kibana-6.0.0-x86_64.rpm</span><br><span class="line">    - name: copy config</span><br><span class="line">      template: src=kibana.yml dest=/etc/kibana/kibana.yml</span><br><span class="line">    - name: start kibana</span><br><span class="line">      shell: systemctl start kibana &amp;&amp; systemctl enable kibana</span><br><span class="line">- hosts: node2</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">    - name: copy config</span><br><span class="line">      copy: src=elk2.yml dest=/etc/elasticsearch/elasticsearch.yml</span><br><span class="line">    - name: daemon-reload</span><br><span class="line">      shell: systemctl daemon-reload</span><br><span class="line">    - name: start elk</span><br><span class="line">      shell: systemctl start elasticsearch &amp;&amp; systemctl enable elasticsearch</span><br><span class="line">    - name: install logstash</span><br><span class="line">      shell: rpm -ivh logstash-6.0.0.rpm</span><br><span class="line">    - name: copy config</span><br><span class="line">      copy: src=logstash.yml dest=/etc/logstash/logstash.yml</span><br><span class="line">    - name: copy config</span><br><span class="line">      copy: src=syslog.conf dest=/etc/logstash/conf.d/syslog.conf</span><br><span class="line">- hosts: node3</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">    - name: copy config</span><br><span class="line">      copy: src=elk3.yml dest=/etc/elasticsearch/elasticsearch.yml</span><br><span class="line">    - name: daemon-reload</span><br><span class="line">      shell: systemctl daemon-reload</span><br><span class="line">    - name: start elk</span><br><span class="line">      shell: systemctl start elasticsearch &amp;&amp; systemctl enable elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p>执行Playbook完成ELK集群的部署，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ansible example]# ansible-playbook cscc_install.yaml</span><br></pre></td></tr></table></figure>
+
+<p>执行结果如图2所示：</p>
+<p><img src="../../../../images/image/DX/71.png" alt="71"></p>
+<p>图2 执行结果</p>
+<p>浏览器访问node1节点5601端口，<a target="_blank" rel="noopener" href="http://172.128.11.217:5601/%EF%BC%8C%E5%A6%82%E5%9B%BE3%E6%89%80%E7%A4%BA%EF%BC%9A">http://172.128.11.217:5601/，如图3所示：</a></p>
+<p><img src="../../../../images/image/DX/72.png" alt="72"></p>
+<p>图3 部署成功</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">૮(˶ᵔ ᵕ ᵔ˶)ა</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/10/DX-Ansible%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/">http://example.com/2023/08/10/DX-Ansible集群服务部署案例/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">૮(˶ᵔ ᵕ ᵔ˶)ა</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OpenStack/">OpenStack</a></div><div class="post_share"><div class="social-share" data-image="/../images/title/ansible.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/08/10/DX-Redis%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/" title="私有云：(10)Redis集群部署与优化案例"><img class="cover" src="/../images/title/redis.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">私有云：(10)Redis集群部署与优化案例</div></div></a></div><div class="next-post pull-right"><a href="/2023/08/10/DX-Python%E8%B0%83%E7%94%A8OpenStackAPI%E6%A1%88%E4%BE%8B/" title="私有云：(12)Python调用OpenStack_API案例"><img class="cover" src="/../images/title/python4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">私有云：(12)Python调用OpenStack_API案例</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/08/10/DX-Linux%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98%E6%A1%88%E4%BE%8B/" title="私有云：(8)Linux系统调优案例"><img class="cover" src="/../images/title/linux5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(8)Linux系统调优案例</div></div></a></div><div><a href="/2023/08/10/DX-Linux%E7%B3%BB%E7%BB%9F%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B/" title="私有云：(7)Linux系统集群部署应用案例"><img class="cover" src="/../images/title/linux4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(7)Linux系统集群部署应用案例</div></div></a></div><div><a href="/2023/08/10/DX-OpenStack%E5%9F%BA%E7%A1%80%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2%E6%A1%88%E4%BE%8B/" title="私有云：(2)OpenStack基础平台部署案例"><img class="cover" src="/../images/title/openstack2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(2)OpenStack基础平台部署案例</div></div></a></div><div><a href="/2023/08/10/DX-OpenStack%E5%B9%B3%E5%8F%B0%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E4%B8%8E%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/" title="私有云：(9)OpenStack平台安全管理与优化案例"><img class="cover" src="/../images/title/openstack2.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(9)OpenStack平台安全管理与优化案例</div></div></a></div><div><a href="/2023/08/10/DX-OpenStack%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/" title="私有云：(3)OpenStack基础服务使用案例"><img class="cover" src="/../images/title/openstack3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(3)OpenStack基础服务使用案例</div></div></a></div><div><a href="/2023/08/10/DX-OpenStack%E6%9C%8D%E5%8A%A1%E8%BF%90%E7%BB%B4%E6%A1%88%E4%BE%8B/" title="私有云：(5)OpenStack服务运维案例"><img class="cover" src="/../images/title/openstack5.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-10</div><div class="title">私有云：(5)OpenStack服务运维案例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/../images/title/user.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">૮(˶ᵔ ᵕ ᵔ˶)ა</div><div class="author-info__description">这家伙很勤奋，什么都留下了</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">案例描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9"><span class="toc-number">1.0.1.</span> <span class="toc-text">规划节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87"><span class="toc-number">1.0.2.</span> <span class="toc-text">基础准备</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%96%BD"><span class="toc-number">2.</span> <span class="toc-text">案例实施</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ELK%E5%B8%B8%E8%A7%81%E6%9E%B6%E6%9E%84"><span class="toc-number">2.0.1.</span> <span class="toc-text">ELK常见架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ELK%E9%83%A8%E7%BD%B2"><span class="toc-number">2.0.2.</span> <span class="toc-text">ELK部署</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/08/ST-Linux%E5%AE%9E%E7%94%A8%E7%94%A8%E8%84%9A%E6%9C%AC/" title="Linux 实用脚本"><img src="/../images/title/ST.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux 实用脚本"/></a><div class="content"><a class="title" href="/2024/11/08/ST-Linux%E5%AE%9E%E7%94%A8%E7%94%A8%E8%84%9A%E6%9C%AC/" title="Linux 实用脚本">Linux 实用脚本</a><time datetime="2024-11-07T16:10:00.000Z" title="发表于 2024-11-08 00:10:00">2024-11-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/05/SRE-Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/" title="shell脚本编程"><img src="/../images/title/linux2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="shell脚本编程"/></a><div class="content"><a class="title" href="/2024/11/05/SRE-Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/" title="shell脚本编程">shell脚本编程</a><time datetime="2024-11-04T16:00:00.000Z" title="发表于 2024-11-05 00:00:00">2024-11-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/25/MY-ElasticsearchPOD%E4%B8%80%E7%9B%B4%E5%A4%84%E4%BA%8Epending%E7%8A%B6%E6%80%81/" title="部署 ELK pod 处于 pending 状态"><img src="/../images/title/Elastic-err.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="部署 ELK pod 处于 pending 状态"/></a><div class="content"><a class="title" href="/2024/10/25/MY-ElasticsearchPOD%E4%B8%80%E7%9B%B4%E5%A4%84%E4%BA%8Epending%E7%8A%B6%E6%80%81/" title="部署 ELK pod 处于 pending 状态">部署 ELK pod 处于 pending 状态</a><time datetime="2024-10-25T06:10:00.000Z" title="发表于 2024-10-25 14:10:00">2024-10-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/25/HXC-%E5%9F%BA%E4%BA%8EEFK%E6%9E%84%E5%BB%BA%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E5%B9%B3%E5%8F%B0/" title="基于EFK构建日志收集平台"><img src="/../images/title/k8s3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于EFK构建日志收集平台"/></a><div class="content"><a class="title" href="/2024/10/25/HXC-%E5%9F%BA%E4%BA%8EEFK%E6%9E%84%E5%BB%BA%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E5%B9%B3%E5%8F%B0/" title="基于EFK构建日志收集平台">基于EFK构建日志收集平台</a><time datetime="2024-10-24T16:00:00.000Z" title="发表于 2024-10-25 00:00:00">2024-10-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ૮(˶ᵔ ᵕ ᵔ˶)ა</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/icp.png" width="15" height="15">豫ICP备2023009931号</a></br><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41162702000178" target="_blank"><img src="https://jihulab.com/wsq1203/images/-/raw/main/gonganbeian/beian.png" width="15" height="15">豫公网安备 41162702000178号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"></div><canvas id="universe"></canvas><script src="/js/universe.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
