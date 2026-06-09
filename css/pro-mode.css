@@ -5142,6 +5142,17 @@ body.pro-post-page .pro-scroll-rail__dot {
   transform: translate(-50%, -50%);
 }
 
+/* Final home grid restore: keep the sidebar removed while matching the earlier two-column card rhythm. */
+@media (min-width: 901px) {
+  #body-wrap.home #content-inner.layout.hide-aside {
+    max-width: min(1033.47px, calc(100vw - 36px)) !important;
+  }
+
+  #body-wrap.home #content-inner.layout.hide-aside #recent-posts {
+    min-height: 2000px !important;
+  }
+}
+
 /* Final post TOC pin: preserve the original layout while keeping the directory visible. */
 @media (min-width: 901px) {
   body.pro-post-page #content-inner.layout {
@@ -5166,7 +5177,7 @@ body.pro-post-page .pro-scroll-rail__dot {
     box-sizing: border-box;
   }
 
-body.pro-post-page #card-toc .toc-content {
+  body.pro-post-page #card-toc .toc-content {
     max-height: calc(100vh - 170px) !important;
   }
 }
