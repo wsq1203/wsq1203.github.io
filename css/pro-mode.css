@@ -4948,6 +4948,30 @@ body.pro-compact-search #local-search .search-result-list::-webkit-scrollbar-cor
 }
 
 /* Final search rail: hide native scrollbar and mirror the outer custom light rail. */
+body.pro-compact-search #local-search {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 20000 !important;
+  pointer-events: none !important;
+}
+
+body.pro-compact-search.pro-search-open #local-search {
+  pointer-events: auto !important;
+}
+
+body.pro-compact-search.pro-search-open #page-header {
+  pointer-events: none !important;
+}
+
+body.pro-compact-search #local-search #search-mask {
+  z-index: 20000 !important;
+}
+
+body.pro-compact-search #local-search .search-dialog {
+  position: fixed !important;
+  z-index: 20001 !important;
+}
+
 body.pro-compact-search #local-search #local-search-results {
   position: relative !important;
 }
