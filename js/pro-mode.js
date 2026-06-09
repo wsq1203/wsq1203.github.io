@@ -387,25 +387,6 @@
   function ensureProSearchEngine() {
     if (proSearchBound) return;
     proSearchBound = true;
-    document.addEventListener('keydown', event => {
-      if (!document.body.classList.contains('pro-search-open')) return;
-      const input = document.querySelector('#local-search-input input');
-      if (!input || document.activeElement !== input || event.metaKey || event.ctrlKey || event.altKey) return;
-      if (event.code === 'Escape' || event.code === 'Tab' || event.isComposing) return;
-
-      if (event.code === 'Backspace') {
-        event.preventDefault();
-        input.value = input.value.slice(0, -1);
-        renderProSearchResults();
-        return;
-      }
-
-      if (event.key && event.key.length === 1) {
-        event.preventDefault();
-        input.value += event.key;
-        renderProSearchResults();
-      }
-    }, true);
     document.addEventListener('input', event => {
       if (!event.target.closest('#local-search-input input')) return;
       renderProSearchResults();
